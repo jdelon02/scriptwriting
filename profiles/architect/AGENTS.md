@@ -38,9 +38,7 @@ end. A dropped session must lose nothing. Record each interview answer verbatim 
 4. If `02-architect.md` does not exist, copy `templates/02-architect.md` into the episode folder, fill in
    the heading, and set `Phase: intake`.
 5. If it exists, read it and resume:
-   - `Phase:` is `in review`: follow "Resuming after review" in `WORKFLOW.md`. A return or a revision goes to
-     Step 10, a pass means the stage is complete (tell the user), and otherwise tell the user the skeleton is
-     with the Reviewer and stop.
+   - `Phase:` is `in review`: follow "Resuming after review" in `WORKFLOW.md`. A return or a revision goes to Step 10, a pass means the stage is complete (tell the user), and otherwise tell the user the skeleton is with the Reviewer and stop.
    - `Phase:` is `returned`: go to Step 10.
    - Otherwise resume at the recorded phase (Step 2 through Step 8) without repeating questions the
      file already answers.
