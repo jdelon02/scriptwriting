@@ -130,12 +130,12 @@ Return the list of comprehension items to `score-and-log`.
    deductions over. The score comes from the current files alone.
 4. **Count.** Count the consecutive most recent reviews in the log with a score below 70, including this
    one. A review at 70% or higher resets the count to 0 for the next review. A `## Release` entry (appended
-   by the Head Scriptwriter at the user's request) also ends the run: count only the reviews after the latest
+   by the Head Script Writer at the user's request) also ends the run: count only the reviews after the latest
    release.
 5. **Result.** If the score is 70 or higher, `Result: passed`. If it is below 70 and the consecutive
    count is 3 or more, `Result: held for user`. Otherwise `Result: returned`.
 6. **Write the entry.** If the log file does not exist, create it with the heading
-   `# <Profile> review log`, where `<Profile>` is the stage's profile (for example `Artist`). Append the
+   `# <Role> review log`, where `<Role>` is the stage's role label (for example `Artist`). Append the
    entry below. Get the date with `date +%F`. Number the review one more than the highest existing review
    number. Never edit an earlier entry (SOUL rule 5).
 
@@ -184,7 +184,7 @@ Hand the `Result` and the log entry to `return-or-pass`.
 
 1. Tick the stage's box on the `Pipeline:` line of this episode's entry in `series/SERIES.md`, and change
    nothing else in that file. Use this command, replacing `S01E04` and `Artist` with the episode and the
-   stage's profile name:
+   stage's role label:
 
 ```bash
 python3 - series/SERIES.md S01E04 Artist <<'EOF'
@@ -220,13 +220,13 @@ EOF
 ### If `Result: returned`
 
 Follow "The return procedure" in `WORKFLOW.md`. In one action: set the status to `in progress`, reassign the
-task to the originating profile, and mark it as a return with a pointer to the log entry you just wrote.
+task using its recorded `original_assignee_id` (see WORKFLOW.md, Agent directory), and mark it as a return with a pointer to the log entry you just wrote.
 Do not tick any box.
 
 ### If `Result: held for user`
 
 Do not return the task and do not pass it. Leave it in `review`. Flag the stage to the user through the
-orchestrator, stating the stage, the episode, the three consecutive scores, and the log path. The Head Scriptwriter
+orchestrator, stating the stage, the episode, the three consecutive scores, and the log path. The Head Script Writer
 handles the user decision under WORKFLOW.md: release the hold for another revision, reopen an earlier
 stage, or park the episode. Leave these actions to the Head; release never means passing a failed stage
 (SOUL rule 8).

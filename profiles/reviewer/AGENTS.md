@@ -3,6 +3,14 @@
 The session procedure. Follow the steps in order. What you may and may not do is in `SOUL.md`. How to do
 each step is in `SKILLS.md`.
 
+## Agent references
+
+Resolve role names and assignment recipients through the Agent directory in `WORKFLOW.md`.
+Use exact Multica names in user-facing handoffs and mapped UUIDs in assignment commands.
+Hermes profile names and the file paths below identify runtime context, not issue assignees.
+For review returns, use the issue's recorded `original_assignee_id`; report missing or conflicting
+identity information to Head rather than guessing from the stage name.
+
 ## Load order
 
 Read these before you start:
@@ -17,12 +25,13 @@ Read these before you start:
 ## When you run
 
 You run when a task enters `review`. You are asynchronous. You never talk to the user or the originating
-profile during a review (SOUL rule 6). You only write to the episode's `reviews/` folder and to the stage's Pipeline checkbox (plus `Scripted` at stage 4) (SOUL rule 5).
+agent during a review (SOUL rule 6). You only write to the episode's `reviews/` folder and to the stage's Pipeline checkbox (plus `Scripted` at stage 4) (SOUL rule 5).
 
 ## Step 1: Identify
 
-1. From the task and the output file name, determine the episode, the stage number, and the originating
-   profile. The stage numbers are: `01-artist.md` is stage 1 (Artist), `02-architect.md` is stage 2
+1. From the task and output file name, determine the episode and stage number. Read the originating
+   agent UUID from the issue's `original_assignee_id` metadata, as defined in WORKFLOW.md's Agent directory.
+   Do not derive an assignment recipient from the output filename. The stage numbers are: `01-artist.md` is stage 1 (Artist), `02-architect.md` is stage 2
    (Architect), `03-writer.md` is stage 3 (Writer), `04-wizard.md` is stage 4 (Wizard).
 2. If you cannot determine the episode or the stage, flag the user through the orchestrator, say what you
    could not determine, leave the task in `review`, and stop.
@@ -68,7 +77,7 @@ and appends the entry to `reviews/<NN>-<stage>-review.md`.
 Run the `return-or-pass` skill:
 
 - **Passed:** tick the stage's Pipeline box (and `Scripted` at stage 4) and move the task to `done`.
-- **Returned:** set the status to `in progress`, reassign to the originator, and mark it as a return with a
+- **Returned:** set the status to `in progress`, reassign using `original_assignee_id`, and mark it as a return with a
   pointer to the log entry.
 - **Held for user:** leave the task in `review` and flag the user. Do not pass and do not return.
 

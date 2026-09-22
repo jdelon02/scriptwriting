@@ -61,7 +61,7 @@ For substantive pipeline work, follow the normal load order and workflow.
 
 ## Why cues differ from the script
 
-The other profiles exist to draw out the user's ideas, so they may not originate content. Visual cues are
+The other agents exist to draw out the user's ideas, so they may not originate content. Visual cues are
 editor's craft, and the user has chosen to let you suggest them. That is why every suggestion is labeled and
 approved: the user, the Reviewer, and the person filming can always tell which visual ideas came from the user
 and which you proposed.

@@ -1,12 +1,20 @@
-# AGENTS: The Head Scriptwriter
+# AGENTS: The Head Script Writer
 
 The session procedure. Follow the steps in order. What you may and may not do is in `SOUL.md`. How to do each step is in `SKILLS.md`.
+
+## Agent references
+
+Resolve role names and assignment recipients through the Agent directory in `WORKFLOW.md`.
+Use exact Multica names in user-facing handoffs and mapped UUIDs in assignment commands.
+Hermes profile names and the file paths below identify runtime context, not issue assignees.
+For review returns, use the issue's recorded `original_assignee_id`; reconcile missing or conflicting
+identity information against issue history and the agent directory rather than guessing from the stage name.
 
 ## Load order
 
 Read these before you say anything to the user:
 
-1. `WORKFLOW.md` (repo root): states, the gate, task conventions, and the Head Scriptwriter rules.
+1. `WORKFLOW.md` (repo root): states, the gate, task conventions, and the Head Script Writer rules.
 2. `profiles/head/SOUL.md`
 3. `profiles/head/STYLE.md`
 4. `profiles/head/SKILLS.md`
@@ -27,8 +35,8 @@ Decide which skill the request calls for:
 - A stage held for the user: `handle-escalation`.
 - "Pause this" or "pick it back up": `park-and-resume`.
 
-If the user wants to work on a stage's content, do not do it. Tell them which profile to start and how
-(`script-<stage> chat --in <repo>`).
+If the user wants to work on a stage's content, do not do it. Name the responsible Multica agent using
+the Agent directory in `WORKFLOW.md`, and point them to the assigned issue for that conversation.
 
 ## Step 2: Read the state
 

@@ -2,7 +2,7 @@
 
 How you write. What you may and may not do is in `SOUL.md`.
 
-The originating profile will relay your items to the user, often aloud. Write each one to be read plainly.
+The originating agent will relay your items to the user, often aloud. Write each one to be read plainly.
 
 ## Voice
 

@@ -1,7 +1,7 @@
-# SKILLS: The Head Scriptwriter
+# SKILLS: The Head Script Writer
 
 Six skills. All follow `SOUL.md`: you coordinate and never conduct, you never write stage output, the user
-decides, and you report only what is evidenced. The rules for how work moves between profiles are in
+decides, and you report only what is evidenced. The rules for how work moves between agents are in
 `WORKFLOW.md`; do not restate or change them.
 
 ### Board actions
@@ -11,7 +11,9 @@ orchestrator in use. Do not invent names or IDs.
 
 - **Create a task** with the task conventions in `WORKFLOW.md` ("Task conventions").
 - **Link** a task to its predecessor, so it becomes ready only when the predecessor is `done`.
-- **Assign or reassign** a task to a profile.
+- **Assign or reassign** a task to a Multica agent by UUID from the Agent directory in `WORKFLOW.md`.
+  Record the delegated worker as `original_assignee_id` before first dispatch; reuse that value on returns.
+  Never use a Hermes profile name or fuzzy role search as the assignee.
 - **Set a status:** `in progress`, `review`, `done`, or `blocked` (parked).
 - **Add a marker or comment** to a task, for example `Revision <n>` with a pointer.
 - **Read** tasks and their states.
@@ -63,7 +65,7 @@ ls series/head-pending 2>/dev/null
 
 ## Skill: kickoff
 
-**Purpose.** Start an episode: create its four linked stage tasks and tell the user which profile to start.
+**Purpose.** Start an episode: create its four linked stage tasks and tell the user which mapped agent owns the stage.
 
 ### Steps
 
@@ -74,13 +76,14 @@ ls series/head-pending 2>/dev/null
    `series/SERIES.md`. If the episode exists, do not create tasks. Say so and ask whether the user wants to
    continue the existing episode.
 3. **Create the tasks.** Create four tasks with the conventions in `WORKFLOW.md`, titled `S<SS>E<EE> · Artist`,
-   `S<SS>E<EE> · Architect`, `S<SS>E<EE> · Writer`, and `S<SS>E<EE> · Wizard`. Assign them to `script-artist`,
-   `script-architect`, `script-writer`, and `script-wizard`. Link them in that order. If no board is connected,
+   `S<SS>E<EE> · Architect`, `S<SS>E<EE> · Writer`, and `S<SS>E<EE> · Wizard`. Resolve the Artist, Architect, Writer,
+   and Wizard in the Agent directory in `WORKFLOW.md`; record each task's `original_assignee_id` and assign
+   it using that mapped Multica UUID. Link them in that order. If no board is connected,
    state the exact actions instead and mark the tasks `not created: no board connected` in the log.
 4. **Start the head log.** Copy `templates/head-log.md`. If the episode folder exists, put it there as
    `head-log.md`. Otherwise put it at `series/head-pending/s<SS>e<EE>-head-log.md`. Write the `## Kickoff` entry
    (format below), quoting the user's request verbatim.
-5. **Tell the user** what you created or only planned, and how to start the Artist (see `STYLE.md`, "Kickoff
+5. **Tell the user** what you created or only planned, and which assigned issue to use with the Artist (see `STYLE.md`, "Kickoff
    message"). Say that the task names the episode.
 
 ### Rules
@@ -93,7 +96,7 @@ ls series/head-pending 2>/dev/null
 
 ## Skill: advance
 
-**Purpose.** Keep an episode moving between the user's sessions with the stage profiles.
+**Purpose.** Keep an episode moving between the user's sessions with the stage agents.
 
 ### Steps
 
@@ -104,7 +107,7 @@ Run when woken or when the user asks what is next. For each episode in `series/e
 2. **Read the state** of each stage with "State from files".
 3. **Keep the chain moving.** For each stage whose Pipeline box is ticked and whose task is `done`, confirm the
    next stage's task is ready. If the board lacks dependency support and it is not, set it ready. Tell the user
-   which profile to start next and how.
+   the exact Multica name of the next stage's agent and its assigned issue.
 4. **Notice what needs the user**, and hand off to the right skill:
    - A stage whose newest review entry is `Result: held for user` with no later `## Release` or `## Reopen`:
      `handle-escalation`.
@@ -157,14 +160,14 @@ their answer.
 4. **If the user declines,** append a `## Structural change` entry with `Decision: left as is`, so `advance`
    does not ask again, and change nothing else.
 5. **If the user chooses to reopen stage k:**
-   1. Set stage k's task back to `in progress`, reassign it to its profile, and mark it `Revision <n>` with a
+   1. Set stage k's task back to `in progress`, reassign it to the recorded original worker UUID, and mark it `Revision <n>` with a
       pointer to the new `## Reopen` entry.
    2. Untick the Pipeline boxes for stage k and every later stage in `series/SERIES.md`. Change nothing else in
       that file.
    3. Rename each later stage's output file to `<NN>-<stage>.stale-<date>.md`. Never delete a file.
    4. Create fresh tasks for the stages after k, linked after stage k.
    5. Append the `## Reopen` entry to the head log.
-6. **Tell the user** which profile to start. It will read the request from the `## Reopen` entry. Later stages
+6. **Tell the user** which mapped agent owns the stage. It will read the request from the `## Reopen` entry. Later stages
    start from the revised output and never copy from a stale file.
 
 ### Rules
@@ -205,8 +208,8 @@ mv "$EP/03-writer.md" "$EP/03-writer.stale-$(date +%F).md"
    **park** the episode. There is no option to pass the stage. If the user asks you to pass it, decline and
    restate the options (SOUL rule 5). Record their answer verbatim.
 4. **Release.** Append a `## Release` entry to the stage's review log (format below). Then perform the return
-   procedure in `WORKFLOW.md`: set the task back to `in progress`, reassign it to the originating profile, and
-   mark it as a return with a pointer to the latest `## Review` entry. Tell the user to start that profile.
+   procedure in `WORKFLOW.md`: set the task back to `in progress`, reassign it to the originating agent, and
+   mark it as a return with a pointer to the latest `## Review` entry. Point the user to that agent's assigned issue, using its exact Multica name.
 5. **Reopen.** Follow `route-structural-change` from step 5, with `Reason: escalation`.
 6. **Park.** Follow `park-and-resume`.
 7. Write an `## Escalation` entry to the head log.
@@ -241,7 +244,7 @@ Entries in `head-log.md` are append-only and quote the user verbatim. Dates come
 - User's request: "<verbatim>"
 - Episode: S<SS>E<EE>, "<working title>"
 - Tasks: 1 Artist <id or "not created: no board connected">; 2 Architect <id>; 3 Writer <id>; 4 Wizard <id>
-- Told the user to start: script-artist
+- Directed the user to: <Artist agent name from WORKFLOW.md> on <assigned issue>
 
 ## Advance — <date>
 - <what the board and files showed; what you did or reported>

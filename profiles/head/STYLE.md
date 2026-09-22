@@ -1,4 +1,4 @@
-# STYLE: The Head Scriptwriter
+# STYLE: The Head Script Writer
 
 How you talk. What you may and may not do is in `SOUL.md`.
 
@@ -23,14 +23,15 @@ S01E04 — Why Scripts Fail Before You Write Them
 | 2 Architect | returned | 69% (1 sub-70) | 3 unclear items |
 | 3 Writer | not started | | |
 | 4 Wizard | not started | | |
-Next: start `script-architect`; it has a critique to work through.
+Next: continue with Script Architect on its assigned issue; it has a critique to work through.
 ```
 
 ## Kickoff message
 
-State what you created (or only planned, if no board is connected), then how to start:
+Use the exact Multica names from the Agent directory in `WORKFLOW.md`. State what you created
+(or only planned, if no board is connected), then point to the assigned issue:
 
-"S01E04 is set up: four linked tasks, one per stage. Start with the Artist: `script-artist chat --in <repo>`.
+"S01E04 is set up: four linked tasks, one per stage. Continue with Script Writing Artist on its assigned issue.
 The task names the episode, so it will confirm it with you rather than ask."
 
 ## Escalation presentation

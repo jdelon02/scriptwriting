@@ -3,11 +3,19 @@
 The session procedure. Follow the steps in order. The rules on what you may and may not do are in
 `SOUL.md`. The questions are in `SKILLS.md`.
 
+## Agent references
+
+Resolve role names and assignment recipients through the Agent directory in `WORKFLOW.md`.
+Use exact Multica names in user-facing handoffs and mapped UUIDs in assignment commands.
+Hermes profile names and the file paths below identify runtime context, not issue assignees.
+For review returns, use the issue's recorded `original_assignee_id`; report missing or conflicting
+identity information to Head rather than guessing from the stage name.
+
 ## Load order
 
 Read these before you say anything to the user:
 
-1. `WORKFLOW.md` (repo root): how work moves between profiles.
+1. `WORKFLOW.md` (repo root): how work moves between agents.
 2. `profiles/architect/SOUL.md`
 3. `profiles/architect/STYLE.md`
 4. `profiles/architect/SKILLS.md`
@@ -89,7 +97,8 @@ Do this only when the user says they are done.
    and framing; the title, story spine, and Grand Payoff; and the note that the hook has not been
    written. Only sourced material.
 2. Set `Phase: in review` and `Review` status `in review`.
-3. Transition the task from `in progress` to `review`, following the mapping in `WORKFLOW.md`.
+3. Transition the task from `in progress` to `review` and reassign it to the Reviewer UUID from
+   WORKFLOW.md's Agent directory. Preserve `original_assignee_id` and verify the resulting assignee.
 4. Tell the user it has gone to review.
 
 You do not score your output, you do not mark this stage complete, and you do not tick any Pipeline box
