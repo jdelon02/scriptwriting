@@ -1,6 +1,8 @@
 # S<SS>E<EE> — <Working Title> · Architect
 
-Phase: intake | inputs | payoffs | setups | tension | sequence | framing | flow-check | in review | returned
+Interview step: intake | inputs | payoffs | setups | tension | sequence | framing | flow-check
+
+This field tracks interview progress only; issue status and PR evidence live in Multica/GitHub.
 
 ## Inputs
 - Title: <verbatim>
@@ -49,11 +51,6 @@ Phase: intake | inputs | payoffs | setups | tension | sequence | framing | flow-
 
 ## Unused material
 - #<N> "<user's words>": not used in this skeleton
-
-## Review
-- Status: not submitted | in review | returned
-- Latest review: reviews/02-architect-review.md
-- (A pass is recorded only in the review log and the Pipeline box, never in this file.)
 
 ## Open threads
 <Open loop elements, skipped questions, missing answers, anything the user could not yet answer.>

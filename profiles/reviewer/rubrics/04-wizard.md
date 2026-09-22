@@ -1,3 +1,6 @@
+> SUPERSEDED — historical reference only. No active profile loads this rubric.
+> Review the issue Doneness and actual PR under WORKFLOW.md; do not calculate scores.
+
 # Rubric: Stage 4, Wizard
 
 Output file: `series/episodes/<id>/04-wizard.md`. Review log: `reviews/04-wizard-review.md`. Earlier stages:

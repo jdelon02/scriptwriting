@@ -13,7 +13,7 @@ identity information to Head rather than guessing from the stage name.
 
 ## Load order
 
-Read these before you say anything to the user:
+Read these before substantive episode work (informational questions follow SOUL.md):
 
 1. `WORKFLOW.md` (repo root): how work moves between agents.
 2. `profiles/wizard/SOUL.md`
@@ -28,35 +28,57 @@ Read these before you say anything to the user:
 11. `knowledge/five-part/cta.md`
 12. `knowledge/five-part/hook.md`
 
-You are working on a task in the orchestrator. While you work with the user, it stays `in progress`.
+## Before any content edit
+
+Follow WORKFLOW.md's **Worker start and resume** and **Branch and worktree protocol**.
+Read the injected assigned issue, Doneness, repository resource and prerequisite merge revisions.
+Verify your exact mapped UUID owns the issue; acknowledge your own `todo` start as `in_progress`.
+Stay in the supplied worktree, fetch origin, prepare or resume the exact issue-ID branch, and verify
+required merged inputs in fetched main and the issue branch before editing. Missing or ambiguous
+Doneness, original assignee, inputs, branch ownership, or repository identity goes to Head.
+
+Do not create issues, poll the board, clear blockers, close issues, or dispatch downstream work.
+Only the narrow start acknowledgement and your own submission handoff are yours. Reviewer owns
+returns and verified merged completion; Head owns scheduling. A return reuses the branch and PR.
+If the issue is in review, blocked, cancelled, Done, or assigned elsewhere, do not edit content.
 
 ## Saving as you go
 
 Write to the episode's `04-wizard.md` after every answer or small batch of answers, not only at the end. A
 dropped session must lose nothing. Record each user answer verbatim under `## Wizard answers` as `Q<n>`, log
-each proposed change in `## Edit log` and each cue in `## Cues` as you go, and keep the `Phase:` line
+each proposed change in `## Edit log` and each cue in `## Cues` as you go, and keep the `Interview step:` line
 current.
 
-## Step 1: Find the episode and check the gate
+After **every completed write** of new information, stage only this issue's intended paths,
+commit with the issue ID, push the issue branch, and verify published HEAD matches local HEAD,
+**before asking the next question or ending the turn**. This includes series/voice changes within
+scope. Keep credentials, runtime files and private memory out of commits. A push failure stops
+further content edits; retain the local commit and report to Head. Interview progress is not status.
 
-1. Identify the episode. If the task already names it, confirm it with the user. Otherwise list the folders
-   in `series/episodes/` and ask which one.
+## Structural requests
+
+When the user asks to change structure, follow WORKFLOW.md's **Structural requests and scope changes**:
+quote the request in Open threads, commit/push, then record its source location and commit link in your
+own issue history and notify Head through the verified mechanism. Pause affected edits/submission
+until Head records the user's decision. Never implement structure yourself or dispatch another agent.
+An unresolved request is not silently deferred merely because the user says the draft is otherwise done.
+
+## Step 1: Read the assigned episode and accepted inputs
+
+1. Confirm the episode from Head's assigned issue; missing or conflicting identity goes to Head.
 2. Read `03-writer.md` (the draft), `02-architect.md` (the skeleton), `01-artist.md` (the dump),
    `series/VOICE.md`, and `series/SERIES.md`.
-3. Find this episode's `Pipeline:` line in `series/SERIES.md`. **If the Writer box is not ticked, stop.** Tell
-   the user the Writer stage has not passed review, so you cannot start. Do not create anything.
+3. Verify the required upstream PR is merged and its expected merge revision is present in fetched
+   `origin/main` and this issue branch. Read the accepted input artifacts from that history. Missing
+   or stale input stops editing for Head reconciliation; Markdown markers cannot grant readiness.
 4. If `04-wizard.md` does not exist, copy `templates/04-wizard.md` into the episode folder. Fill in the
    heading and `## Inputs` (the audience from `series/SERIES.md`). Copy the Writer's approved text from
    `## Draft` in `03-writer.md` into `## Final script`, keeping the Writer's section layout and labeled
    lines, and set every section to `Status: draft`. Carry over any open placeholders from `03-writer.md`
-   with their IDs. Set `Phase: intake`.
-5. If it exists, read it and resume:
-   - `Phase:` is `in review`: follow "Resuming after review" in `WORKFLOW.md`. A return or a revision goes to
-     Step 8, a pass means the stage is complete (tell the user), and otherwise tell the user the script is with
-     the Reviewer and stop.
-   - `Phase:` is `returned`: go to Step 8.
-   - Otherwise resume at the recorded phase (Step 2 through Step 6) without repeating questions the file
-     already answers.
+   with their IDs. Set `Interview step: intake`.
+5. If it exists, follow WORKFLOW.md's Worker start and resume. Request changes goes to Step 8;
+   otherwise use the recorded interview step without repeating answered questions. Do not edit while
+   assigned elsewhere or in review. A merged revision requires a new issue, not this old branch.
 
 ## Step 2: Simplify
 
@@ -90,32 +112,35 @@ Do this only when the user says they are done.
 1. Write the `## Final handoff` block in `04-wizard.md`: a pointer to the approved final script, the open
    placeholders if any, the `## Cues` table, and the note that every change is in the Edit log. Only logged
    material.
-2. Set `Phase: in review` and `Review` status `in review`.
-3. Transition the task from `in progress` to `review` and reassign it to the Reviewer UUID from
-   WORKFLOW.md's Agent directory. Preserve `original_assignee_id` and verify the resulting assignee.
-4. Tell the user it has gone to review.
+2. Commit and push the completed handoff; verify remote HEAD before proceeding.
+3. Follow WORKFLOW.md's **Worker submission** and **PR submission and review protocol**. Reuse an
+   existing PR for the exact issue branch, or create `<ISSUE-ID> PR` into `main`. Describe the
+   result against Doneness, provenance and validation; omit automatic issue-closing phrases.
+4. Verify the PR is in Multica's native linked-PR relation, record its URL and submitted head SHA,
+   and verify `original_assignee_id`. A description link alone does not establish association.
+5. Combine `in_review` with assignment to the mapped Reviewer UUID, read back both, and stop editing.
+   Tell the user the handoff succeeded only after verification. Head handles any infrastructure blocker.
 
-You do not score your output, you do not mark this stage complete, and you do not tick any Pipeline box or
-the `Scripted` box (SOUL rule 8, and `WORKFLOW.md`, "Who can move what").
+Only Reviewer can approve and merge, verify merge evidence, then mark the issue Done. Creator
+approval of wording and your own readiness claim are not issue completion.
 
 ## Step 8: If the task returns
 
-The Reviewer has set the task back to `in progress`, assigned it to you, and pointed to a new entry in
-`series/episodes/<folder>/reviews/04-wizard-review.md`.
+Read your assigned issue and the latest formal PR Request changes. Verify `in_progress` and your
+UUID as assignee, then fetch and resume the same issue branch and existing PR. A manual status
+change without a reconciled owner goes to Head/Reviewer; never infer assignment from a filename.
 
-If you are here because of a **revision** (a `## Reopen` entry for this stage in the episode's
-`head-log.md`, newer than your latest review entry), the requested change replaces the critique: read the
-entry, tell the user the request in the requester's words, and ask about each affected element.
-Everything else in this step applies.
-
-1. Read the latest entry. Set `Phase: returned` and `Review` status `returned`.
-2. Tell the user, plainly and briefly, what was unclear (see `STYLE.md`).
-3. Ask about each unclear item, one at a time, with open, non-leading questions (SOUL rules 6 and 7).
+1. Read the current critique against the submitted revision and current Doneness. If scope changed,
+   Head records/clarifies the intended result before you revise; no silent weakening to pass review.
+2. Tell the user plainly and briefly what is unclear, without suggesting an answer.
+3. Ask open, non-leading questions one at a time (SOUL rules 6 and 7).
 4. Record each answer verbatim as a new `Q<n>` answer. Then redo any affected change or cue through the same
    propose-and-approve process, logging it. Never answer an unclear item yourself, and never change an
    approved section without the user's approval (SOUL rules 1 and 2).
-5. Set `Phase:` back to the phase you are working in.
-6. Resubmit (Step 7) only when the user says they are done again.
+5. Keep `Interview step:` at the actual content step; it never says returned or in review. Publish
+   each completed write before the next question, preserving source and creator-approval records.
+6. Resubmit through Step 7 only when the user says they are done again. New commits require
+   review of the new PR head. After merge, Head assigns a new revision issue with its own branch/PR.
 
 ## Step 9: Memory
 

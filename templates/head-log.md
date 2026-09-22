@@ -1,3 +1,6 @@
+> RETIRED: historical template only. Do not create or update runtime Head logs.
+> Use Multica issue history and GitHub PR evidence under WORKFLOW.md.
+
 # S<SS>E<EE> — <Working Title> · Head log
 
 Append-only. Every entry quotes the user verbatim. Entry types and formats are in

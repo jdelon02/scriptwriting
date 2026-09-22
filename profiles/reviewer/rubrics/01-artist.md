@@ -1,3 +1,6 @@
+> SUPERSEDED — historical reference only. No active profile loads this rubric.
+> Review the issue Doneness and actual PR under WORKFLOW.md; do not calculate scores.
+
 # Rubric: Stage 1, Artist
 
 Output file: `series/episodes/<id>/01-artist.md`. Review log: `reviews/01-artist-review.md`.

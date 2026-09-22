@@ -1,6 +1,6 @@
 # Multica Issue and PR Workflow Migration Plan
 
-> **For agentic workers:** Use `superpowers:executing-plans` to implement this plan task by task after design approval. This document is a proposed migration, not authorization to change live issues, publish profiles, or merge PRs during planning.
+> **Execution status (2026-09-22):** User authorized implementation. Source changes are prepared on `multica-pr-workflow`; live rollout remains gated by Task 1. See [capability evidence and cutover runbook](../../validation/multica-pr-workflow.md). Use `superpowers:executing-plans` for remaining work; unchecked live steps have not been performed.
 
 **Goal:** Make Multica issues authoritative for ownership and orchestration, and GitHub PR reviews and merged commits authoritative for accepted scriptwriting work.
 
@@ -196,13 +196,13 @@ Only one active content writer per issue is permitted. Metadata is not an atomic
 
 **Files:** Create `docs/validation/multica-pr-workflow.md` as the operator runbook and capability evidence.
 
-- [ ] Confirm use of the built-in `done` and `cancelled` keys; no additional terminal status is needed.
+- [x] Confirm use of the built-in `done` and `cancelled` keys; no additional terminal status is needed.
 - [ ] Verify project repository/default branch, actual supplied worktree, branch checkout/resumption, and runtime cleanup after a pushed commit.
 - [ ] Verify GitHub writer/reviewer identities and repository approval/merge requirements. Required checks must be named; absence of CI is not a passing CI run.
 - [ ] Verify native PR association and how its URL is exposed. Establish an actual link and read it back, not just an issue comment.
 - [ ] Verify combined status+assignee updates and reviewer/head wake behavior, including terminal Done and a manual return transition.
 - [ ] Verify staged sibling notifications for Done and Cancelled, and that cancelled predecessors do not silently release dependent content work. Record supported dependency operations rather than inventing `link`/`unblock` commands absent from the installed CLI.
-- [ ] Record pass/fail evidence for each operation. Stop rollout on failures; continue independent documentation work.
+- [x] Record pass/fail evidence for each operation. Stop rollout on failures; continue independent documentation work.
 
 **Verification:** A small authorized pilot demonstrates the proposed transitions on this deployment, or documents the exact capability requiring configuration before rollout. No production issue is used to probe unknown status keys.
 
@@ -210,14 +210,14 @@ Only one active content writer per issue is permitted. Metadata is not an atomic
 
 **Files:** Modify `WORKFLOW.md`; create `templates/issue.md` using the issue template above; modify `templates/01-artist.md`, `02-architect.md`, `03-writer.md`, `04-wizard.md`, `episode-entry.md`; assess `templates/SERIES.md` and `VOICE.md`; retire operational use of `templates/head-log.md`. Add `templates/episode-index.md` only if the parent-deliverable convention is approved.
 
-- [ ] Incorporate existing user edits, then replace abstract states, file gates, and orchestrator candidate tables with the confirmed target contract.
-- [ ] Document the authority matrix and narrow own-issue operations for workers/Reviewer.
-- [ ] Add the issue template with required Doneness; Head must replace guidance with the concrete intended outcome before creating any issue.
-- [ ] Specify first-start, return, submission, review, merge, recovery, Head reconciliation, cancellation, and post-merge revision rules.
-- [ ] Remove `Pipeline`, stage `Review Status`, review-log pointers, and lifecycle values from `Phase`. Retain interview progress under a clearly non-authoritative content field.
-- [ ] Preserve episode metadata, interview answers, provenance, creator approvals, drafts, editing history and cues.
-- [ ] Keep filming/publishing information as content metadata if useful, but never use it to authorize script issue completion.
-- [ ] Preserve old review files as historical material; do not delete user evidence. Remove their use from active instructions.
+- [x] Incorporate existing user edits, then replace abstract states, file gates, and orchestrator candidate tables with the confirmed target contract.
+- [x] Document the authority matrix and narrow own-issue operations for workers/Reviewer.
+- [x] Add the issue template with required Doneness; Head must replace guidance with the concrete intended outcome before creating any issue.
+- [x] Specify first-start, return, submission, review, merge, recovery, Head reconciliation, cancellation, and post-merge revision rules.
+- [x] Remove `Pipeline`, stage `Review Status`, review-log pointers, and lifecycle values from `Phase`. Retain interview progress under a clearly non-authoritative content field.
+- [x] Preserve episode metadata, interview answers, provenance, creator approvals, drafts, editing history and cues.
+- [x] Keep filming/publishing information as content metadata if useful, but never use it to authorize script issue completion.
+- [x] Preserve old review files as historical material; do not delete user evidence. Remove their use from active instructions.
 
 **Verification:** A reader can determine ownership and next action using Multica and PR evidence alone; templates cannot pass a stage by toggling a text field.
 
@@ -225,12 +225,12 @@ Only one active content writer per issue is permitted. Metadata is not an atomic
 
 **Files:** `profiles/{artist,architect,writer,wizard}/{SOUL,AGENTS,SKILLS,STYLE,MEMORY}.md` where relevant; `scripts/profiles.json` descriptions.
 
-- [ ] Replace checkbox prerequisite checks with Head-provided ready assignment and verification that required merged content exists in fetched main.
-- [ ] Add issue branch setup before any content edit, and commit/push after each completed write.
-- [ ] Replace submit logic with publish → PR create/reuse → verify issue association → In Review + Reviewer handoff.
-- [ ] Replace review-log resumption with assigned issue context and PR Request changes against the current branch.
-- [ ] Prohibit task creation, global status polling, blocker clearing, closing, or downstream dispatch by workers.
-- [ ] Preserve all stage-specific creative and authorship behavior, including direct user interviews and Writer's hook-last sequence.
+- [x] Replace checkbox prerequisite checks with Head-provided ready assignment and verification that required merged content exists in fetched main.
+- [x] Add issue branch setup before any content edit, and commit/push after each completed write.
+- [x] Replace submit logic with publish → PR create/reuse → verify issue association → In Review + Reviewer handoff.
+- [x] Replace review-log resumption with assigned issue context and PR Request changes against the current branch.
+- [x] Prohibit task creation, global status polling, blocker clearing, closing, or downstream dispatch by workers.
+- [x] Preserve all stage-specific creative and authorship behavior, including direct user interviews and Writer's hook-last sequence.
 
 **Verification:** Each worker completes one submission and one return scenario without checking a Pipeline box or creating a review-log file.
 
@@ -238,14 +238,14 @@ Only one active content writer per issue is permitted. Metadata is not an atomic
 
 **Files:** `profiles/reviewer/{SOUL,AGENTS,SKILLS,STYLE,MEMORY}.md`; all five `profiles/reviewer/rubrics/*.md`; `profiles/head/{SOUL,AGENTS,SKILLS,STYLE,MEMORY}.md`; `scripts/profiles.json`.
 
-- [ ] Retire scoring and all five review rubrics from active loading; preserve historical files as superseded references. Review the issue's Doneness without adding a replacement criteria framework; retain role-level authorship/provenance rules.
-- [ ] Replace score-and-log/pass-and-tick operations with inspect PR → Request changes or Approve → verified merge → issue handoff.
-- [ ] Require stable original-assignee lookup, correct current SHA, and Head escalation for infrastructure failures.
-- [ ] Replace Head filesystem status inference and log-writing commands with native issue/PR inspection and dependency reconciliation.
-- [ ] Make Head the only intake/decomposition/scheduling/cancellation owner, with Reviewer exclusively marking merged work Done; record original workers before delegation.
-- [ ] Require Head to populate Doneness at creation, clarify ambiguous outcomes, and record scope changes. Reviewer identifies gaps against that section and never changes its meaning to pass a PR.
-- [ ] Specify staged sibling issue topology, user-led parking/revision decisions, post-merge revision issues, and parent deliverable treatment.
-- [ ] Remove obsolete scoring thresholds and checkbox/log evidence claims from role descriptions and communication examples.
+- [x] Retire scoring and all five review rubrics from active loading; preserve historical files as superseded references. Review the issue's Doneness without adding a replacement criteria framework; retain role-level authorship/provenance rules.
+- [x] Replace score-and-log/pass-and-tick operations with inspect PR → Request changes or Approve → verified merge → issue handoff.
+- [x] Require stable original-assignee lookup, correct current SHA, and Head escalation for infrastructure failures.
+- [x] Replace Head filesystem status inference and log-writing commands with native issue/PR inspection and dependency reconciliation.
+- [x] Make Head the only intake/decomposition/scheduling/cancellation owner, with Reviewer exclusively marking merged work Done; record original workers before delegation.
+- [x] Require Head to populate Doneness at creation, clarify ambiguous outcomes, and record scope changes. Reviewer identifies gaps against that section and never changes its meaning to pass a PR.
+- [x] Specify staged sibling issue topology, user-led parking/revision decisions, post-merge revision issues, and parent deliverable treatment.
+- [x] Remove obsolete scoring thresholds and checkbox/log evidence claims from role descriptions and communication examples.
 
 **Verification:** Reviewer cannot mark unmerged work Done; Head cannot treat a checked box as evidence or override a PR rejection; repeated handoffs preserve the original worker.
 
@@ -253,13 +253,13 @@ Only one active content writer per issue is permitted. Metadata is not an atomic
 
 **Files:** Refactor `scripts/make_head_fixtures.py`; update all six `docs/validation/*-walkthroughs.md` and `docs/validation/running-with-hermes.md`; use existing `scripts/test_install_profiles.py`; mark superseded specs in `docs/knowledge/specs/index.md` and plans in `docs/knowledge/plans/index.md`.
 
-- [ ] Change Head fixtures from file-based review histories to sample Multica issue/PR responses plus actual content artifacts. Name fixtures as test data, not a runtime status store.
-- [ ] Cover successful four-stage flow, rejection/resubmission, missing original assignee, missing PR relation, push failure, stale approval/new head, merge conflict, failed merge, merged-PR/failed-status-update recovery, duplicate runs and branch ownership collision.
-- [ ] Cover no Head wake on Done, repeated Head reconciliation without another status transition, cancelled prerequisites, downstream worktree missing an upstream merge, and a misleading legacy Pipeline checkbox.
+- [x] Change Head fixtures from file-based review histories to sample Multica issue/PR responses plus actual content artifacts. Name fixtures as test data, not a runtime status store.
+- [x] Cover successful four-stage flow, rejection/resubmission, missing original assignee, missing PR relation, push failure, stale approval/new head, merge conflict, failed merge, merged-PR/failed-status-update recovery, duplicate runs and branch ownership collision.
+- [x] Cover no Head wake on Done, repeated Head reconciliation without another status transition, cancelled prerequisites, downstream worktree missing an upstream merge, and a misleading legacy Pipeline checkbox.
 - [ ] Verify that changing Markdown completion markers never changes the expected decision.
-- [ ] Cover a missing, placeholder-only or ambiguous Doneness section; an exploratory issue with a concrete findings deliverable; a scope change during review; and a PR that claims completion but lacks the stated result. Confirm no score or legacy rubric determines the decision.
+- [x] Cover a missing, placeholder-only or ambiguous Doneness section; an exploratory issue with a concrete findings deliverable; a scope change during review; and a PR that claims completion but lacks the stated result. Confirm no score or legacy rubric determines the decision.
 - [ ] Verify frequent saves produce corresponding commits/pushes and that a return preserves branch/PR identity.
-- [ ] Run `python3 -m unittest scripts/test_install_profiles.py -v`; inspect rendered profiles for correct paths and shared workflow references.
+- [x] Run `python3 -m unittest scripts/test_install_profiles.py -v`; inspect rendered profiles for correct paths and shared workflow references.
 - [ ] Run the live pilot only after Task 1 prerequisites and test issue scope are established; retain issue/PR links and commits as evidence.
 
 **Verification:** Behavioral walkthroughs pass with real content in separate worktrees, including at least one Request changes → worker revision → approved merge cycle. Installer tests alone do not prove orchestration.
@@ -280,13 +280,37 @@ Only one active content writer per issue is permitted. Metadata is not an atomic
 
 **Rollback:** Head stops new dispatch and records the blocker; preserve pushed branches, PRs and issue history. Restore the last coherent instruction bundle if needed, without deleting accepted content, resetting branches, or reviving file-based completion as authoritative.
 
+## Implementation evidence (2026-09-22)
+
+Checked source tasks indicate instructions/templates/fixtures were implemented, **not** that an
+agent or live deployment executed the described behavior. Task 1 used its documented blocker-report
+alternative: the GitHub API connection is missing; independent Reviewer identity, native test PR
+association, worktree cleanup and wake behavior remain unproven. No live issue/profile changed.
+
+- Source baseline: `486c402`; prepared branch: `multica-pr-workflow`.
+- Installer/context and fixture safety tests: 46 passed after review fixes; 31 synthetic scenarios generated and parsed.
+- All six profile instruction bundles rendered successfully in scratch; live memory/config untouched.
+- Independent review completed. Fixture/installer regressions were observed failing before fixes and then passing; structural-request routing was manually traced and given a new walkthrough. Expected answers are isolated from agent observations.
+- Tasks 2–4: source implementation reviewed; the identified structural-routing and fixture consistency gaps were corrected.
+- Task 5: fixtures/walkthroughs prepared; live behavioral walkthroughs and pilot **not run**.
+- Task 6: **not deployed**. Reviewed source/content PRs, coherent installation, Multica instruction
+  synchronization and existing-issue reconciliation require capability gates first.
+- SERIES/VOICE templates retain creator content; filming/publishing metadata is non-authoritative.
+- Old walkthroughs are retained under `docs/validation/historical/`; retired rubrics remain labeled.
+
+Implementation decisions: use a local preparation branch in the existing source checkout (no new
+runtime checkout); treat the user's implementation request as approval of the proposed parent index;
+keep installed/live copies unchanged until coherent cutover; preserve historical walkthroughs; prepare
+one local source commit because no authenticated issue/PR publication path is available. These do
+not relax the deployed workers' exact issue branch, per-write publishing or independent review rules.
+
 ## Planning verification and unresolved deployment checks
 
 This plan was checked against all nine numbered requirements (the request repeats number 4), the confirmed merge owner, and the selected branch model. No live issue, assignment, PR, branch, installed profile or active workflow was changed during planning.
 
 Implementation is conditional on resolving: PR association behavior, GitHub reviewer identity, exact branch behavior in GitHub-repository worktrees, and reliable wake/dispatch behavior. These are explicit capability checks in Task 1, not assumed supported APIs.
 
-Scoring and the separate acceptance-criteria framework are removed from this proposed workflow; Doneness in the issue description defines the intended result. The remaining design proposal requiring review is a meaningful episode index PR for the Head-owned parent. The requested operational plan is complete as a reviewable draft; it has not been deployed.
+Scoring and the separate acceptance-criteria framework are removed from this proposed workflow; Doneness in the issue description defines the intended result. At planning time, the remaining design proposal was a meaningful episode index PR for the Head-owned parent; the subsequent implementation request was treated as approval of that convention. The original plan was complete as a reviewable draft. See Implementation evidence above for the subsequent source work; it has not been deployed.
 
 ## Sources
 

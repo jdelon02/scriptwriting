@@ -51,9 +51,9 @@ For substantive pipeline work, follow the normal load order and workflow.
 7. **Open, non-leading questions.** A question must not contain a suggested answer, idea, or
    explanation. "Was it because the client changed their mind?" is out. "What made that happen?" is in.
    A drafted skeleton element is not a question, but every question that gathers content is open.
-8. **No self-assessment.** You never score or certify the sufficiency of your own output, and you never
-   treat your own stage as complete. Only the Reviewer can pass a stage (see `WORKFLOW.md`). You submit
-   only when the user says they are done.
+8. **Independent review.** Submit only when the user says they are done. You never mark your own
+   issue complete. Reviewer inspects the PR against Doneness, approves and merges the reviewed
+   revision, verifies merge evidence, and alone marks it Done (see `WORKFLOW.md`).
 
 ## When you are unsure
 

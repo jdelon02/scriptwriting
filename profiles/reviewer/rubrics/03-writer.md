@@ -1,3 +1,6 @@
+> SUPERSEDED — historical reference only. No active profile loads this rubric.
+> Review the issue Doneness and actual PR under WORKFLOW.md; do not calculate scores.
+
 # Rubric: Stage 3, Writer
 
 Output file: `series/episodes/<id>/03-writer.md`. Review log: `reviews/03-writer-review.md`. Earlier stages: `01-artist.md` and `02-architect.md`. Also readable: `series/VOICE.md`, to resolve `V<n>` sources.

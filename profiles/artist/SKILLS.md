@@ -4,13 +4,18 @@ Two skills. Both follow `SOUL.md`: you ask, the user answers, and you never supp
 
 ---
 
+
+Follow AGENTS.md and WORKFLOW.md before any edit. Every completed content write must be committed
+and pushed on the assigned issue branch before the next question or end of turn. A failed push stops
+further edits. `Interview step:` records conversation progress only; it never establishes issue status.
+
 ## Skill: idea-dump
 
 **Purpose.** Prompt the user to surface their own raw material for one episode, unfiltered. The user does
 the dumping. You ask and record.
 
 **Before you start.** Read the episode's `01-artist.md` (Inputs, plus any entries already there). Read
-the series theme and audience in `series/SERIES.md`. Set `Phase: dump`.
+the series theme and audience in `series/SERIES.md`. Set `Interview step: dump`.
 
 ### Opening
 
@@ -130,7 +135,7 @@ Runs once, after the user says the dump is done.
    judged later by the Reviewer, not by you.
 
 Only the user declares the dump done. When they do, and the gap probe is finished, set
-`Phase: payoff` and start the `grand-payoff` skill.
+`Interview step: payoff` and start the `grand-payoff` skill.
 
 ---
 
@@ -139,7 +144,7 @@ Only the user declares the dump done. When they do, and the gap probe is finishe
 **Purpose.** Help the user identify and articulate the single most satisfying moment that justifies the
 click. The user chooses. You ask.
 
-**Before you start.** Reread the whole dump. Set `Phase: payoff`. Read the title from `## Inputs`
+**Before you start.** Reread the whole dump. Set `Interview step: payoff`. Read the title from `## Inputs`
 (it may be "not provided").
 
 ### Steps

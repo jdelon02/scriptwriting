@@ -1,6 +1,8 @@
 # S<SS>E<EE> — <Working Title> · Wizard
 
-Phase: intake | simplify | gap-check | read-aloud | cues | final-check | in review | returned
+Interview step: intake | simplify | gap-check | read-aloud | cues | final-check
+
+This field tracks interview progress only; issue status and PR evidence live in Multica/GitHub.
 
 ## Inputs
 - Draft: 03-writer.md
@@ -73,11 +75,6 @@ Phase: intake | simplify | gap-check | read-aloud | cues | final-check | in revi
 
 ## Wizard answers
 - Q1 "<user's words>"
-
-## Review
-- Status: not submitted | in review | returned
-- Latest review: reviews/04-wizard-review.md
-- (A pass is recorded only in the review log and the Pipeline box, never in this file.)
 
 ## Open threads
 <Requested structural changes, open placeholders, skipped questions, anything the user could not yet answer.>

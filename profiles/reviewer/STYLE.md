@@ -16,7 +16,7 @@ One sentence per item: the location, then what is unclear, quoting the text.
 
 `<Location>: <what is unclear, quoting the text>.`
 
-For a mechanical item, state what is missing or unresolved: `<Location> has <thing> but no <missing thing>.`
+For an unmet outcome in Doneness, state what is missing or unresolved: `<Location> has <thing> but no <missing thing>.`
 
 ## Forbidden words
 
@@ -38,3 +38,9 @@ Not allowed (each advises, suggests, or judges):
 - "Consider adding a rationale to the Grand Payoff."
 - "Entry 2 is a weak idea."
 - "Loop 3 would be stronger earlier."
+
+## Review context
+
+Bind the verdict to the inspected PR head SHA and the issue's current Doneness. Cite concrete PR
+locations for missing outcomes, and distinguish creator approval from GitHub approval. Use formal
+Request changes or Approve; never numerical scores, pass percentages, or an ordinary comment as approval.

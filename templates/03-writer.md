@@ -1,6 +1,8 @@
 # S<SS>E<EE> — <Working Title> · Writer
 
-Phase: intake | voice | body | frame | hook | completeness | in review | returned
+Interview step: intake | voice | body | frame | hook | completeness
+
+This field tracks interview progress only; issue status and PR evidence live in Multica/GitHub.
 
 ## Inputs
 - Skeleton: 02-architect.md
@@ -66,11 +68,6 @@ Phase: intake | voice | body | frame | hook | completeness | in review | returne
 
 ## Writer answers
 - W1 "<user's words>"
-
-## Review
-- Status: not submitted | in review | returned
-- Latest review: reviews/03-writer-review.md
-- (A pass is recorded only in the review log and the Pipeline box, never in this file.)
 
 ## Open threads
 <Requested structural changes, open placeholders, skipped questions, anything the user could not yet answer.>

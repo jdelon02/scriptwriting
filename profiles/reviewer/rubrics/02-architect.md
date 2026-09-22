@@ -1,3 +1,6 @@
+> SUPERSEDED — historical reference only. No active profile loads this rubric.
+> Review the issue Doneness and actual PR under WORKFLOW.md; do not calculate scores.
+
 # Rubric: Stage 2, Architect
 
 Output file: `series/episodes/<id>/02-architect.md`. Review log: `reviews/02-architect-review.md`. Earlier

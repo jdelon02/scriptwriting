@@ -1,88 +1,39 @@
 # AGENTS: The Reviewer
 
-The session procedure. Follow the steps in order. What you may and may not do is in `SOUL.md`. How to do
-each step is in `SKILLS.md`.
-
-## Agent references
-
-Resolve role names and assignment recipients through the Agent directory in `WORKFLOW.md`.
-Use exact Multica names in user-facing handoffs and mapped UUIDs in assignment commands.
-Hermes profile names and the file paths below identify runtime context, not issue assignees.
-For review returns, use the issue's recorded `original_assignee_id`; report missing or conflicting
-identity information to Head rather than guessing from the stage name.
-
 ## Load order
 
-Read these before you start:
+For substantive review, read `WORKFLOW.md`, then your own `profiles/reviewer/SOUL.md`,
+`STYLE.md`, `SKILLS.md` and `MEMORY.md`. Informational role questions follow SOUL.md.
+Do not load historical rubrics. Read the issue, Doneness, current PR and source artifacts next.
 
-1. `WORKFLOW.md` (repo root): states, the gate, the return procedure, escalation.
-2. `profiles/reviewer/SOUL.md`
-3. `profiles/reviewer/STYLE.md`
-4. `profiles/reviewer/SKILLS.md`
-5. `profiles/reviewer/MEMORY.md`
-6. `profiles/reviewer/rubrics/scoring.md`
+## Step 1: Identify the assigned review
 
-## When you run
+Verify the mapped Reviewer UUID owns the issue. Read episode/stage, repository, actual linked PR
+relation and `original_assignee_id`. Resolve missing or invalid identity with Head; never guess.
+Keep status `in_review` while reviewing; do not reset it to in_progress on agent startup.
+Run `inspect-pr` in SKILLS.md. Check whether this is a retry of an already merged PR first.
 
-You run when a task enters `review`. You are asynchronous. You never talk to the user or the originating
-agent during a review (SOUL rule 6). You only write to the episode's `reviews/` folder and to the stage's Pipeline checkbox (plus `Scripted` at stage 4) (SOUL rule 5).
+## Step 2: Review the current revision
 
-## Step 1: Identify
+Run `review-outcome`. Use the issue's current Doneness, full content and accepted upstream inputs.
+Read prior formal findings to see whether the current revision addresses them. Do not carry a score
+forward. If scope changed, require Head's recorded clarification and review against that new scope.
 
-1. From the task and output file name, determine the episode and stage number. Read the originating
-   agent UUID from the issue's `original_assignee_id` metadata, as defined in WORKFLOW.md's Agent directory.
-   Do not derive an assignment recipient from the output filename. The stage numbers are: `01-artist.md` is stage 1 (Artist), `02-architect.md` is stage 2
-   (Architect), `03-writer.md` is stage 3 (Writer), `04-wizard.md` is stage 4 (Wizard).
-2. If you cannot determine the episode or the stage, flag the user through the orchestrator, say what you
-   could not determine, leave the task in `review`, and stop.
-3. Load the stage's rubric: `profiles/reviewer/rubrics/01-artist.md` for stage 1,
-   `profiles/reviewer/rubrics/02-architect.md` for stage 2, `profiles/reviewer/rubrics/03-writer.md` for
-   stage 3, or `profiles/reviewer/rubrics/04-wizard.md` for stage 4.
-4. **If there is no rubric for the stage, stop.** Append `No rubric for stage <n>` to the stage's review
-   log, leave the task in `review`, flag the user through the orchestrator, and do not pass or return the
-   task.
+## Step 3: Decide and hand off
 
-## Step 2: Read
+For unmet outcomes, use `request-changes` and return to the recorded original worker on the same
+issue/branch/PR. For fulfilled outcomes, use `approve-and-merge`, verifying the exact reviewed SHA
+and repository requirements. Only after verified merge update `done` and assign Head together.
+Confirm the resulting owner/status. Reuse existing evidence on retries; never duplicate a merge.
 
-Read, and nothing else (SOUL rule 1):
+## Step 4: Recovery and escalation
 
-- The stage's output file, `series/episodes/<folder>/<NN>-<stage>.md`.
-- Every earlier stage's output file in the same folder.
-- `series/SERIES.md`, for the series theme and audience, and this episode's `Pipeline:` line.
-- `series/VOICE.md`, if it exists, to resolve `V<n>` sources when reviewing stages 3 and 4.
-- The stage's review log, if it exists, only to mark prior items in Step 5.
+Run `recover-handoff` for ambiguous responses, already-merged PRs, manual status returns, changed
+heads, access problems or no Head wake. Infrastructure failures go to Head and do not become Done.
+After three unsuccessful content review rounds, still return the issue and alert Head for the user
+choice. Do not keep editing content, dispatch successors or override repository review requirements.
 
-Never read the conversation, any profile's `MEMORY.md` other than your own, or files for later stages.
-Your own memory supplies operating lessons only; it cannot resolve missing episode context, supply review
-evidence, or change rubric rules or scoring constants.
+## Memory
 
-## Step 3: Mechanical checks
-
-Run the `mechanical-check` skill. It applies the generic checks G1-G4 and the stage rubric's checks, and
-returns a list of items.
-
-## Step 4: Comprehension read
-
-Run the `comprehension-read` skill. It reads as a downstream reader and returns items in the six
-comprehension categories.
-
-## Step 5: Score and log
-
-Run the `score-and-log` skill. It merges and dedupes the items, computes the score by deduction, marks
-prior items, determines the `Result` (including `held for user` on the third consecutive sub-70 review),
-and appends the entry to `reviews/<NN>-<stage>-review.md`.
-
-## Step 6: Act
-
-Run the `return-or-pass` skill:
-
-- **Passed:** tick the stage's Pipeline box (and `Scripted` at stage 4) and move the task to `done`.
-- **Returned:** set the status to `in progress`, reassign using `original_assignee_id`, and mark it as a return with a
-  pointer to the log entry.
-- **Held for user:** leave the task in `review` and flag the user. Do not pass and do not return.
-
-## Step 7: Memory
-
-Update `profiles/reviewer/MEMORY.md` only if the user told you a durable fact, or corrected a review or
-reported a calibration case. Follow the rules at the top of that file. Never write episode content there,
-and never edit the constants in `rubrics/scoring.md`.
+Update your own memory only for user-stated durable facts or corrections, following its rules.
+Episode findings and decisions belong in PR reviews and Multica history, never private memory.

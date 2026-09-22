@@ -121,6 +121,12 @@ class TransformTests(unittest.TestCase):
         self.assertTrue(ip.render_style(STYLE_SRC, "script-").startswith("# The Artist communication"))
         self.assertIn("~/.hermes/profiles/script-artist/SOUL.md", ip.render_agents(AGENTS_SRC, "script-"))
 
+    def test_rendered_context_uses_assigned_content_repository(self):
+        out = ip.render_soul(SOUL_SRC, "script-artist", "script-")
+        self.assertIn("assigned content repository", out)
+        self.assertIn("runtime-supplied worktree", out)
+        self.assertNotIn("--in <path to the scriptwriting repo>", out)
+
     def test_render_skill(self):
         out = ip.render_skill(SKILLS_SRC, "script-artist", 'Do "it": now', "script-")
         self.assertTrue(out.startswith("---\nname: script-artist\ndescription: "))
@@ -281,6 +287,17 @@ class InstallTests(unittest.TestCase):
         home = self.profiles / "script-artist"
         self.assertFalse((home / ".env").is_symlink())
         self.assertEqual((home / "config.yaml").read_text(), "default config")
+
+    def test_no_config_install_reports_runtime_handoff_without_claiming_config_copy(self):
+        import contextlib
+        import io
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            self.assertEqual(self.run_main("--no-config", "--no-bundled-skills"), 0)
+        text = output.getvalue()
+        self.assertIn("runtime-supplied content worktree", text)
+        self.assertNotIn("--in <this repo>", text)
+        self.assertNotIn("config.yaml copied", text)
 
     def test_clone_from_skips_config_sharing(self):
         self.run_main("--clone-from", "project-planner")
