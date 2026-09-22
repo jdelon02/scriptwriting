@@ -7,11 +7,21 @@ user's answers take priority (SOUL rule 6).
 
 ---
 
+
+Follow AGENTS.md and WORKFLOW.md before any edit. Every completed content write must be committed
+and pushed on the assigned issue branch before the next question or end of turn. A failed push stops
+further edits. `Interview step:` records conversation progress only; it never establishes issue status.
+
+Structural requests recorded below also require immediate own-issue notification to Head after
+publishing, under WORKFLOW.md's Structural requests and scope changes. Keep the user's quotation and
+source location; pause affected work until Head records the user's decision. Do not merely leave a
+request in Open threads for someone to discover later.
+
 ## Skill: simplify
 
 **Purpose.** Cut jargon and simplify sentences, section by section.
 
-**Before you start.** Set `Phase: simplify`. Read the audience in `series/SERIES.md` (the episode's own
+**Before you start.** Set `Interview step: simplify`. Read the audience in `series/SERIES.md` (the episode's own
 audience if it has one, otherwise the series audience), `series/VOICE.md`, and `## Final script` in
 `04-wizard.md`.
 
@@ -52,7 +62,7 @@ For each section in script order:
 
 ### Exit
 
-Every section has been through the pass. Set `Phase: gap-check` and start `gap-check`.
+Every section has been through the pass. Set `Interview step: gap-check` and start `gap-check`.
 
 ---
 
@@ -60,7 +70,7 @@ Every section has been through the pass. Set `Phase: gap-check` and start `gap-c
 
 **Purpose.** Check that curiosity gaps are not closed too early or left open too long.
 
-**Before you start.** Set `Phase: gap-check`. Read `02-architect.md` for the loops, their setups and payoffs,
+**Before you start.** Set `Interview step: gap-check`. Read `02-architect.md` for the loops, their setups and payoffs,
 and the re-hook.
 
 ### Steps
@@ -81,7 +91,7 @@ and the re-hook.
 
 ### Exit
 
-Every flagged gap has an answer. Set `Phase: read-aloud` and start `read-aloud`.
+Every flagged gap has an answer. Set `Interview step: read-aloud` and start `read-aloud`.
 
 ---
 
@@ -89,7 +99,7 @@ Every flagged gap has an answer. Set `Phase: read-aloud` and start `read-aloud`.
 
 **Purpose.** Cut anything the user would never say in conversation. The judgment is the user's, not yours.
 
-**Before you start.** Set `Phase: read-aloud`.
+**Before you start.** Set `Interview step: read-aloud`.
 
 ### Steps
 
@@ -108,7 +118,7 @@ For each section in script order:
 
 ### Exit
 
-Every section has been read. Set `Phase: cues` and start `visual-cues`.
+Every section has been read. Set `Interview step: cues` and start `visual-cues`.
 
 ---
 
@@ -117,7 +127,7 @@ Every section has been read. Set `Phase: cues` and start `visual-cues`.
 **Purpose.** Add chapter markers, on-screen text, and B-roll notes. You may suggest them as an editor would;
 the user approves.
 
-**Before you start.** Set `Phase: cues`. Read the dump in `01-artist.md` (the entries tagged `[visuals]`),
+**Before you start.** Set `Interview step: cues`. Read the dump in `01-artist.md` (the entries tagged `[visuals]`),
 `02-architect.md` (loops, roadmap, promise, takeaways), and `## Final script`.
 
 ### Cue rules
@@ -149,7 +159,7 @@ the user approves.
 
 ### Exit
 
-Every cue is `approved` or `open`. Set `Phase: final-check` and start `final-check`.
+Every cue is `approved` or `open`. Set `Interview step: final-check` and start `final-check`.
 
 ---
 
@@ -157,7 +167,7 @@ Every cue is `approved` or `open`. Set `Phase: final-check` and start `final-che
 
 **Purpose.** Confirm the script is complete and every change is logged, then let the user read it end to end.
 
-**Before you start.** Set `Phase: final-check`.
+**Before you start.** Set `Interview step: final-check`.
 
 ### Steps
 

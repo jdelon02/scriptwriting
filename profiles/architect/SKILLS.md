@@ -6,12 +6,17 @@ take priority (SOUL rule 6). The article's own formulas are in `knowledge/five-p
 
 ---
 
+
+Follow AGENTS.md and WORKFLOW.md before any edit. Every completed content write must be committed
+and pushed on the assigned issue branch before the next question or end of turn. A failed push stops
+further edits. `Interview step:` records conversation progress only; it never establishes issue status.
+
 ## Skill: input-check
 
 **Purpose.** Get the title, story spine, viewer questions, target length, and loop count from the user.
 Use what the Artist recorded, and interview for anything missing.
 
-**Before you start.** Read `## Inputs` in `01-artist.md`. Set `Phase: inputs`.
+**Before you start.** Read `## Inputs` in `01-artist.md`. Set `Interview step: inputs`.
 
 ### Steps
 
@@ -42,7 +47,7 @@ Use what the Artist recorded, and interview for anything missing.
 
 ### Exit
 
-Inputs are recorded. Set `Phase: payoffs` and start `loop-builder`.
+Inputs are recorded. Set `Interview step: payoffs` and start `loop-builder`.
 
 ---
 
@@ -73,7 +78,7 @@ Apply to every drafted element, in every pass.
 
 ### Pass 1: payoffs
 
-Set `Phase: payoffs`.
+Set `Interview step: payoffs`.
 
 1. **Anchor.** Read the Grand Payoff back in the user's words: "Your Grand Payoff was: '<quote>'. It's the
    biggest moment, so I'd make it the payoff of the last loop. Does that work for you?" If the user says
@@ -91,7 +96,7 @@ Pass 1 ends when every loop has an approved payoff or a payoff explicitly marked
 
 ### Pass 2: setups
 
-Set `Phase: setups`. For each loop's payoff, ask:
+Set `Interview step: setups`. For each loop's payoff, ask:
 
 - "What's the specific claim that makes a viewer need to know this?"
 - "What's at stake for them if they don't know it?"
@@ -104,7 +109,7 @@ Pass 2 ends when every loop has an approved setup or a setup explicitly marked `
 
 ### Pass 3: tension
 
-Set `Phase: tension`. For each loop, ask these one at a time:
+Set `Interview step: tension`. For each loop, ask these one at a time:
 
 - "What do people usually do now, instead?" (the current behavior)
 - "Why does that fail? What's actually going wrong?" (the mechanism)
@@ -119,7 +124,7 @@ Pass 3 ends when every loop is `approved` or `open`.
 
 ### Exit
 
-Set `Phase: sequence` and start `sequence`.
+Set `Interview step: sequence` and start `sequence`.
 
 ---
 
@@ -127,7 +132,7 @@ Set `Phase: sequence` and start `sequence`.
 
 **Purpose.** Order the loops, place the mid-video re-hook, and build the transition hooks.
 
-**Before you start.** Set `Phase: sequence`. Read `knowledge/five-part/body.md`.
+**Before you start.** Set `Interview step: sequence`. Read `knowledge/five-part/body.md`.
 
 ### Steps
 
@@ -149,7 +154,7 @@ Set `Phase: sequence` and start `sequence`.
 
 ### Exit
 
-Order, re-hook, and transitions are approved. Set `Phase: framing` and start `frame-parts`.
+Order, re-hook, and transitions are approved. Set `Interview step: framing` and start `frame-parts`.
 
 ---
 
@@ -159,7 +164,7 @@ Order, re-hook, and transitions are approved. Set `Phase: framing` and start `fr
 which has not been written and belongs to the Writer. Not the introduction's credibility line or
 validating language, which belong to the Writer.
 
-**Before you start.** Set `Phase: framing`. Read `knowledge/five-part/intro.md`, `summary.md`, and
+**Before you start.** Set `Interview step: framing`. Read `knowledge/five-part/intro.md`, `summary.md`, and
 `cta.md`.
 
 ### Introduction
@@ -188,7 +193,7 @@ Only one call to action. If the user names two, ask: "Which one matters most her
 
 ### Exit
 
-Framing is approved. Set `Phase: flow-check` and start `flow-check`.
+Framing is approved. Set `Interview step: flow-check` and start `flow-check`.
 
 ---
 
@@ -196,7 +201,7 @@ Framing is approved. Set `Phase: flow-check` and start `flow-check`.
 
 **Purpose.** Check the whole skeleton with the user while it is still cheap to restructure.
 
-**Before you start.** Set `Phase: flow-check`.
+**Before you start.** Set `Interview step: flow-check`.
 
 ### Steps
 

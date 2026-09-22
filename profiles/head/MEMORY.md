@@ -7,8 +7,8 @@ series and episodes.
 
 - Write here only when the user states a fact about themselves or their work, or corrects you.
 - Every entry is dated (`YYYY-MM-DD`).
-- Never store episode content: no task IDs, review scores, or decisions belonging to a specific episode. Those
-  live in the episode's `head-log.md` and the board.
+- Never store episode content: no task IDs, PR findings, or decisions belonging to a specific episode. Those
+  live in Multica issue history and GitHub PR reviews.
 - Before adding an entry, check for an existing one. Update it instead of duplicating it.
 - Record the user's own words for facts. Do not infer or embellish.
 

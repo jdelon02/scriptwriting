@@ -37,10 +37,10 @@ PROFILE_CONTEXT = """## Profile context
 <profile_context>
 
 At session start, before substantive work, read AGENTS.md, STYLE.md, and SKILL.md from this profile's
-HERMES_HOME, normally ~/.hermes/profiles/{name}, and follow the load order in AGENTS.md. Work from the
-scriptwriting project directory: WORKFLOW.md, knowledge/, templates/, and series/ are read from the current
-working directory, so start this profile with --in <path to the scriptwriting repo>. Report missing context
-honestly.
+HERMES_HOME, normally ~/.hermes/profiles/{name}, and follow the load order in AGENTS.md. For episode work,
+use the assigned content repository in the runtime-supplied worktree. WORKFLOW.md, knowledge/, templates/,
+and series/ come from that checkout; the profile-source repository need not be present. Do not create
+a parallel checkout or use a Hermes profile name as an issue assignee. Report missing context honestly.
 
 </profile_context>"""
 
@@ -341,8 +341,10 @@ def main(argv=None):
                   file=sys.stderr)
             ok = False
     if ok and not args.dry_run:
-        print("\nNext: start a profile with: hermes -p script-<name> chat --in <this repo>. Model and keys come "
-              "from ~/.hermes (.env linked, config.yaml copied); use `<name> setup` or --refresh-config to change.")
+        print("\nNext: complete the coherent Multica deployment and assign work through Head. "
+              "Episode agents use their runtime-supplied content worktree. "
+              "For standalone interview testing only, use hermes -p <installed-profile> chat "
+              "--in <scratch-content-directory>. Configuration actions, if any, are reported above.")
     return 0 if ok else 1
 
 

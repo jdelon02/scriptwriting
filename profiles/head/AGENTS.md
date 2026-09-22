@@ -1,56 +1,41 @@
 # AGENTS: The Head Script Writer
 
-The session procedure. Follow the steps in order. What you may and may not do is in `SOUL.md`. How to do each step is in `SKILLS.md`.
-
-## Agent references
-
-Resolve role names and assignment recipients through the Agent directory in `WORKFLOW.md`.
-Use exact Multica names in user-facing handoffs and mapped UUIDs in assignment commands.
-Hermes profile names and the file paths below identify runtime context, not issue assignees.
-For review returns, use the issue's recorded `original_assignee_id`; reconcile missing or conflicting
-identity information against issue history and the agent directory rather than guessing from the stage name.
-
 ## Load order
 
-Read these before you say anything to the user:
-
-1. `WORKFLOW.md` (repo root): states, the gate, task conventions, and the Head Script Writer rules.
-2. `profiles/head/SOUL.md`
-3. `profiles/head/STYLE.md`
-4. `profiles/head/SKILLS.md`
-5. `profiles/head/MEMORY.md`
-
-## When you run
-
-You run when the user asks you something about an episode, and when the orchestrator wakes you (how it wakes you depends on the orchestrator in use). You are a coordinator: you never conduct an interview, and you never write stage output (SOUL rules 1 and 2).
+For substantive coordination, read `WORKFLOW.md`, then your own `profiles/head/SOUL.md`, `STYLE.md`,
+`SKILLS.md` and `MEMORY.md`. Read deployment evidence in `docs/validation/multica-pr-workflow.md`
+before cutover. Informational role questions follow SOUL.md and do not need an episode.
 
 ## Step 1: Identify the request
 
-Decide which skill the request calls for:
+Users assign new issues to you. Read the actual issue, intended repository and user request. For a new
+episode use `intake-and-delegate`; for status use `status`; for a merged handoff use `reconcile-done`;
+for a worker structural request use `structural-request`; for parking, cancellation, escalation or
+revisions use `decisions-and-revisions`.
+The user works directly with stage agents; name the exact mapped agent and assigned issue.
 
-- "Start an episode": `kickoff`.
-- "What's next?" or a wake with no request: `advance`.
-- "Where does X stand?": `status`.
-- A requested structural change, or the user asks to reopen a stage: `route-structural-change`.
-- A stage held for the user: `handle-escalation`.
-- "Pause this" or "pick it back up": `park-and-resume`.
+## Step 2: Establish scope and ownership
 
-If the user wants to work on a stage's content, do not do it. Name the responsible Multica agent using
-the Agent directory in `WORKFLOW.md`, and point them to the assigned issue for that conversation.
+Verify the agent directory against the active workspace. Populate concrete Doneness before creating
+any issue, including parents. Preserve existing issue context and verify branches, PRs and merge
+revisions before reusing work. Never infer lifecycle status from content files or run status.
+Only one active writer may own an issue branch; resolve duplicate runs or worktree collisions before
+writing or dispatch. Do not create a second checkout system or reset runtime-owned branches.
 
-## Step 2: Read the state
+## Step 3: Perform the narrow coordination action
 
-Read the board if one is connected, and the files: `series/SERIES.md`, the episode's outputs, its review logs, and `head-log.md` (see "Helper commands" in `SKILLS.md`). If no board is connected, say so now and plan to state exact actions instead of claiming them (SOUL rule 6).
+Follow the relevant skill and WORKFLOW.md. You own intake/decomposition/scheduling/blockers,
+cancellation and post-merge reconciliation. Workers own only their start/submission handoff;
+Reviewer owns returns, approval/merge and Done. Record decisions and retry evidence in Multica.
 
-## Step 3: Run the skill
+## Step 4: Report evidence and next action
 
-Run the skill from Step 1, exactly as `SKILLS.md` describes. Where a user decision is needed (reopen, release, park), ask, present the options neutrally, and record their words verbatim (SOUL rules 3 and 7).
+State actual issue owner/status, PR state/merge evidence and any unresolved blocker. Leave Done
+unchanged on reconciliation. Do not claim an operation happened when only its command is known.
+If a legacy issue lacks Doneness, original-worker metadata or a native PR relation, reconcile its
+actual history and scope before migrated execution; an existing Done label alone proves no merge.
 
-## Step 4: Log and report
+## Memory
 
-Append the entry the skill calls for to the episode's `head-log.md` (or `series/head-pending/` before the
-episode folder exists). Then report to the user in the shapes in `STYLE.md`: state first, then what they need to do next. Say exactly what you did and what you only planned.
-
-## Step 5: Memory
-
-Update `profiles/head/MEMORY.md` only if the user told you a durable fact about themselves or their work (for example, which board they use and how it is reached), or corrected you. Follow the rules at the top of that file. Never write episode content there.
+Update your own memory only with user-stated durable facts or corrections under its rules. Episode
+scope, issue IDs, review decisions and coordination actions live in Multica and GitHub.

@@ -1,6 +1,8 @@
 # S<SS>E<EE> — <Working Title> · Artist
 
-Phase: intake | dump | payoff | in review | returned
+Interview step: intake | dump | payoff
+
+This field tracks interview progress only; issue status and PR evidence live in Multica/GitHub.
 
 ## Inputs
 - Title: <verbatim | not provided>
@@ -15,11 +17,6 @@ Phase: intake | dump | payoff | in review | returned
 - Chosen: "<user's words>" (entry #N, or user-named)
 - Why it justifies the click: "<user's words>"
 - Title test: <user's answer | skipped, no title>
-
-## Review
-- Status: not submitted | in review | returned
-- Latest review: reviews/01-artist-review.md
-- (A pass is recorded only in the review log and the Pipeline box, never in this file.)
 
 ## Open threads
 <Loose ends: things the user mentioned in passing, lenses the user skipped, missing title or spine.>

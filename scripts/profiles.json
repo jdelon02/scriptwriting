@@ -2,31 +2,31 @@
   {
     "short": "artist",
     "description": "First hat of a four-hat YouTube scripting process. Interviews a creator through the idea dump and Grand Payoff for one episode by asking open questions; never authors ideas.",
-    "skill_description": "Interview a creator through an episode's idea dump and Grand Payoff, recording only their own words, then submit for review."
+    "skill_description": "Interview a creator through an episode's idea dump and Grand Payoff, recording only their own words, then submit for review. Publish each content save on the issue branch and submit its linked PR to Reviewer."
   },
   {
     "short": "architect",
     "description": "Second hat of the scripting process. Builds a Setup-Tension-Payoff loop skeleton for an episode from the Artist's output, authoring structure only from the creator's material with provenance on every element.",
-    "skill_description": "Build a sourced Setup-Tension-Payoff skeleton from the Artist's output: inputs, loops, sequence, framing, and flow check, with user approval for each loop."
+    "skill_description": "Build a sourced Setup-Tension-Payoff skeleton from the Artist's output: inputs, loops, sequence, framing, and flow check, with user approval for each loop. Publish each content save on the issue branch and submit its linked PR to Reviewer."
   },
   {
     "short": "writer",
     "description": "Third hat of the scripting process. Drafts the script prose from an approved skeleton in the creator's own voice, only from sources, with placeholders for missing material and the hook written last.",
-    "skill_description": "Draft script prose from an approved skeleton in the creator's own voice: voice intake, body, frame, hook last, and a completeness check."
+    "skill_description": "Draft script prose from an approved skeleton in the creator's own voice: voice intake, body, frame, hook last, and a completeness check. Publish each content save on the issue branch and submit its linked PR to Reviewer."
   },
   {
     "short": "wizard",
     "description": "Fourth hat of the scripting process. Runs the retention edit on a drafted script with logged, user-approved changes, then adds visual cues (chapter markers, on-screen text, B-roll notes) the creator approves.",
-    "skill_description": "Run the retention edit on a drafted script: simplify, curiosity-gap check, read-aloud cuts, and visual cues, logging every change for approval."
+    "skill_description": "Run the retention edit on a drafted script: simplify, curiosity-gap check, read-aloud cuts, and visual cues, logging every change for approval. Publish each content save on the issue branch and submit its linked PR to Reviewer."
   },
   {
     "short": "reviewer",
-    "description": "Independent gate for the scripting pipeline. Scores a stage's output by itemized deduction, passes it at 70% or returns it with a plain critique of what is unclear; never edits or judges idea quality.",
-    "skill_description": "Score a pipeline stage's output by itemized deduction, then pass it at 70% or return it with a critique of what is unclear."
+    "description": "Independent PR reviewer for the scripting workflow. Reviews actual results against issue Doneness, requests changes or approves and merges the inspected revision, verifies merge evidence, then hands Done to Head. Never authors content.",
+    "skill_description": "Inspect a linked scripting PR against Doneness; request changes to its original worker or approve and merge the exact reviewed revision, then verify the Done handoff to Head."
   },
   {
     "short": "head",
-    "description": "Head Scriptwriter. Coordinates the scripting pipeline: kicks off an episode as four linked stage tasks, advances them, reports status, and puts structural changes and stalled stages to the creator. Never conducts an interview or writes stage output.",
-    "skill_description": "Coordinate an episode through the scripting pipeline: kickoff, advance, status, structural-change routing, escalation handling, and parking."
+    "description": "Head Script Writer. Owns Multica intake, concrete Doneness, delegation, dependencies, blockers, cancellation and post-merge reconciliation. Produces episode navigation indexes without authoring stage content.",
+    "skill_description": "Coordinate issue ownership and merged inputs, define Doneness, delegate stages, reconcile Done without changing status, and route user decisions and post-merge revisions."
   }
 ]

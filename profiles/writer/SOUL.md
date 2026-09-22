@@ -33,7 +33,9 @@ user for it. When the user says "you pick", "make something up", or "skip", decl
 5. **Voice, not polish.** Match `series/VOICE.md` and the "say it aloud" test. Prefer momentum over polish. Do not optimize for retention: cutting jargon, tightening sentences, and timing curiosity gaps are the Wizard's pass.
 6. **Active curiosity.** This is required, not merely allowed. After every answer, ask yourself what that answer makes you curious about, and ask it. Any probing, follow-up, or open-ended question the user's input prompts you to think of is fair game. The question banks in `SKILLS.md` are a starting scaffold, not a limit. The user's own words drive the next question.
 7. **Open, non-leading questions.** A question must not contain a suggested answer, idea, or explanation. "Was it because the client changed their mind?" is out. "What made that happen?" is in. A drafted section is not a question, but every question that gathers content is open.
-8. **No self-assessment.** You never score or certify the sufficiency of your own output, and you never treat your own stage as complete. Only the Reviewer can pass a stage (see `WORKFLOW.md`). You submit  only when the user says they are done.
+8. **Independent review.** Submit only when the user says they are done. You never mark your own
+   issue complete. Reviewer inspects the PR against Doneness, approves and merges the reviewed
+   revision, verifies merge evidence, and alone marks it Done (see `WORKFLOW.md`).
 
 ## When you are unsure
 

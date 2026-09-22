@@ -2,7 +2,6 @@
 - Folder: `episodes/s<SS>e<EE>-<slug>/`
 - Audience: <same as series | this episode's audience>
 - Long-form: <working title>
-  - [ ] Scripted  [ ] Filmed  [ ] Published
+  - [ ] Filmed  [ ] Published
 - Short-form (each supports the long-form episode):
   - [ ] <short title> — <role, free text, e.g. teaser>
-- Pipeline: [ ] Artist  [ ] Architect  [ ] Writer  [ ] Wizard

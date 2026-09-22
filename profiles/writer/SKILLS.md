@@ -4,11 +4,21 @@ Five skills, run in this order by `AGENTS.md`. All follow `SOUL.md`: you write w
 
 ---
 
+
+Follow AGENTS.md and WORKFLOW.md before any edit. Every completed content write must be committed
+and pushed on the assigned issue branch before the next question or end of turn. A failed push stops
+further edits. `Interview step:` records conversation progress only; it never establishes issue status.
+
+Structural requests recorded below also require immediate own-issue notification to Head after
+publishing, under WORKFLOW.md's Structural requests and scope changes. Keep the user's quotation and
+source location; pause affected work until Head records the user's decision. Do not merely leave a
+request in Open threads for someone to discover later.
+
 ## Skill: voice-intake
 
 **Purpose.** Capture how the user actually speaks, in their own words, in `series/VOICE.md`. The Wizard reads it too.
 
-**Before you start.** Look for `series/VOICE.md`. Set `Phase: voice`.
+**Before you start.** Look for `series/VOICE.md`. Set `Interview step: voice`.
 
 ### If the file exists
 
@@ -39,7 +49,7 @@ Read it, then ask: "Does this still hold for this episode?" If the user wants to
 
 ### Exit
 
-The user confirms the file. Set `Phase: body` and start `draft-body`.
+The user confirms the file. Set `Interview step: body` and start `draft-body`.
 
 ---
 
@@ -47,7 +57,7 @@ The user confirms the file. Set `Phase: body` and start `draft-body`.
 
 **Purpose.** Draft each loop's setup, tension, and payoff as prose, then the transitions and the mid-video re-hook, in the skeleton's order.
 
-**Before you start.** Set `Phase: body`. Read `02-architect.md` (the approved loops, Sequence, transitions, and re-hook), the sources those elements cite in `01-artist.md`, `series/VOICE.md`, and
+**Before you start.** Set `Interview step: body`. Read `02-architect.md` (the approved loops, Sequence, transitions, and re-hook), the sources those elements cite in `01-artist.md`, `series/VOICE.md`, and
 `knowledge/five-part/body.md`.
 
 ### Drafting rules
@@ -88,7 +98,7 @@ Apply to every drafted element, in every skill.
 
 ### Exit
 
-Every loop, transition, and the re-hook is `approved` or `open`. Set `Phase: frame` and start `draft-frame`.
+Every loop, transition, and the re-hook is `approved` or `open`. Set `Interview step: frame` and start `draft-frame`.
 
 ---
 
@@ -96,7 +106,7 @@ Every loop, transition, and the re-hook is `approved` or `open`. Set `Phase: fra
 
 **Purpose.** Draft the introduction, the summary, and the call to action. The hook comes later.
 
-**Before you start.** Set `Phase: frame`. Read `knowledge/five-part/intro.md`, `summary.md`, and `cta.md`.
+**Before you start.** Set `Interview step: frame`. Read `knowledge/five-part/intro.md`, `summary.md`, and `cta.md`.
 Follow the drafting rules and placeholders in `draft-body`.
 
 ### Introduction
@@ -120,7 +130,7 @@ From `CTA.link`, `CTA.gap`, and `CTA.promise`: the link to content just covered,
 
 ### Exit
 
-Introduction, summary, and call to action are `approved` or `open`. Set `Phase: hook` and start `draft-hook`.
+Introduction, summary, and call to action are `approved` or `open`. Set `Interview step: hook` and start `draft-hook`.
 
 ---
 
@@ -128,7 +138,7 @@ Introduction, summary, and call to action are `approved` or `open`. Set `Phase: 
 
 **Purpose.** Draft the hook, last, from the article's three-part formula.
 
-**Before you start.** Read `knowledge/five-part/hook.md`. **Check that no other section in `## Draft` has `Status: draft`.** If one does, finish it first: the hook is written last. Set `Phase: hook`.
+**Before you start.** Read `knowledge/five-part/hook.md`. **Check that no other section in `## Draft` has `Status: draft`.** If one does, finish it first: the hook is written last. Set `Interview step: hook`.
 
 ### Steps
 
@@ -148,7 +158,7 @@ Introduction, summary, and call to action are `approved` or `open`. Set `Phase: 
 
 ### Exit
 
-The hook is `approved` or `open`. Set `Phase: completeness` and start `completeness-check`.
+The hook is `approved` or `open`. Set `Interview step: completeness` and start `completeness-check`.
 
 ---
 
@@ -156,7 +166,7 @@ The hook is `approved` or `open`. Set `Phase: completeness` and start `completen
 
 **Purpose.** Make sure the draft is complete against the skeleton, and let the user read it end to end.
 
-**Before you start.** Set `Phase: completeness`.
+**Before you start.** Set `Interview step: completeness`.
 
 ### Steps
 

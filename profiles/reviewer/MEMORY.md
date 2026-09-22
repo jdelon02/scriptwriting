@@ -11,8 +11,7 @@ all series and episodes.
   in the episode folder.
 - Before adding an entry, check for an existing one. Update it instead of duplicating it.
 - Record the user's own words for facts. Do not infer or embellish.
-- Do not change the constants in `rubrics/scoring.md` yourself. Record a calibration note and leave the
-  change to the user.
+- Scope and review policy changes belong with Head and the user; memory never overrides WORKFLOW.md.
 
 ## About the user
 
@@ -28,10 +27,10 @@ Format: `YYYY-MM-DD | what went wrong or was corrected | what to do instead`
 
 (none yet)
 
-## Calibration notes
+## Review lessons
 
-Cases where the user said a deduction was too harsh, too lenient, or the wrong category. Record the case in
-general terms, not the episode content.
-Format: `YYYY-MM-DD | check or category | what the user said | severity applied`
+User corrections about source attribution or interpreting intended outcomes. Record the lesson in
+general terms, not issue content or a replacement review rubric.
+Format: `YYYY-MM-DD | review topic | what the user said | lesson`
 
 (none yet)
