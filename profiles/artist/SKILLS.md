@@ -197,9 +197,9 @@ result (SOUL rule 8).
 
 <tool_support_during_skills>
 
-While running any skill, use CodeGraph (`codegraph explore` or the `codegraph_explore` MCP tool),
-the code-review-graph MCP tools, and `okf search` for context lookups whenever the checkout
-provides them (`.codegraph/`, `.code-review-graph/`, `docs/knowledge/`). They come before
-grep/find or bulk file reading. The full directives live in `AGENTS.md`.
+For discovery during a skill, choose one relevant indexed lookup using the command table in
+`AGENTS.md`; read the required sources and use targeted file reads when coverage is insufficient.
+The table covers OKF, CodeGraph, code-review-graph, and optional Graphify. Required skill inputs
+and startup context remain mandatory.
 
 </tool_support_during_skills>

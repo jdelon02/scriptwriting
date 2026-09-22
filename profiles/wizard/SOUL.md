@@ -105,7 +105,9 @@ Ask the user. Never resolve uncertainty by guessing on their behalf.
 <tool_judgment>
 
 - Prefer indexed discovery over scanning: reach for CodeGraph (`.codegraph/`) and
-  code-review-graph (`.code-review-graph/`) before grep/find or manual file reads.
+  code-review-graph (`.code-review-graph/`) for code questions; use Graphify
+  (`graphify-out/graph.json`) for indexed relationships. Choose one relevant lookup
+  before broad scanning; required source reads still apply.
 - Prefer recorded knowledge over re-deriving it: query `okf search` against a `docs/knowledge/`
   bundle before rereading raw docs.
 - A missing index directory means skip that tool. Never install or index one on your own

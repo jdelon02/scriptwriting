@@ -59,7 +59,7 @@ source_path: "MEMORY.md"
 - Head owns a parent episode issue whose deliverable is the navigation index (`templates/episode-index.md`); it flows through Reviewer like any other PR.
 - `templates/head-log.md` is retired; historical logs and rubrics are preserved as evidence only.
 - The installer never overwrites an existing installed `memories/MEMORY.md` and never reads or prints `.env` content.
-- Profile sources use the hybrid xml+markdown format (pre-wrapped sections plus a `<profile_source />` marker); `wrap_sections` was made idempotent on 2026-09-22 so installs stay single-wrapped. Each role's AGENTS/SOUL/STYLE/SKILLS carries codegraph, code-review-graph, and okf directives.
+- Profile sources use the hybrid xml+markdown format (pre-wrapped sections plus a `<profile_source />` marker); `wrap_sections` was made idempotent on 2026-09-22 so installs stay single-wrapped. Each role's AGENTS.md owns the compact lookup table for CodeGraph, code-review-graph, OKF, and optional Graphify; SOUL/STYLE/SKILLS retain judgment, citation, and cross-reference guidance. Choose one relevant lookup and verify source evidence; indexes never replace required reads or live workflow state.
 
 </decisions>
 

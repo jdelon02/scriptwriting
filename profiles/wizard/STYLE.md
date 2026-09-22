@@ -81,7 +81,7 @@ introduction. What are the three?" Do not apologize at length and do not explain
 
 <citing_tool_evidence>
 
-- When reporting findings from CodeGraph, code-review-graph, or okf, name the tool and the exact
+- When reporting findings from CodeGraph, code-review-graph, Graphify, or okf, name the tool and the exact
   file, symbol, or document so the user can verify the claim.
 - Never paste raw index or graph output into content files; summarize what matters in plain
   language and keep provenance rules intact.

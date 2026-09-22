@@ -219,30 +219,48 @@ At the end of a session, update `profiles/artist/MEMORY.md` only if the user tol
 
 <code_discovery_and_knowledge_tools>
 
-Use these before grep/find or bulk file reading, in any checkout that provides them. A missing
-index directory means skip that tool; indexing is the user's decision, never yours.
+Choose one relevant lookup before grep/find or bulk reading; do not run every tool for every
+question. Run from the assigned checkout root. Use only existing indexes and available tools;
+never install tools or create indexes on your own initiative.
 
-### CodeGraph
+| Question | Existing index | First lookup |
+|---|---|---|
+| Document, decision, or creative-method context | `docs/knowledge/` | `okf search docs/knowledge --text "<concept>"` |
+| Specific code symbol or call path | `.codegraph/` | `codegraph explore "<symbol or question>"` or `codegraph_explore` MCP |
+| Code change impact | `.code-review-graph/` | `code-review-graph impact --files <path> --max-results 20` |
+| Code architecture | `.code-review-graph/` | `code-review-graph architecture --detail-level minimal` |
+| Relationships across indexed material | `graphify-out/graph.json` | `graphify query "<question>" --budget 1500` |
 
-- If `.codegraph/` exists at the checkout root, ask it first: the `codegraph_explore` MCP tool
-  (when available) or `codegraph explore "<symbol names or question>"` in the shell. One call
-  returns the relevant symbols' source and the paths between them.
-- After committing substantive changes, run `codegraph sync` to keep the index current.
+Prioritize OKF for creative-method and document context. Use code tools only for code
+questions and Graphify only when its index covers the relevant content.
 
-### code-review-graph
+### Focused follow-up
 
-- If `.code-review-graph/` exists at the checkout root, use its MCP tools:
-  `detect_changes_tool` (risk-scored change review), `get_impact_radius_tool` (blast radius before
-  modifying), `get_affected_flows_tool`, `query_graph_tool` (callers/callees/imports),
-  `semantic_search_nodes_tool`, `get_architecture_overview_tool`, `get_review_context_tool`
-  (token-efficient snippets), and `refactor_tool`.
-- After committing, run `code-review-graph update` to refresh the graph.
+- OKF: take a concept ID from search, then use `okf show docs/knowledge <concept-id>`;
+  use `okf backlinks docs/knowledge <concept-id>` only when incoming references matter.
+- Graphify: use returned node names with `graphify path "<node A>" "<node B>"` or
+  `graphify affected "<node>" --depth 1`. Treat inferred relationships as leads to verify.
+- code-review-graph: prefer available MCP tools for focused review snippets
+  (`get_review_context_tool`) or affected flows (`get_affected_flows_tool`). Use
+  `get_impact_radius_tool` for impact and `detect_changes_tool` for change review; request
+  compact output and bounded results where supported. MCP names are not shell subcommands.
 
-### okf knowledge bundle
+### Evidence and fallback
 
-- If a `docs/knowledge/` bundle exists, discover concept context with `okf search`, `okf show`,
-  and `okf backlinks` before reading raw documentation files.
-- Run `okf validate docs/knowledge/` after editing bundle documents, and `okf index docs/knowledge/` after
-  adding or moving them.
+Read the relevant source after discovery. Reuse source already returned when it is current
+and complete for the task. Missing, stale, empty, or truncated graph results do not prove
+absence: use targeted `rg` and file reads when coverage is insufficient. Check local `--help`
+once if command syntax differs; do not guess flags or repeatedly retry unsupported commands.
+Required startup context, creator wording and approvals, accepted upstream artifacts, and
+Reviewer's full affected-artifact/prerequisite review under `WORKFLOW.md` remain mandatory.
+Indexes never establish issue status, approval, or merge state.
+
+### Maintenance
+
+For existing indexes, run `codegraph sync` after substantive commits and
+`code-review-graph update` after commits. Run `okf validate docs/knowledge/` after editing
+bundle documents and `okf index docs/knowledge/` after adding or moving them. Follow the
+checkout's documented refresh process for other stale indexes; do not rebuild every graph
+as part of routine lookup.
 
 </code_discovery_and_knowledge_tools>
