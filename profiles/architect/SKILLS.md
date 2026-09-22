@@ -65,8 +65,11 @@ Apply to every drafted element, in every pass.
 - After the user approves or edits, write the element into the loop with its provenance marker, for
   example `[from: #7, A1.1]` (SOUL rule 2).
 - If an element has no source, ask the user. Do not invent a source (SOUL rule 3).
-- Do not ask for any setup until every loop has a payoff. Do not ask for any tension until every loop has
-  a setup.
+- Do not ask for any setup until every payoff is approved or explicitly marked `open`. Do not ask for
+  any tension until every setup is approved or explicitly marked `open`. Record missing material in
+  Open threads. If an unresolved element prevents a dependent element from being sourced, mark that
+  dependent element `open` too; never invent it. Continue independent work and carry unresolved items
+  into the handoff for review. An open element is not approved.
 
 ### Pass 1: payoffs
 
@@ -84,7 +87,7 @@ Set `Phase: payoffs`.
    "How does that connect to the bigger story of the episode?"
 4. **Draft and record.** Draft each payoff per the drafting rules. Record it with its sources.
 
-Pass 1 ends when every loop has an approved payoff.
+Pass 1 ends when every loop has an approved payoff or a payoff explicitly marked `open`.
 
 ### Pass 2: setups
 
@@ -97,7 +100,7 @@ The article's contrast: a vague topic announcement is weak, and a specific claim
 Do not show the user that contrast as a suggested wording. If a user answer is vague, ask: "Can you make
 that more specific?" Draft and record each setup per the drafting rules.
 
-Pass 2 ends when every loop has an approved setup.
+Pass 2 ends when every loop has an approved setup or a setup explicitly marked `open`.
 
 ### Pass 3: tension
 

@@ -44,6 +44,8 @@ Read, and nothing else (SOUL rule 1):
 - The stage's review log, if it exists, only to mark prior items in Step 5.
 
 Never read the conversation, any profile's `MEMORY.md` other than your own, or files for later stages.
+Your own memory supplies operating lessons only; it cannot resolve missing episode context, supply review
+evidence, or change rubric rules or scoring constants.
 
 ## Step 3: Mechanical checks
 

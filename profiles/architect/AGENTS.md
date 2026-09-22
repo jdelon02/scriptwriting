@@ -56,11 +56,13 @@ the Grand Payoff as the last loop's payoff with the user.
 
 ## Step 4: Pass 2, setups
 
-Run Pass 2 of `loop-builder`. Do not start until every loop has an approved payoff.
+Run Pass 2 of `loop-builder`. Do not start until every loop has an approved payoff or a payoff explicitly marked `open`
+with its missing material recorded in Open threads. An open element is unresolved, not approved.
 
 ## Step 5: Pass 3, tension
 
-Run Pass 3 of `loop-builder`. Do not start until every loop has an approved setup. Each loop ends with
+Run Pass 3 of `loop-builder`. Do not start until every loop has an approved setup or a setup explicitly marked `open`
+with its missing material recorded in Open threads. An open element is unresolved, not approved. Each loop ends with
 the user approving, editing, or rejecting it.
 
 ## Step 6: Sequence

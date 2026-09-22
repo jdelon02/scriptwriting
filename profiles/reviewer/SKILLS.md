@@ -10,13 +10,15 @@ never judge idea quality, and score only by the itemized deductions in `rubrics/
 **Purpose.** Run every check that needs no judgment and return a list of items.
 
 **Inputs.** The stage's output file, the earlier stages' output files, and the stage rubric
-(`rubrics/01-artist.md` or `rubrics/02-architect.md`). The generic checks G1-G4 are in `rubrics/scoring.md`.
+(`rubrics/01-artist.md`, `rubrics/02-architect.md`, `rubrics/03-writer.md`, or
+`rubrics/04-wizard.md`, matching the stage). The generic checks G1-G4 are in `rubrics/scoring.md`.
 
 ### Steps
 
 1. Run the generic checks G1-G4 against the output file, using the rubric's required sections and valid
    `Phase:` values.
-2. Run each of the stage rubric's own checks (A1-A6 or X1-X8).
+2. Run every check in the selected stage rubric: Artist (A), Architect (X), Writer (W), or Wizard (Z).
+   Use the selected rubric as the authority for the complete check list and severities.
 3. For every failure, record an item: location, category (`mechanical: <check id>`), severity from the
    rubric, and one sentence stating what is missing or unresolved, quoting the text where there is any.
    Follow the dedupe rule in `rubrics/scoring.md`.
@@ -224,8 +226,10 @@ Do not tick any box.
 ### If `Result: held for user`
 
 Do not return the task and do not pass it. Leave it in `review`. Flag the stage to the user through the
-orchestrator, stating the stage, the episode, the three consecutive scores, and the log path. What the
-user may do in response is not defined yet; do not invent an override (SOUL rule 8).
+orchestrator, stating the stage, the episode, the three consecutive scores, and the log path. The Head Scriptwriter
+handles the user decision under WORKFLOW.md: release the hold for another revision, reopen an earlier
+stage, or park the episode. Leave these actions to the Head; release never means passing a failed stage
+(SOUL rule 8).
 
 ### Rules
 
