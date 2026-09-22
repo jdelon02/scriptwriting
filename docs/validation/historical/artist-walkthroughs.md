@@ -1,3 +1,11 @@
+---
+type: "validation"
+title: "Artist profile: validation walkthroughs"
+description: "Validation source for scriptwriting: docs/validation/historical/artist-walkthroughs.md."
+tags: ["scriptwriting", "docs"]
+source_path: "docs/validation/historical/artist-walkthroughs.md"
+---
+
 > SUPERSEDED: historical walkthrough, not active lifecycle guidance.
 > Use ../artist-walkthroughs.md for current validation.
 

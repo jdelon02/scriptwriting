@@ -1,3 +1,11 @@
+---
+type: "reference"
+title: "The Wizard hat: retention edit checklist"
+description: "Reference source for scriptwriting: knowledge/wizard-checklist.md."
+tags: ["scriptwriting", "knowledge"]
+source_path: "knowledge/wizard-checklist.md"
+---
+
 # The Wizard hat: retention edit checklist
 
 Source: https://humbleandbrag.com/blog/how-to-write-a-youtube-script

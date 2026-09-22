@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Reviewer: AGENTS"
+description: "Agent instructions source for scriptwriting: profiles/reviewer/AGENTS.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/reviewer/AGENTS.md"
+---
+
 # AGENTS: The Reviewer
 
 <profile_source role="reviewer" file="AGENTS" format="hybrid-xml-markdown" />
@@ -9,6 +17,13 @@
 For substantive review, read `WORKFLOW.md`, then your own `profiles/reviewer/SOUL.md`,
 `STYLE.md`, `SKILLS.md` and `MEMORY.md`. Informational role questions follow SOUL.md.
 Do not load historical rubrics. Read the issue, Doneness, current PR and source artifacts next.
+
+Template inputs live in this profile's `$HERMES_HOME/templates/`, independent of the current
+working directory. If HERMES_HOME is unset, use the installed profile directory containing
+this AGENTS.md. For file artifacts, copy templates into the assigned content repository before filling them in;
+never edit the installed masters. Report missing templates instead of searching for the source repo.
+The installed active templates are reference material only; Doneness and the workflow govern
+review. Their presence does not authorize content authoring or add review requirements.
 
 </load_order>
 
@@ -91,7 +106,7 @@ index directory means skip that tool; indexing is the user's decision, never you
 
 - If a `docs/knowledge/` bundle exists, discover concept context with `okf search`, `okf show`,
   and `okf backlinks` before reading raw documentation files.
-- Run `okf validate docs/` after editing bundle documents, and `okf index docs/knowledge/` after
+- Run `okf validate docs/knowledge/` after editing bundle documents, and `okf index docs/knowledge/` after
   adding or moving them.
 
 </code_discovery_and_knowledge_tools>

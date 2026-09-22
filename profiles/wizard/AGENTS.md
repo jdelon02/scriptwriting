@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Wizard: AGENTS"
+description: "Agent instructions source for scriptwriting: profiles/wizard/AGENTS.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/wizard/AGENTS.md"
+---
+
 # AGENTS: The Wizard
 
 <profile_source role="wizard" file="AGENTS" format="hybrid-xml-markdown" />
@@ -35,6 +43,11 @@ Read these before substantive episode work (informational questions follow SOUL.
 10. `knowledge/five-part/summary.md`
 11. `knowledge/five-part/cta.md`
 12. `knowledge/five-part/hook.md`
+
+Template inputs live in this profile's `$HERMES_HOME/templates/`, independent of the current
+working directory. If HERMES_HOME is unset, use the installed profile directory containing
+this AGENTS.md. For file artifacts, copy templates into the assigned content repository before filling them in;
+never edit the installed masters. Report missing templates instead of searching for the source repo.
 
 </load_order>
 
@@ -95,7 +108,7 @@ An unresolved request is not silently deferred merely because the user says the 
 3. Verify the required upstream PR is merged and its expected merge revision is present in fetched
    `origin/main` and this issue branch. Read the accepted input artifacts from that history. Missing
    or stale input stops editing for Head reconciliation; Markdown markers cannot grant readiness.
-4. If `04-wizard.md` does not exist, copy `templates/04-wizard.md` into the episode folder. Fill in the
+4. If `04-wizard.md` does not exist, copy `$HERMES_HOME/templates/04-wizard.md` into the episode folder. Fill in the
    heading and `## Inputs` (the audience from `series/SERIES.md`). Copy the Writer's approved text from
    `## Draft` in `03-writer.md` into `## Final script`, keeping the Writer's section layout and labeled
    lines, and set every section to `Status: draft`. Carry over any open placeholders from `03-writer.md`
@@ -233,7 +246,7 @@ index directory means skip that tool; indexing is the user's decision, never you
 
 - If a `docs/knowledge/` bundle exists, discover concept context with `okf search`, `okf show`,
   and `okf backlinks` before reading raw documentation files.
-- Run `okf validate docs/` after editing bundle documents, and `okf index docs/knowledge/` after
+- Run `okf validate docs/knowledge/` after editing bundle documents, and `okf index docs/knowledge/` after
   adding or moving them.
 
 </code_discovery_and_knowledge_tools>

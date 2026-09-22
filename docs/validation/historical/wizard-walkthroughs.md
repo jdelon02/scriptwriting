@@ -1,3 +1,11 @@
+---
+type: "validation"
+title: "Wizard profile: validation walkthroughs"
+description: "Validation source for scriptwriting: docs/validation/historical/wizard-walkthroughs.md."
+tags: ["scriptwriting", "docs"]
+source_path: "docs/validation/historical/wizard-walkthroughs.md"
+---
+
 > SUPERSEDED: historical walkthrough, not active lifecycle guidance.
 > Use ../wizard-walkthroughs.md for current validation.
 

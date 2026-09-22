@@ -38,8 +38,11 @@ PROFILE_CONTEXT = """## Profile context
 
 At session start, before substantive work, read AGENTS.md, STYLE.md, and SKILL.md from this profile's
 HERMES_HOME, normally ~/.hermes/profiles/{name}, and follow the load order in AGENTS.md. For episode work,
-use the assigned content repository in the runtime-supplied worktree. WORKFLOW.md, knowledge/, templates/,
-and series/ come from that checkout; the profile-source repository need not be present. Do not create
+use the assigned content repository in the runtime-supplied worktree. Read templates from this profile's
+HERMES_HOME/templates (normally ~/.hermes/profiles/{name}/templates), independent of the working directory.
+For file artifacts, copy templates into the content repository before filling them in; never edit the masters.
+Use the issue template to populate the Multica issue description, not a content file. WORKFLOW.md, knowledge/,
+and series/ come from the content checkout; the profile-source repository need not be present. Do not create
 a parallel checkout or use a Hermes profile name as an issue assignee. Report missing context honestly.
 
 </profile_context>"""
@@ -122,6 +125,8 @@ def rewrite_text(text, prefix):
 
 def retitle(text, kind):
     """Rewrite the H1 to match the existing profiles ('# Project Planner operating contract')."""
+    # OKF metadata belongs to source discovery, not the rendered Hermes instructions.
+    text = re.sub(r"\A---\r?\n.*?\r?\n---\r?\n(?:\r?\n)*", "", text, count=1, flags=re.S)
     if kind == "SOUL":
         return re.sub(r"^# SOUL: ", "# ", text, count=1, flags=re.M)
     suffix = {"AGENTS": "operating contract", "STYLE": "communication", "SKILLS": "skills"}[kind]
@@ -267,9 +272,15 @@ def install_profile(entry, args):
     if missing:
         print("ERROR %s: missing source files: %s" % (short, ", ".join(missing)), file=sys.stderr)
         return False
+    templates = Path(args.repo) / "templates"
+    missing_templates = [f for f in entry["templates"] if not (templates / f).is_file()]
+    if missing_templates:
+        print("ERROR %s: missing templates: %s" % (short, ", ".join(missing_templates)), file=sys.stderr)
+        return False
     if args.dry_run:
         print("dry-run %s: would %s and install into %s" % (
             short, "reuse existing profile" if home.exists() else "create profile " + name, home))
+        print("  templates: " + ", ".join(entry["templates"]))
         return True
 
     created = not home.exists()
@@ -295,6 +306,9 @@ def install_profile(entry, args):
     link(home / "SKILL.md", skill_rel)
     install_memory(src, home)
     copy_supporting(src, home, args.prefix)
+    (home / "templates").mkdir(parents=True, exist_ok=True)
+    for filename in entry["templates"]:
+        shutil.copyfile(templates / filename, home / "templates" / filename)
     if not args.no_config and not args.clone_from:
         for note in share_config(args.config_from, home, created, args.refresh_config):
             print("  " + note)

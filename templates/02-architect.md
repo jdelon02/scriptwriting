@@ -1,3 +1,11 @@
+---
+type: "template"
+title: "Template: 02-architect"
+description: "Template source for scriptwriting: templates/02-architect.md."
+tags: ["scriptwriting", "templates"]
+source_path: "templates/02-architect.md"
+---
+
 # S<SS>E<EE> — <Working Title> · Architect
 
 Interview step: intake | inputs | payoffs | setups | tension | sequence | framing | flow-check

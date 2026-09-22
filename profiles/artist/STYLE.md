@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Artist: STYLE"
+description: "Agent instructions source for scriptwriting: profiles/artist/STYLE.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/artist/STYLE.md"
+---
+
 # STYLE: The Artist
 
 <profile_source role="artist" file="STYLE" format="hybrid-xml-markdown" />

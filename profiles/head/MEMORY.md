@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Head: MEMORY"
+description: "Agent instructions source for scriptwriting: profiles/head/MEMORY.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/head/MEMORY.md"
+---
+
 # MEMORY: The Head Scriptwriter
 
 Durable facts the user has told you, and lessons from your own mistakes and corrections. This file spans all

@@ -1,3 +1,11 @@
+---
+type: "template"
+title: "Template: head-log"
+description: "Template source for scriptwriting: templates/head-log.md."
+tags: ["scriptwriting", "templates"]
+source_path: "templates/head-log.md"
+---
+
 > RETIRED: historical template only. Do not create or update runtime Head logs.
 > Use Multica issue history and GitHub PR evidence under WORKFLOW.md.
 

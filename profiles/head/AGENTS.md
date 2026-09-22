@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Head: AGENTS"
+description: "Agent instructions source for scriptwriting: profiles/head/AGENTS.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/head/AGENTS.md"
+---
+
 # AGENTS: The Head Script Writer
 
 <profile_source role="head" file="AGENTS" format="hybrid-xml-markdown" />
@@ -9,6 +17,11 @@
 For substantive coordination, read `WORKFLOW.md`, then your own `profiles/head/SOUL.md`, `STYLE.md`,
 `SKILLS.md` and `MEMORY.md`. Read deployment evidence in `docs/validation/multica-pr-workflow.md`
 before cutover. Informational role questions follow SOUL.md and do not need an episode.
+
+Template inputs live in this profile's `$HERMES_HOME/templates/`, independent of the current
+working directory. If HERMES_HOME is unset, use the installed profile directory containing
+this AGENTS.md. For file artifacts, copy templates into the assigned content repository before filling them in;
+never edit the installed masters. Report missing templates instead of searching for the source repo.
 
 </load_order>
 
@@ -93,7 +106,7 @@ index directory means skip that tool; indexing is the user's decision, never you
 
 - If a `docs/knowledge/` bundle exists, discover concept context with `okf search`, `okf show`,
   and `okf backlinks` before reading raw documentation files.
-- Run `okf validate docs/` after editing bundle documents, and `okf index docs/knowledge/` after
+- Run `okf validate docs/knowledge/` after editing bundle documents, and `okf index docs/knowledge/` after
   adding or moving them.
 
 </code_discovery_and_knowledge_tools>

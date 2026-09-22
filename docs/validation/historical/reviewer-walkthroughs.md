@@ -1,3 +1,11 @@
+---
+type: "validation"
+title: "Reviewer profile: validation walkthroughs"
+description: "Validation source for scriptwriting: docs/validation/historical/reviewer-walkthroughs.md."
+tags: ["scriptwriting", "docs"]
+source_path: "docs/validation/historical/reviewer-walkthroughs.md"
+---
+
 > SUPERSEDED: historical walkthrough, not active lifecycle guidance.
 > Use ../reviewer-walkthroughs.md for current validation.
 

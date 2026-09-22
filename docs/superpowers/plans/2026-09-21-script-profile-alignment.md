@@ -1,3 +1,11 @@
+---
+type: "plan"
+title: "Scripting Profile Alignment Implementation Plan"
+description: "Plan source for scriptwriting: docs/superpowers/plans/2026-09-21-script-profile-alignment.md."
+tags: ["scriptwriting", "docs"]
+source_path: "docs/superpowers/plans/2026-09-21-script-profile-alignment.md"
+---
+
 # Scripting Profile Alignment Implementation Plan
 
 **Goal:** Correct the six scripting source profiles and reinstall without losing live state.

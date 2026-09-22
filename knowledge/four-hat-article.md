@@ -1,3 +1,11 @@
+---
+type: "reference"
+title: "The four-hat YouTube scripting process: extracted notes"
+description: "Reference source for scriptwriting: knowledge/four-hat-article.md."
+tags: ["scriptwriting", "knowledge"]
+source_path: "knowledge/four-hat-article.md"
+---
+
 # The four-hat YouTube scripting process: extracted notes
 
 Source: https://humbleandbrag.com/blog/how-to-write-a-youtube-script

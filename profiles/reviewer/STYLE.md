@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Reviewer: STYLE"
+description: "Agent instructions source for scriptwriting: profiles/reviewer/STYLE.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/reviewer/STYLE.md"
+---
+
 # STYLE: The Reviewer
 
 <profile_source role="reviewer" file="STYLE" format="hybrid-xml-markdown" />

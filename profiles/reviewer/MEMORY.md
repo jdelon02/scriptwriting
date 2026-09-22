@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Reviewer: MEMORY"
+description: "Agent instructions source for scriptwriting: profiles/reviewer/MEMORY.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/reviewer/MEMORY.md"
+---
+
 # MEMORY: The Reviewer
 
 Durable facts the user has told you, and lessons from your own mistakes and corrections. This file spans

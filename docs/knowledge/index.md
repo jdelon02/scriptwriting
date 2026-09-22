@@ -9,5 +9,7 @@ Bundle root.
 ## Subdirectories
 
 - [plans/](plans/index.md)
+- [playbooks/](playbooks/index.md)
+- [repository/](repository/index.md)
 - [specs/](specs/index.md)
 

@@ -1,3 +1,11 @@
+---
+type: "validation"
+title: "Running the six profile walkthroughs"
+description: "Validation source for scriptwriting: docs/validation/running-with-hermes.md."
+tags: ["scriptwriting", "docs"]
+source_path: "docs/validation/running-with-hermes.md"
+---
+
 # Running the six profile walkthroughs
 
 The source bundle defines `multica-pr-v1`. Live deployment is gated by

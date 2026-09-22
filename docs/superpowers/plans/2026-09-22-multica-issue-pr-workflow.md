@@ -1,3 +1,11 @@
+---
+type: "plan"
+title: "Multica Issue and PR Workflow Migration Plan"
+description: "Plan source for scriptwriting: docs/superpowers/plans/2026-09-22-multica-issue-pr-workflow.md."
+tags: ["scriptwriting", "docs"]
+source_path: "docs/superpowers/plans/2026-09-22-multica-issue-pr-workflow.md"
+---
+
 # Multica Issue and PR Workflow Migration Plan
 
 > **Execution status (2026-09-22):** User authorized implementation. Source changes are prepared on `multica-pr-workflow`; live rollout remains gated by Task 1. See [capability evidence and cutover runbook](../../validation/multica-pr-workflow.md). Use `superpowers:executing-plans` for remaining work; unchecked live steps have not been performed.

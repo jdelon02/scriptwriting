@@ -1,3 +1,11 @@
+---
+type: "validation"
+title: "Architect profile: validation walkthroughs"
+description: "Validation source for scriptwriting: docs/validation/historical/architect-walkthroughs.md."
+tags: ["scriptwriting", "docs"]
+source_path: "docs/validation/historical/architect-walkthroughs.md"
+---
+
 > SUPERSEDED: historical walkthrough, not active lifecycle guidance.
 > Use ../architect-walkthroughs.md for current validation.
 

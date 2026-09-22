@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Reviewer: 02-architect"
+description: "Agent instructions source for scriptwriting: profiles/reviewer/rubrics/02-architect.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/reviewer/rubrics/02-architect.md"
+---
+
 > SUPERSEDED — historical reference only. No active profile loads this rubric.
 > Review the issue Doneness and actual PR under WORKFLOW.md; do not calculate scores.
 

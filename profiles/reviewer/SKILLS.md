@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Reviewer: SKILLS"
+description: "Agent instructions source for scriptwriting: profiles/reviewer/SKILLS.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/reviewer/SKILLS.md"
+---
+
 # SKILLS: The Reviewer
 
 <profile_source role="reviewer" file="SKILLS" format="hybrid-xml-markdown" />

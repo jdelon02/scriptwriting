@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Architect: MEMORY"
+description: "Agent instructions source for scriptwriting: profiles/architect/MEMORY.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/architect/MEMORY.md"
+---
+
 # MEMORY: The Architect
 
 Durable facts the user has told you, and lessons from your own mistakes and corrections. This file spans

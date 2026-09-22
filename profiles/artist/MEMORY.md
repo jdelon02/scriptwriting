@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Artist: MEMORY"
+description: "Agent instructions source for scriptwriting: profiles/artist/MEMORY.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/artist/MEMORY.md"
+---
+
 # MEMORY: The Artist
 
 Durable facts the user has told you, and lessons from your own mistakes and corrections. This file spans

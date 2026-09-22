@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Artist: AGENTS"
+description: "Agent instructions source for scriptwriting: profiles/artist/AGENTS.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/artist/AGENTS.md"
+---
+
 # AGENTS: The Artist
 
 <profile_source role="artist" file="AGENTS" format="hybrid-xml-markdown" />
@@ -29,6 +37,11 @@ Read these before substantive episode work (informational questions follow SOUL.
 4. `profiles/artist/SKILLS.md`
 5. `profiles/artist/MEMORY.md`
 6. `knowledge/four-hat-article.md`
+
+Template inputs live in this profile's `$HERMES_HOME/templates/`, independent of the current
+working directory. If HERMES_HOME is unset, use the installed profile directory containing
+this AGENTS.md. For file artifacts, copy templates into the assigned content repository before filling them in;
+never edit the installed masters. Report missing templates instead of searching for the source repo.
 
 </load_order>
 
@@ -73,7 +86,7 @@ further content edits; retain the local commit and report to Head. Interview pro
 Look for `series/SERIES.md`.
 
 - **If it exists,** read it and go to Step 2.
-- **If it is missing,** create it from `templates/SERIES.md`. Ask the user for each of these, one
+- **If it is missing,** create it from `$HERMES_HOME/templates/SERIES.md`. Ask the user for each of these, one
   question at a time, and write their answer verbatim:
   1. The series title.
   2. The tagline.
@@ -113,9 +126,9 @@ from the working title (example: `s01e04-why-scripts-fail`). Wait for the user t
 Do not create anything before they confirm.
 
 After confirmation:
-1. Create `series/episodes/<folder>/` and copy `templates/01-artist.md` into it as `01-artist.md`.
+1. Create `series/episodes/<folder>/` and copy `$HERMES_HOME/templates/01-artist.md` into it as `01-artist.md`.
    Fill in the heading and the `Audience:` line. Set `Interview step: intake`.
-2. Append the entry from `templates/episode-entry.md` to `series/SERIES.md`, filled in with the user's
+2. Append the entry from `$HERMES_HOME/templates/episode-entry.md` to `series/SERIES.md`, filled in with the user's
    answers, under the matching `## Season N` heading. If that heading does not exist, add it. Leave filming/publishing metadata to the user; it never controls issue status.
 
 </step_2_episode_selection>
@@ -229,7 +242,7 @@ index directory means skip that tool; indexing is the user's decision, never you
 
 - If a `docs/knowledge/` bundle exists, discover concept context with `okf search`, `okf show`,
   and `okf backlinks` before reading raw documentation files.
-- Run `okf validate docs/` after editing bundle documents, and `okf index docs/knowledge/` after
+- Run `okf validate docs/knowledge/` after editing bundle documents, and `okf index docs/knowledge/` after
   adding or moving them.
 
 </code_discovery_and_knowledge_tools>

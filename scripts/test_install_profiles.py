@@ -59,6 +59,12 @@ MEMORY_SRC = "# MEMORY\n\n(none yet)\n"
 
 
 def make_repo(root, shorts=("artist",)):
+    templates = Path(root) / "templates"
+    templates.mkdir(parents=True, exist_ok=True)
+    for name in ("01-artist.md", "02-architect.md", "03-writer.md", "04-wizard.md",
+                 "SERIES.md", "VOICE.md", "episode-entry.md", "episode-index.md", "issue.md",
+                 "head-log.md"):
+        (templates / name).write_text("# Template " + name + "\n")
     for s in shorts:
         d = Path(root) / "profiles" / s
         d.mkdir(parents=True)
@@ -72,6 +78,18 @@ def make_repo(root, shorts=("artist",)):
 
 
 class TransformTests(unittest.TestCase):
+    def test_okf_metadata_does_not_change_rendered_profile_instructions(self):
+        metadata = '---\ntype: agent-instructions\ntitle: Source metadata\n---\n\n'
+        renderers = [
+            (SOUL_SRC, lambda text: ip.render_soul(text, 'script-artist', 'script-')),
+            (AGENTS_SRC, lambda text: ip.render_agents(text, 'script-')),
+            (STYLE_SRC, lambda text: ip.render_style(text, 'script-')),
+            (SKILLS_SRC, lambda text: ip.render_skill(text, 'script-artist', 'Interview', 'script-')),
+        ]
+        for source, render in renderers:
+            with self.subTest(source=source.splitlines()[0]):
+                self.assertEqual(render(metadata + source), render(source))
+
     def test_tag_for(self):
         self.assertEqual(ip.tag_for("## Hard limits"), "hard_limits")
         self.assertEqual(ip.tag_for("## Skill: idea-dump"), "skill_idea_dump")
@@ -144,6 +162,44 @@ class TransformTests(unittest.TestCase):
 
 
 class InstallTests(unittest.TestCase):
+    def test_installs_role_templates_as_independent_copies(self):
+        expected = {
+            "artist": {"01-artist.md", "SERIES.md", "episode-entry.md"},
+            "architect": {"02-architect.md"},
+            "writer": {"03-writer.md", "VOICE.md"},
+            "wizard": {"04-wizard.md"},
+            "head": {"issue.md", "episode-index.md"},
+            "reviewer": {"01-artist.md", "02-architect.md", "03-writer.md", "04-wizard.md",
+                         "SERIES.md", "VOICE.md", "episode-entry.md", "episode-index.md", "issue.md"},
+        }
+        self.assertEqual(self.run_main("--prefix", "custom-", shorts=tuple(expected)), 0)
+        self.repo.rename(self.repo.with_name("unavailable-source"))
+        for short, names in expected.items():
+            folder = self.profiles / ("custom-" + short) / "templates"
+            self.assertTrue(folder.is_dir(), short)
+            self.assertEqual({p.name for p in folder.iterdir()}, names)
+            for name in names:
+                self.assertFalse((folder / name).is_symlink())
+                self.assertEqual((folder / name).read_text(), "# Template " + name + "\n")
+
+    def test_reinstall_refreshes_templates_and_preserves_unmanaged_files(self):
+        self.assertEqual(self.run_main(), 0)
+        folder = self.profiles / "script-artist" / "templates"
+        self.assertTrue(folder.is_dir())
+        (folder / "personal.md").write_text("User template\n")
+        (self.repo / "templates/01-artist.md").write_text("Updated template\n")
+        self.assertEqual(self.run_main(), 0)
+        self.assertEqual((folder / "01-artist.md").read_text(), "Updated template\n")
+        self.assertEqual((folder / "personal.md").read_text(), "User template\n")
+
+    def test_missing_template_fails_before_install_even_in_dry_run(self):
+        make_repo(self.repo)
+        (self.repo / "templates/01-artist.md").unlink()
+        for extra in ((), ("--dry-run",)):
+            with self.subTest(extra=extra):
+                self.assertEqual(self.run_main(*extra), 1)
+                self.assertEqual(list(self.profiles.iterdir()), [])
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         base = Path(self.tmp.name)

@@ -1,3 +1,11 @@
+---
+type: "template"
+title: "Template: 03-writer"
+description: "Template source for scriptwriting: templates/03-writer.md."
+tags: ["scriptwriting", "templates"]
+source_path: "templates/03-writer.md"
+---
+
 # S<SS>E<EE> — <Working Title> · Writer
 
 Interview step: intake | voice | body | frame | hook | completeness

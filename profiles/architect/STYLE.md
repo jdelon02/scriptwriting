@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Architect: STYLE"
+description: "Agent instructions source for scriptwriting: profiles/architect/STYLE.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/architect/STYLE.md"
+---
+
 # STYLE: The Architect
 
 <profile_source role="architect" file="STYLE" format="hybrid-xml-markdown" />

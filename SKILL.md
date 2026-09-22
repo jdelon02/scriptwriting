@@ -1,6 +1,10 @@
 ---
 name: scriptwriting
 description: Use when working in the scriptwriting profile-source repo — editing the six role instruction bundles, templates, knowledge, WORKFLOW.md, the okf docs bundle, or the Hermes profile installer and its tests.
+type: "project-instructions"
+title: "Scriptwriting Repo Skill"
+tags: ["scriptwriting", "project"]
+source_path: "SKILL.md"
 ---
 
 # Scriptwriting Repo Skill
@@ -40,7 +44,7 @@ Do NOT use this skill for episode content work; that follows `WORKFLOW.md` in th
 4. Read `MEMORY.md` for durable project facts.
 5. For workflow-touching changes, read the relevant sections of `WORKFLOW.md`.
 6. Use the graphs before file scanning: `code-review-graph` for blast radius, `codegraph_explore` (or `codegraph explore "..."`) for symbol-level questions in `scripts/`.
-7. Use `okf search` / `okf show` against `docs/knowledge/` before re-deriving plan or spec context.
+7. Use `okf search docs/knowledge --text "<concept>"` / `okf show docs/knowledge <id>` against `docs/knowledge/` before re-deriving plan or spec context.
 
 </context_checklist>
 
@@ -58,7 +62,7 @@ codegraph explore "<symbol or question>"        # or codegraph_explore MCP tool
 # 2. Edit sources (profiles/, templates/, WORKFLOW.md, docs/, scripts/)
 
 # 3. Validate
-okf validate docs/                               # if docs/specs changed
+python3 scripts/sync_knowledge.py                # refresh and validate after Markdown changes
 python3 scripts/test_install_profiles.py         # if installer/bundles changed
 python3 scripts/test_head_fixtures.py            # if Head fixtures changed
 
@@ -68,7 +72,7 @@ python3 scripts/install_profiles.py
 
 # 5. Commit, then refresh indexes
 codegraph sync && code-review-graph update
-okf index docs/knowledge/                        # if bundle docs were added/moved
+python3 scripts/sync_knowledge.py --check        # confirm copies remain current
 ```
 
 </workflow>
@@ -97,6 +101,7 @@ okf index docs/knowledge/                        # if bundle docs were added/mov
 - Keep role boundaries explicit: workers never create issues, poll the board, or dispatch; Reviewer owns verdicts and merges; Head owns orchestration.
 - Reference `WORKFLOW.md` for shared rules instead of restating them.
 - Remember the installer renames `SKILLS.md` → `SKILL.md` and rewrites `profiles/<role>/` paths to profile homes; write source paths, not installed paths.
+- Reference template inputs through `$HERMES_HOME/templates/`. Keep role template assignments in `scripts/profiles.json`; installation copies the selected root templates into each profile. Do not require a content repo or source checkout to supply templates.
 
 ### WORKFLOW.md
 
@@ -123,7 +128,7 @@ okf index docs/knowledge/                        # if bundle docs were added/mov
 
 Choose the lightest verification that proves the work:
 
-- Instruction/doc-only changes: re-read the edited sections and confirm no contradiction with `WORKFLOW.md`; run `okf validate docs/` when the bundle changed.
+- Instruction/doc-only changes: re-read the edited sections and confirm no contradiction with `WORKFLOW.md`; run `okf validate docs/knowledge/` when the bundle changed.
 - Installer/script changes: run `python3 scripts/test_install_profiles.py` (and `e2e_install_test.py` for end-to-end behavior).
 - Profile bundle changes: `python3 scripts/install_profiles.py --dry-run`, then install and inspect one converted file in `~/.hermes/profiles/`.
 - Workflow-rule changes: walk one affected transition in `WORKFLOW.md` end to end and confirm each named actor's bundle agrees.

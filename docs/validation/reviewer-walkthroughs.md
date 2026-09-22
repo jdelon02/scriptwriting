@@ -1,3 +1,11 @@
+---
+type: "validation"
+title: "Reviewer profile: migration walkthroughs"
+description: "Validation source for scriptwriting: docs/validation/reviewer-walkthroughs.md."
+tags: ["scriptwriting", "docs"]
+source_path: "docs/validation/reviewer-walkthroughs.md"
+---
+
 # Reviewer profile: migration walkthroughs
 
 Status: **not run with a live agent**. Installer/fixture tests do not prove these behaviors.

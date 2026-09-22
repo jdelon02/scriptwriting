@@ -1,3 +1,6 @@
 # OKF bundle
 *.bak
 .DS_Store
+
+# Rebuild from canonical repository Markdown with scripts/sync_knowledge.py
+/repository/

@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Architect: AGENTS"
+description: "Agent instructions source for scriptwriting: profiles/architect/AGENTS.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/architect/AGENTS.md"
+---
+
 # AGENTS: The Architect
 
 <profile_source role="architect" file="AGENTS" format="hybrid-xml-markdown" />
@@ -33,6 +41,11 @@ Read these before substantive episode work (informational questions follow SOUL.
 8. `knowledge/five-part/body.md`
 9. `knowledge/five-part/summary.md`
 10. `knowledge/five-part/cta.md`
+
+Template inputs live in this profile's `$HERMES_HOME/templates/`, independent of the current
+working directory. If HERMES_HOME is unset, use the installed profile directory containing
+this AGENTS.md. For file artifacts, copy templates into the assigned content repository before filling them in;
+never edit the installed masters. Report missing templates instead of searching for the source repo.
 
 </load_order>
 
@@ -80,7 +93,7 @@ further content edits; retain the local commit and report to Head. Interview pro
 3. Verify the required upstream PR is merged and its expected merge revision is present in fetched
    `origin/main` and this issue branch. Read the accepted input artifacts from that history. Missing
    or stale input stops editing for Head reconciliation; Markdown markers cannot grant readiness.
-4. If `02-architect.md` does not exist, copy `templates/02-architect.md` into the episode folder, fill in
+4. If `02-architect.md` does not exist, copy `$HERMES_HOME/templates/02-architect.md` into the episode folder, fill in
    the heading, and set `Interview step: intake`.
 5. If it exists, follow WORKFLOW.md's Worker start and resume. Request changes goes to Step 10;
    otherwise use the recorded interview step without repeating answered questions. Do not edit while
@@ -236,7 +249,7 @@ index directory means skip that tool; indexing is the user's decision, never you
 
 - If a `docs/knowledge/` bundle exists, discover concept context with `okf search`, `okf show`,
   and `okf backlinks` before reading raw documentation files.
-- Run `okf validate docs/` after editing bundle documents, and `okf index docs/knowledge/` after
+- Run `okf validate docs/knowledge/` after editing bundle documents, and `okf index docs/knowledge/` after
   adding or moving them.
 
 </code_discovery_and_knowledge_tools>

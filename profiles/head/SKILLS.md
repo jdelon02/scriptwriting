@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Head: SKILLS"
+description: "Agent instructions source for scriptwriting: profiles/head/SKILLS.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/head/SKILLS.md"
+---
+
 # SKILLS: The Head Script Writer
 
 <profile_source role="head" file="SKILLS" format="hybrid-xml-markdown" />
@@ -10,7 +18,8 @@ Use native Multica and GitHub evidence under WORKFLOW.md. Never use repository f
 
 1. Read the user request and existing issues to avoid duplicates. Confirm episode and canonical content
    repository. Clarify missing intended outcomes with the user before creating issues.
-2. Populate templates/issue.md with concrete Purpose, Context and inputs, Deliverable and Doneness.
+2. Use `$HERMES_HOME/templates/issue.md` to populate the Multica issue description with concrete
+   Purpose, Context and inputs, Deliverable and Doneness; do not edit or save the template as a content file.
    Every issue needs an observable result, including exploratory findings work and the parent index.
    Remove all placeholder guidance. Do not create a generic criteria checklist or score.
 3. Create/reconcile one Head-owned episode parent and four staged sibling issues under it, ordered
@@ -51,7 +60,7 @@ in_progress to wake an already Done issue or invent a Completed status.
 
 <skill_parent_index>
 
-After all required child deliverables merge, use templates/episode-index.md to write an index linking
+After all required child deliverables merge, use `$HERMES_HOME/templates/episode-index.md` to write an index linking
 the accepted artifacts. This is the parent's meaningful deliverable; it contains no pass flags and
 no authored creative content. Use the runtime-supplied worktree and exact parent issue-ID branch.
 Follow WORKFLOW.md's branch, per-write commit/push and Worker submission protocol. Verify the native

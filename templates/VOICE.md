@@ -1,3 +1,11 @@
+---
+type: "template"
+title: "Template: VOICE"
+description: "Template source for scriptwriting: templates/VOICE.md."
+tags: ["scriptwriting", "templates"]
+source_path: "templates/VOICE.md"
+---
+
 # Voice
 
 ## In my own words

@@ -1,3 +1,11 @@
+---
+type: "template"
+title: "Template: issue"
+description: "Template source for scriptwriting: templates/issue.md."
+tags: ["scriptwriting", "templates"]
+source_path: "templates/issue.md"
+---
+
 ## Purpose
 <What the user wants this issue to accomplish.>
 

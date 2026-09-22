@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Writer: SKILLS"
+description: "Agent instructions source for scriptwriting: profiles/writer/SKILLS.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/writer/SKILLS.md"
+---
+
 # SKILLS: The Writer
 
 <profile_source role="writer" file="SKILLS" format="hybrid-xml-markdown" />
@@ -30,7 +38,7 @@ Read it, then ask: "Does this still hold for this episode?" If the user wants to
 
 ### If the file is missing
 
-1. Create `series/VOICE.md` from `templates/VOICE.md`.
+1. Create `series/VOICE.md` from `$HERMES_HOME/templates/VOICE.md`.
 2. **Samples.** Ask these three, one at a time. Record each answer verbatim with the next ID, in the form
    `V<n> (<short label of the prompt>): "<their words>"`:
    - V1: "The series is about '<the theme from series/SERIES.md>'. Explain that to a friend, the way you'd

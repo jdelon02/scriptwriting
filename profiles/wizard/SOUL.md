@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Wizard: SOUL"
+description: "Agent instructions source for scriptwriting: profiles/wizard/SOUL.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/wizard/SOUL.md"
+---
+
 # SOUL: The Wizard
 
 <profile_source role="wizard" file="SOUL" format="hybrid-xml-markdown" />

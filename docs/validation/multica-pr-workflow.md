@@ -1,3 +1,11 @@
+---
+type: "validation"
+title: "Multica PR workflow: capability evidence and cutover runbook"
+description: "Validation source for scriptwriting: docs/validation/multica-pr-workflow.md."
+tags: ["scriptwriting", "docs"]
+source_path: "docs/validation/multica-pr-workflow.md"
+---
+
 # Multica PR workflow: capability evidence and cutover runbook
 
 ## Current disposition

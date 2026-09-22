@@ -1,3 +1,11 @@
+---
+type: "project-instructions"
+title: "SOUL.md"
+description: "Project instructions source for scriptwriting: SOUL.md."
+tags: ["scriptwriting", "project"]
+source_path: "SOUL.md"
+---
+
 # SOUL.md
 
 <soul project="scriptwriting" format="hybrid-xml-markdown">

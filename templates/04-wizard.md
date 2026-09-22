@@ -1,3 +1,11 @@
+---
+type: "template"
+title: "Template: 04-wizard"
+description: "Template source for scriptwriting: templates/04-wizard.md."
+tags: ["scriptwriting", "templates"]
+source_path: "templates/04-wizard.md"
+---
+
 # S<SS>E<EE> — <Working Title> · Wizard
 
 Interview step: intake | simplify | gap-check | read-aloud | cues | final-check

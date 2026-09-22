@@ -1,3 +1,11 @@
+---
+type: "template"
+title: "Template: episode-index"
+description: "Template source for scriptwriting: templates/episode-index.md."
+tags: ["scriptwriting", "templates"]
+source_path: "templates/episode-index.md"
+---
+
 # S<SS>E<EE> — <Working Title>
 
 Navigation to the episode's accepted content. Head populates these links after all required stage

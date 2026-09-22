@@ -1,3 +1,11 @@
+---
+type: "reference"
+title: "Summary (part 4 of the five-part structure)"
+description: "Reference source for scriptwriting: knowledge/five-part/summary.md."
+tags: ["scriptwriting", "knowledge"]
+source_path: "knowledge/five-part/summary.md"
+---
+
 # Summary (part 4 of the five-part structure)
 
 Source: https://humbleandbrag.com/blog/how-to-write-a-youtube-script

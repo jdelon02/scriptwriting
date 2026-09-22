@@ -1,3 +1,11 @@
+---
+type: "template"
+title: "Template: 01-artist"
+description: "Template source for scriptwriting: templates/01-artist.md."
+tags: ["scriptwriting", "templates"]
+source_path: "templates/01-artist.md"
+---
+
 # S<SS>E<EE> — <Working Title> · Artist
 
 Interview step: intake | dump | payoff

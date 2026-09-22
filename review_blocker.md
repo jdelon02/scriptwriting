@@ -1,3 +1,11 @@
+---
+type: "project-instructions"
+title: "review_blocker"
+description: "Project instructions source for scriptwriting: review_blocker.md."
+tags: ["scriptwriting", "project"]
+source_path: "review_blocker.md"
+---
+
 ## Review Cannot Proceed
 
 **Issue:** The Artist stage output file does not exist.

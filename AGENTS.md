@@ -1,3 +1,11 @@
+---
+type: "project-instructions"
+title: "Agent Instructions for scriptwriting"
+description: "Project instructions source for scriptwriting: AGENTS.md."
+tags: ["scriptwriting", "project"]
+source_path: "AGENTS.md"
+---
+
 # Agent Instructions for scriptwriting
 
 <entry_point>
@@ -53,9 +61,9 @@
 
   <knowledge_engine tool="okf">
     - **Knowledge Bundle Location:** `docs/knowledge/`
-    - **Discovery Rule:** Use the `okf` CLI (`okf search`, `okf show`, `okf backlinks`) to discover plans, specs, playbooks, and dataset context before reading raw documentation files.
-    - **Validation Rule:** Run `okf validate docs/` after modifying documentation or specs to ensure schema compliance before committing.
-    - **Reindex Rule:** Run `okf index docs/knowledge/` after adding or restructuring bundle documents.
+    - **Discovery Rule:** Use the `okf` CLI (`okf search`, `okf show`, `okf backlinks`) with the `docs/knowledge` bundle path to discover repository instructions, templates, knowledge, plans, and specs before reading raw documentation files.
+    - **Validation Rule:** Run `okf validate docs/knowledge/` after modifying documentation or specs to ensure schema compliance before committing.
+    - **Reindex Rule:** Run `python3 scripts/sync_knowledge.py` after changing repository Markdown; this refreshes copies, indexes, and validation.
   </knowledge_engine>
 
 </capabilities_and_tools>
@@ -137,7 +145,7 @@ Head per `WORKFLOW.md`.
 - Do not edit installed profiles under `~/.hermes/profiles/` by hand; edit sources here and re-run the installer.
 - Preserve historical material (retired rubrics, head-log, old review logs) without reactivating it.
 - If `.codegraph/` exists, use CodeGraph before grep/find/read when locating or understanding code.
-- Run `okf validate docs/` before committing documentation/spec changes.
+- Run `okf validate docs/knowledge/` before committing documentation/spec changes.
 
 </rules>
 
@@ -170,9 +178,9 @@ codegraph sync && code-review-graph update
 ### Knowledge bundle
 
 ```bash
-okf search "<concept>"
-okf validate docs/
-okf index docs/knowledge/
+okf search docs/knowledge --text "<concept>"
+okf validate docs/knowledge/
+python3 scripts/sync_knowledge.py
 ```
 
 </commands>
@@ -184,7 +192,7 @@ okf index docs/knowledge/
 - If an installed profile misbehaves, diff the source bundle in `profiles/<role>/` against `~/.hermes/profiles/<prefix><role>/` and re-run the installer; never patch the installed copy.
 - If a role's instructions conflict with `WORKFLOW.md`, `WORKFLOW.md` is the workflow authority; reconcile the bundle.
 - If agent identity/assignment questions arise, the agent directory table in `WORKFLOW.md` (exact Multica names + UUIDs) is the source of truth.
-- If okf results look stale, re-run `okf index docs/knowledge/`.
+- If okf results look stale, re-run `python3 scripts/sync_knowledge.py`.
 - If graph queries miss recent edits, run `codegraph sync` and `code-review-graph update`.
 
 </debugging>

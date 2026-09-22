@@ -1,3 +1,11 @@
+---
+type: "project-instructions"
+title: "WORKFLOW"
+description: "Project instructions source for scriptwriting: WORKFLOW.md."
+tags: ["scriptwriting", "project"]
+source_path: "WORKFLOW.md"
+---
+
 # WORKFLOW
 
 Workflow version: `multica-pr-v1`.
@@ -52,6 +60,15 @@ workflow; other workspace agents are not interchangeable with them.
   private memory merely because its profile appears in this directory.
 
 ## Stages and artifacts
+
+Templates are installed per role under `$HERMES_HOME/templates/` (normally
+`~/.hermes/profiles/script-<role>/templates/`), as defined in `scripts/profiles.json`.
+Resolve template inputs there regardless of the content worktree's current directory. If HERMES_HOME
+is unset, use the installed profile directory containing AGENTS.md. For file artifacts, copy templates
+into the assigned content repository before filling them in; never modify the installed masters.
+Use the issue template to populate the Multica issue description, not a content file. Content repositories
+do not need their own template copies. Reviewer receives the active set for reference only;
+templates do not add requirements beyond Doneness. The retired head-log template is not installed.
 
 | Stage | Role | Output in `series/episodes/<folder>/` |
 |---|---|---|

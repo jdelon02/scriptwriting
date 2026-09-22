@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Writer: MEMORY"
+description: "Agent instructions source for scriptwriting: profiles/writer/MEMORY.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/writer/MEMORY.md"
+---
+
 # MEMORY: The Writer
 
 Durable facts the user has told you, and lessons from your own mistakes and corrections. This file spans all series and episodes.

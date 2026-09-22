@@ -1,3 +1,11 @@
+---
+type: "project-instructions"
+title: "STYLE.md"
+description: "Project instructions source for scriptwriting: STYLE.md."
+tags: ["scriptwriting", "project"]
+source_path: "STYLE.md"
+---
+
 # STYLE.md
 
 <style_guide project="scriptwriting" format="hybrid-xml-markdown">
@@ -71,8 +79,10 @@
 
 <docs>
 
-- okf bundle documents in `docs/knowledge/` carry `okf_version` frontmatter and live under the bundle's directory structure (plans, specs, playbooks, datasets, tables).
-- Run `okf validate docs/` after editing bundle documents; run `okf index docs/knowledge/` after adding or moving them.
+- Repository Markdown carries OKF frontmatter (`type`, `title`, `description`, `tags`); existing skill metadata is preserved. The bundle root index carries `okf_version: "0.2"`.
+- Edit originals in place. `python3 scripts/sync_knowledge.py` copies source documents into `docs/knowledge/repository/`, then indexes and validates the complete bundle. Generated copies are ignored by Git; curated bundle documents remain versioned.
+- The Hermes installer removes source metadata from rendered SOUL/AGENTS/STYLE/SKILL instructions and emits the normal Hermes skill metadata.
+- Run `okf validate docs/knowledge/` after editing bundle documents; run `python3 scripts/sync_knowledge.py` after changing any repository Markdown.
 - Validation evidence belongs in `docs/validation/`; do not mix aspirational design with verified capability there.
 - Update `AGENTS.md`, `MEMORY.md`, or `WORKFLOW.md` when behavior changes; stale instruction files are defects.
 

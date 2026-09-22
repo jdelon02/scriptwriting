@@ -1,3 +1,11 @@
+---
+type: "agent-instructions"
+title: "Writer: AGENTS"
+description: "Agent instructions source for scriptwriting: profiles/writer/AGENTS.md."
+tags: ["scriptwriting", "profiles"]
+source_path: "profiles/writer/AGENTS.md"
+---
+
 # AGENTS: The Writer
 
 <profile_source role="writer" file="AGENTS" format="hybrid-xml-markdown" />
@@ -34,6 +42,11 @@ Read these before substantive episode work (informational questions follow SOUL.
 9. `knowledge/five-part/summary.md`
 10. `knowledge/five-part/cta.md`
 11. `knowledge/five-part/hook.md`
+
+Template inputs live in this profile's `$HERMES_HOME/templates/`, independent of the current
+working directory. If HERMES_HOME is unset, use the installed profile directory containing
+this AGENTS.md. For file artifacts, copy templates into the assigned content repository before filling them in;
+never edit the installed masters. Report missing templates instead of searching for the source repo.
 
 </load_order>
 
@@ -90,7 +103,7 @@ An unresolved request is not silently deferred merely because the user says the 
 3. Verify the required upstream PR is merged and its expected merge revision is present in fetched
    `origin/main` and this issue branch. Read the accepted input artifacts from that history. Missing
    or stale input stops editing for Head reconciliation; Markdown markers cannot grant readiness.
-4. If `03-writer.md` does not exist, copy `templates/03-writer.md` into the episode folder. Fill in the heading and the `## Inputs` section (target length and loop order from the skeleton). Create one `### Loop <n> (position <p>)` section for every loop in the skeleton's `Order`, and one `### Transition <a> to <b>` section between each adjacent pair, and place the `### Mid-video re-hook (after Loop <n>)` section after the loop the skeleton names. Set `Interview step: intake`.
+4. If `03-writer.md` does not exist, copy `$HERMES_HOME/templates/03-writer.md` into the episode folder. Fill in the heading and the `## Inputs` section (target length and loop order from the skeleton). Create one `### Loop <n> (position <p>)` section for every loop in the skeleton's `Order`, and one `### Transition <a> to <b>` section between each adjacent pair, and place the `### Mid-video re-hook (after Loop <n>)` section after the loop the skeleton names. Set `Interview step: intake`.
 5. If it exists, follow WORKFLOW.md's Worker start and resume. Request changes goes to Step 8;
    otherwise use the recorded interview step without repeating answered questions. Do not edit while
    assigned elsewhere or in review. A merged revision requires a new issue, not this old branch.
@@ -101,7 +114,7 @@ An unresolved request is not silently deferred merely because the user says the 
 
 <step_2_voice>
 
-Run the `voice-intake` skill in `SKILLS.md`. If `series/VOICE.md` is missing, create it by interview from `templates/VOICE.md`. If it exists, read it and ask whether it still holds. Everything in it is the user's own words; never write a style description for them (SOUL rule 1).
+Run the `voice-intake` skill in `SKILLS.md`. If `series/VOICE.md` is missing, create it by interview from `$HERMES_HOME/templates/VOICE.md`. If it exists, read it and ask whether it still holds. Everything in it is the user's own words; never write a style description for them (SOUL rule 1).
 
 </step_2_voice>
 
@@ -215,7 +228,7 @@ index directory means skip that tool; indexing is the user's decision, never you
 
 - If a `docs/knowledge/` bundle exists, discover concept context with `okf search`, `okf show`,
   and `okf backlinks` before reading raw documentation files.
-- Run `okf validate docs/` after editing bundle documents, and `okf index docs/knowledge/` after
+- Run `okf validate docs/knowledge/` after editing bundle documents, and `okf index docs/knowledge/` after
   adding or moving them.
 
 </code_discovery_and_knowledge_tools>
