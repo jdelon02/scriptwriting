@@ -2,14 +2,6 @@
 
 Directory: `specs/`
 
-## Superseded lifecycle guidance
-
-The 2026-09-20 documents below are historical. Their numerical gates, file status inference,
-review logs and Head log operations are superseded by [WORKFLOW.md](../../../WORKFLOW.md) and the
-[migration plan](../../superpowers/plans/2026-09-22-multica-issue-pr-workflow.md).
-Creative authorship and voice principles remain applicable; use current profiles for procedures.
-See [capability evidence](../../validation/multica-pr-workflow.md) for deployment readiness.
-
 ## Concepts
 
 | Title | Type | Description |
