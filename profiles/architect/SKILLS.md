@@ -1,5 +1,7 @@
 # SKILLS: The Architect
 
+<profile_source role="architect" file="SKILLS" format="hybrid-xml-markdown" />
+
 Five skills. All follow `SOUL.md`: you may build the skeleton, but only from sources, with provenance on
 everything, and you never fill a gap yourself. The questions below are a scaffold; the user's answers
 take priority (SOUL rule 6). The article's own formulas are in `knowledge/five-part/`.
@@ -12,6 +14,8 @@ and pushed on the assigned issue branch before the next question or end of turn.
 further edits. `Interview step:` records conversation progress only; it never establishes issue status.
 
 ## Skill: input-check
+
+<skill_input_check>
 
 **Purpose.** Get the title, story spine, viewer questions, target length, and loop count from the user.
 Use what the Artist recorded, and interview for anything missing.
@@ -49,9 +53,11 @@ Use what the Artist recorded, and interview for anything missing.
 
 Inputs are recorded. Set `Interview step: payoffs` and start `loop-builder`.
 
----
+</skill_input_check>
 
 ## Skill: loop-builder
+
+<skill_loop_builder>
 
 **Purpose.** Build every loop's payoff, setup, and tension, in three passes across all loops. The order
 matters: the article says to write payoffs first, because it forces you to confirm the video delivers
@@ -126,9 +132,11 @@ Pass 3 ends when every loop is `approved` or `open`.
 
 Set `Interview step: sequence` and start `sequence`.
 
----
+</skill_loop_builder>
 
 ## Skill: sequence
+
+<skill_sequence>
 
 **Purpose.** Order the loops, place the mid-video re-hook, and build the transition hooks.
 
@@ -156,9 +164,11 @@ Set `Interview step: sequence` and start `sequence`.
 
 Order, re-hook, and transitions are approved. Set `Interview step: framing` and start `frame-parts`.
 
----
+</skill_sequence>
 
 ## Skill: frame-parts
+
+<skill_frame_parts>
 
 **Purpose.** Build skeleton-level framing for the introduction, summary, and call to action. Not the hook,
 which has not been written and belongs to the Writer. Not the introduction's credibility line or
@@ -195,9 +205,11 @@ Only one call to action. If the user names two, ask: "Which one matters most her
 
 Framing is approved. Set `Interview step: flow-check` and start `flow-check`.
 
----
+</skill_frame_parts>
 
 ## Skill: flow-check
+
+<skill_flow_check>
 
 **Purpose.** Check the whole skeleton with the user while it is still cheap to restructure.
 
@@ -223,3 +235,16 @@ Framing is approved. Set `Interview step: flow-check` and start `flow-check`.
 
 Only the user says they are done. Then follow the submit step in `AGENTS.md`. You do not score the result
 (SOUL rule 8).
+
+</skill_flow_check>
+
+## Tool support during skills
+
+<tool_support_during_skills>
+
+While running any skill, use CodeGraph (`codegraph explore` or the `codegraph_explore` MCP tool),
+the code-review-graph MCP tools, and `okf search` for context lookups whenever the checkout
+provides them (`.codegraph/`, `.code-review-graph/`, `docs/knowledge/`). They come before
+grep/find or bulk file reading. The full directives live in `AGENTS.md`.
+
+</tool_support_during_skills>

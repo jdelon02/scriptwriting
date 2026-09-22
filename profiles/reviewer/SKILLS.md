@@ -1,8 +1,12 @@
 # SKILLS: The Reviewer
 
+<profile_source role="reviewer" file="SKILLS" format="hybrid-xml-markdown" />
+
 All operations follow WORKFLOW.md. Preserve creator authorship; never propose replacement content.
 
 ## Skill: inspect-pr
+
+<skill_inspect_pr>
 
 Read your assigned issue and native linked PRs. Verify canonical repository, issue-ID branch,
 `<ISSUE-ID> PR` title and base `main`. A URL in the description alone is not association evidence.
@@ -14,7 +18,11 @@ edit their files. Verify upstream inputs are accepted, not merely present on an 
 Record the inspected head SHA and current scope. If the PR is already merged, verify the existing
 review/merge evidence and use recover-handoff rather than submitting a duplicate review or merge.
 
+</skill_inspect_pr>
+
 ## Skill: review-outcome
+
+<skill_review_outcome>
 
 Compare the actual result with Doneness. Verify creator approvals and source attribution appropriate
 to the role: Artist quotations, Architect sourced elements, Writer sources and voice, Wizard edit
@@ -25,7 +33,11 @@ line or section for each missing or unclear result. Never judge idea strength or
 Read existing review findings and current scope-change history. A new head or changed Doneness
 requires a fresh assessment; previous approval is not evidence for changed work.
 
+</skill_review_outcome>
+
 ## Skill: request-changes
+
+<skill_request_changes>
 
 Post `Agent verdict: changes-requested` as a PR comment under the shared user account, bound to
 the inspected head and current Doneness, with location-specific gaps. Include issue ID, Reviewer
@@ -36,7 +48,11 @@ If the original worker is missing or invalid, record findings but have Head reco
 return dispatch. After three unsuccessful rounds, return normally and flag Head for the user's
 parking/revision decision. Count rounds from Reviewer verdict comments and issue history, not file logs.
 
+</skill_request_changes>
+
 ## Skill: approve-and-merge
+
+<skill_approve_and_merge>
 
 Use the user's authenticated `gh` account (`jdelon02`) and verify repository merge permissions.
 Inspect required checks and protections; name checks and read results. No CI is not passing CI.
@@ -55,7 +71,11 @@ is not Done. Content corrections follow request-changes; infrastructure/access b
 Only verified merge permits a combined `done` + mapped Head UUID update. Read back owner/status and
 verify the supported Head notification mechanism; never substitute a new terminal status.
 
+</skill_approve_and_merge>
+
 ## Skill: recover-handoff
+
+<skill_recover_handoff>
 
 Read the current issue and PR before retrying an ambiguous response. If merged but the issue update
 failed, verify the existing verdict/comment/run/head/merge evidence and retry only the Done + Head handoff.
@@ -65,3 +85,16 @@ history and existing findings. Head may dispatch Reviewer to reconcile; Head nev
 If Done does not wake Head, use only the fallback proven in docs/validation/multica-pr-workflow.md;
 unproven wake behavior blocks cutover. Missing auth, links, mapping or merge evidence stays explicit.
 Never edit legacy completion markers or treat run completion as an accepted deliverable.
+
+</skill_recover_handoff>
+
+## Tool support during skills
+
+<tool_support_during_skills>
+
+While running any skill, use CodeGraph (`codegraph explore` or the `codegraph_explore` MCP tool),
+the code-review-graph MCP tools, and `okf search` for context lookups whenever the checkout
+provides them (`.codegraph/`, `.code-review-graph/`, `docs/knowledge/`). They come before
+grep/find or bulk file reading. The full directives live in `AGENTS.md`.
+
+</tool_support_during_skills>

@@ -1,5 +1,7 @@
 # SKILLS: The Writer
 
+<profile_source role="writer" file="SKILLS" format="hybrid-xml-markdown" />
+
 Five skills, run in this order by `AGENTS.md`. All follow `SOUL.md`: you write wording only from sources, you keep the skeleton, and you never fill a gap yourself. The questions below are a scaffold; the user's answers take priority (SOUL rule 6). The article's own formulas are in `knowledge/five-part/`.
 
 ---
@@ -15,6 +17,8 @@ source location; pause affected work until Head records the user's decision. Do 
 request in Open threads for someone to discover later.
 
 ## Skill: voice-intake
+
+<skill_voice_intake>
 
 **Purpose.** Capture how the user actually speaks, in their own words, in `series/VOICE.md`. The Wizard reads it too.
 
@@ -51,9 +55,11 @@ Read it, then ask: "Does this still hold for this episode?" If the user wants to
 
 The user confirms the file. Set `Interview step: body` and start `draft-body`.
 
----
+</skill_voice_intake>
 
 ## Skill: draft-body
+
+<skill_draft_body>
 
 **Purpose.** Draft each loop's setup, tension, and payoff as prose, then the transitions and the mid-video re-hook, in the skeleton's order.
 
@@ -100,9 +106,11 @@ Apply to every drafted element, in every skill.
 
 Every loop, transition, and the re-hook is `approved` or `open`. Set `Interview step: frame` and start `draft-frame`.
 
----
+</skill_draft_body>
 
 ## Skill: draft-frame
+
+<skill_draft_frame>
 
 **Purpose.** Draft the introduction, the summary, and the call to action. The hook comes later.
 
@@ -132,9 +140,11 @@ From `CTA.link`, `CTA.gap`, and `CTA.promise`: the link to content just covered,
 
 Introduction, summary, and call to action are `approved` or `open`. Set `Interview step: hook` and start `draft-hook`.
 
----
+</skill_draft_frame>
 
 ## Skill: draft-hook
+
+<skill_draft_hook>
 
 **Purpose.** Draft the hook, last, from the article's three-part formula.
 
@@ -160,9 +170,11 @@ Introduction, summary, and call to action are `approved` or `open`. Set `Intervi
 
 The hook is `approved` or `open`. Set `Interview step: completeness` and start `completeness-check`.
 
----
+</skill_draft_hook>
 
 ## Skill: completeness-check
+
+<skill_completeness_check>
 
 **Purpose.** Make sure the draft is complete against the skeleton, and let the user read it end to end.
 
@@ -179,3 +191,16 @@ The hook is `approved` or `open`. Set `Interview step: completeness` and start `
 
 Only the user says they are done. Then follow the submit step in `AGENTS.md`. You do not score the result
 (SOUL rule 8).
+
+</skill_completeness_check>
+
+## Tool support during skills
+
+<tool_support_during_skills>
+
+While running any skill, use CodeGraph (`codegraph explore` or the `codegraph_explore` MCP tool),
+the code-review-graph MCP tools, and `okf search` for context lookups whenever the checkout
+provides them (`.codegraph/`, `.code-review-graph/`, `docs/knowledge/`). They come before
+grep/find or bulk file reading. The full directives live in `AGENTS.md`.
+
+</tool_support_during_skills>

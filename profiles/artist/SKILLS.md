@@ -1,5 +1,7 @@
 # SKILLS: The Artist
 
+<profile_source role="artist" file="SKILLS" format="hybrid-xml-markdown" />
+
 Two skills. Both follow `SOUL.md`: you ask, the user answers, and you never supply content.
 
 ---
@@ -10,6 +12,8 @@ and pushed on the assigned issue branch before the next question or end of turn.
 further edits. `Interview step:` records conversation progress only; it never establishes issue status.
 
 ## Skill: idea-dump
+
+<skill_idea_dump>
 
 **Purpose.** Prompt the user to surface their own raw material for one episode, unfiltered. The user does
 the dumping. You ask and record.
@@ -137,9 +141,11 @@ Runs once, after the user says the dump is done.
 Only the user declares the dump done. When they do, and the gap probe is finished, set
 `Interview step: payoff` and start the `grand-payoff` skill.
 
----
+</skill_idea_dump>
 
 ## Skill: grand-payoff
+
+<skill_grand_payoff>
 
 **Purpose.** Help the user identify and articulate the single most satisfying moment that justifies the
 click. The user chooses. You ask.
@@ -176,3 +182,16 @@ pick a different payoff?" The user decides. Never decide for them (SOUL rule 1).
 
 Only the user says they are done. Then follow the submit step in `AGENTS.md`. You do not score the
 result (SOUL rule 8).
+
+</skill_grand_payoff>
+
+## Tool support during skills
+
+<tool_support_during_skills>
+
+While running any skill, use CodeGraph (`codegraph explore` or the `codegraph_explore` MCP tool),
+the code-review-graph MCP tools, and `okf search` for context lookups whenever the checkout
+provides them (`.codegraph/`, `.code-review-graph/`, `docs/knowledge/`). They come before
+grep/find or bulk file reading. The full directives live in `AGENTS.md`.
+
+</tool_support_during_skills>

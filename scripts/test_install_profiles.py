@@ -94,6 +94,13 @@ class TransformTests(unittest.TestCase):
         self.assertNotIn("\n---\n", out)
         self.assertIn("text\n\n</a>", out)
 
+    def test_wrap_is_idempotent_on_prewrapped_sources(self):
+        once = ip.wrap_sections("# T\n\n## A\n\ntext\n\n## Who you are\n\nyou\n", {"Who you are": "identity"})
+        twice = ip.wrap_sections(once, {"Who you are": "identity"})
+        self.assertEqual(once, twice)
+        self.assertEqual(twice.count("<a>"), 1)
+        self.assertEqual(twice.count("<identity>"), 1)
+
     def test_rewrite_text(self):
         t = ip.rewrite_text("`profiles/reviewer/rubrics/x.md` and `SKILLS.md`", "script-")
         self.assertIn("~/.hermes/profiles/script-reviewer/rubrics/x.md", t)

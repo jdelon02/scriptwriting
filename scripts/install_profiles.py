@@ -87,7 +87,11 @@ def tag_for(heading, special=None):
 
 
 def wrap_sections(text, special=None):
-    """Wrap the body of each level-2 section in an XML-style tag, as the existing Hermes profiles do."""
+    """Wrap the body of each level-2 section in an XML-style tag, as the existing Hermes profiles do.
+
+    Idempotent: a section whose body is already wrapped in exactly its own tag (hybrid xml+markdown
+    sources) is kept as-is instead of being wrapped a second time.
+    """
     pre, secs = split_sections(text)
     out = list(pre)
     while out and out[-1].strip() == "":
@@ -99,6 +103,9 @@ def wrap_sections(text, special=None):
         while body and body[-1].strip() in ("", "---"):
             body.pop()
         tag = tag_for(heading, special)
+        if body and body[0].strip() == "<%s>" % tag and body[-1].strip() == "</%s>" % tag:
+            out += ["", heading, ""] + body
+            continue
         out += ["", heading, "", "<%s>" % tag, ""] + body + ["", "</%s>" % tag]
     return "\n".join(out) + "\n"
 

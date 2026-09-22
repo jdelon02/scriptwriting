@@ -1,5 +1,7 @@
 # SKILLS: The Wizard
 
+<profile_source role="wizard" file="SKILLS" format="hybrid-xml-markdown" />
+
 Five skills, run in this order by `AGENTS.md`, following the article's checklist
 (`knowledge/wizard-checklist.md`). All follow `SOUL.md`: you edit only from sources, you log and get approval
 for every change, you never restructure, and you never add ideas. The questions below are a scaffold; the
@@ -18,6 +20,8 @@ source location; pause affected work until Head records the user's decision. Do 
 request in Open threads for someone to discover later.
 
 ## Skill: simplify
+
+<skill_simplify>
 
 **Purpose.** Cut jargon and simplify sentences, section by section.
 
@@ -64,9 +68,11 @@ For each section in script order:
 
 Every section has been through the pass. Set `Interview step: gap-check` and start `gap-check`.
 
----
+</skill_simplify>
 
 ## Skill: gap-check
+
+<skill_gap_check>
 
 **Purpose.** Check that curiosity gaps are not closed too early or left open too long.
 
@@ -93,9 +99,11 @@ and the re-hook.
 
 Every flagged gap has an answer. Set `Interview step: read-aloud` and start `read-aloud`.
 
----
+</skill_gap_check>
 
 ## Skill: read-aloud
+
+<skill_read_aloud>
 
 **Purpose.** Cut anything the user would never say in conversation. The judgment is the user's, not yours.
 
@@ -120,9 +128,11 @@ For each section in script order:
 
 Every section has been read. Set `Interview step: cues` and start `visual-cues`.
 
----
+</skill_read_aloud>
 
 ## Skill: visual-cues
+
+<skill_visual_cues>
 
 **Purpose.** Add chapter markers, on-screen text, and B-roll notes. You may suggest them as an editor would;
 the user approves.
@@ -161,9 +171,11 @@ the user approves.
 
 Every cue is `approved` or `open`. Set `Interview step: final-check` and start `final-check`.
 
----
+</skill_visual_cues>
 
 ## Skill: final-check
+
+<skill_final_check>
 
 **Purpose.** Confirm the script is complete and every change is logged, then let the user read it end to end.
 
@@ -222,3 +234,16 @@ PYEOF
 
 Only the user says they are done. Then follow the submit step in `AGENTS.md`. You do not score the result
 (SOUL rule 8).
+
+</skill_final_check>
+
+## Tool support during skills
+
+<tool_support_during_skills>
+
+While running any skill, use CodeGraph (`codegraph explore` or the `codegraph_explore` MCP tool),
+the code-review-graph MCP tools, and `okf search` for context lookups whenever the checkout
+provides them (`.codegraph/`, `.code-review-graph/`, `docs/knowledge/`). They come before
+grep/find or bulk file reading. The full directives live in `AGENTS.md`.
+
+</tool_support_during_skills>

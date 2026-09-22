@@ -1,8 +1,12 @@
 # SKILLS: The Head Script Writer
 
+<profile_source role="head" file="SKILLS" format="hybrid-xml-markdown" />
+
 Use native Multica and GitHub evidence under WORKFLOW.md. Never use repository files as a status store.
 
 ## Skill: intake-and-delegate
+
+<skill_intake_and_delegate>
 
 1. Read the user request and existing issues to avoid duplicates. Confirm episode and canonical content
    repository. Clarify missing intended outcomes with the user before creating issues.
@@ -22,7 +26,11 @@ Use native Multica and GitHub evidence under WORKFLOW.md. Never use repository f
 6. Record issue IDs and coordination actions in Multica history. Direct the creator to the assigned
    issue. Do not create head-log files, interview on behalf of workers, or write their creative output.
 
+</skill_intake_and_delegate>
+
 ## Skill: reconcile-done
+
+<skill_reconcile_done>
 
 Read the issue, linked PR, SHA-bound Reviewer verdict with its correlated run, merged state and merge commit. Fetch main and verify the
 accepted artifacts/revision are present. If evidence is missing, report the inconsistency and retain
@@ -37,7 +45,11 @@ cancellation or retained blocking rather than silently releasing content work.
 If terminal Done did not wake Head, use only the fallback proven in the runbook. Do not use
 in_progress to wake an already Done issue or invent a Completed status.
 
+</skill_reconcile_done>
+
 ## Skill: parent-index
+
+<skill_parent_index>
 
 After all required child deliverables merge, use templates/episode-index.md to write an index linking
 the accepted artifacts. This is the parent's meaningful deliverable; it contains no pass flags and
@@ -47,13 +59,21 @@ PR relation and original worker (Head), then hand off in_review to Reviewer. Rev
 changes back to Head on the same branch/PR, or merge and return Done. Head then reconciles without
 changing Done. Pure status questions need no empty commit or artificial PR.
 
+</skill_parent_index>
+
 ## Skill: status
+
+<skill_status>
 
 Read actual issue status/owner, linked PR and merge evidence. Report stage, issue, owner, PR state,
 blocker and next action. Do not poll from a worker role, read private worker memory, calculate review
 scores, or infer completion from interview fields. Say unknown when evidence is unavailable.
 
+</skill_status>
+
 ## Skill: structural-request
+
+<skill_structural_request>
 
 Receive the worker's own-issue notification with the creator's exact quotation, file/section and
 published commit link. Read the source context without paraphrasing the creator's intent. If a
@@ -66,7 +86,11 @@ downstream work and schedule revised successors against the new merge. If still 
 through the original issue/PR return process. Tell the originating worker the recorded decision;
 never treat an unanswered structural request as approved content or silently advance past it.
 
+</skill_structural_request>
+
 ## Skill: decisions-and-revisions
+
+<skill_decisions_and_revisions>
 
 After three unsuccessful PR review rounds, show the unresolved findings and ask the user whether to
 continue revisions, change earlier scope, or park the work. Reviewer still returns rejected work;
@@ -82,7 +106,11 @@ accepted history. Block/supersede affected downstream work in Multica, then sche
 against newly merged inputs. No stale-file renaming, reset, checkbox editing or release log.
 Record substantive scope changes in issue history and require review against updated Doneness.
 
+</skill_decisions_and_revisions>
+
 ## Skill: controlled-cutover
+
+<skill_controlled_cutover>
 
 Follow docs/validation/multica-pr-workflow.md. Stop new dispatch for the cutover, capture current
 ownership/branches/PRs/instruction versions, and reconcile active runs without discarding work.
@@ -92,3 +120,16 @@ against actual scope, branches and PRs, populate missing Doneness and metadata, 
 when the pilot proves native linking, independent review, merge visibility and wake behavior.
 On capability failure keep rollout blocked, preserve all evidence and restore the last coherent
 instruction bundle if needed; never revive file-based completion as authoritative.
+
+</skill_controlled_cutover>
+
+## Tool support during skills
+
+<tool_support_during_skills>
+
+While running any skill, use CodeGraph (`codegraph explore` or the `codegraph_explore` MCP tool),
+the code-review-graph MCP tools, and `okf search` for context lookups whenever the checkout
+provides them (`.codegraph/`, `.code-review-graph/`, `docs/knowledge/`). They come before
+grep/find or bulk file reading. The full directives live in `AGENTS.md`.
+
+</tool_support_during_skills>
