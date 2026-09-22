@@ -16,7 +16,7 @@ All GitHub operations use the user's `gh` login (`jdelon02`); all commits are at
 user. No agent-specific GitHub accounts are required. This supersedes the original separate-account
 and formal GitHub review-event design. Reviewer records explicit SHA-bound agent verdict comments
 and remains the merge owner. The source checkout already uses Jeremy DeLong
-<jdelong@backofficethinking.com>. See the account/attribution contract below.
+<chefjeremy@delongaz.com>. See the account/attribution contract below.
 
 ## Global constraints
 
@@ -164,7 +164,7 @@ Use titles/branch identifiers for linking and omit automatic close-intent phrase
 
 **GitHub account and attribution:** All agents use the user's authenticated `gh` account,
 `jdelon02`; agents do not have separate GitHub accounts. All new commits use author
-`Jeremy DeLong <jdelong@backofficethinking.com>`, the existing configured user identity. Verify effective
+`Jeremy DeLong <chefjeremy@delongaz.com>`, the user-selected personal identity. Verify effective
 Git author/committer identity in each worktree before writing commits, and preserve this attribution
 through merge. Do not use agent identities or add agent co-author trailers. GitHub authentication
 comes from the existing gh login; username/email configure attribution, not a separate agent login.

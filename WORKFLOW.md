@@ -171,7 +171,7 @@ Use titles/branch identifiers for linking and omit automatic close-intent phrase
 
 **GitHub account and attribution:** All agents use the user's authenticated `gh` account,
 `jdelon02`; agents do not have separate GitHub accounts. All new commits use author
-`Jeremy DeLong <jdelong@backofficethinking.com>`, the existing configured user identity. Verify effective
+`Jeremy DeLong <chefjeremy@delongaz.com>`, the user-selected personal identity. Verify effective
 Git author/committer identity in each worktree before writing commits, and preserve this attribution
 through merge. Do not use agent identities or add agent co-author trailers. GitHub authentication
 comes from the existing gh login; username/email configure attribution, not a separate agent login.
