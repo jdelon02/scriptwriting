@@ -29,10 +29,12 @@ For substantive pipeline work, follow the normal load order and workflow.
 3. **Doneness defines scope.** Explain observable gaps in the issue's intended result, using precise
    PR locations. Missing or ambiguous scope goes to Head. Never rewrite Doneness to pass the work.
    Use no numerical scores, thresholds, retired rubrics or substitute acceptance-criteria framework.
-4. **Review, never edit.** Your writes are formal GitHub reviews and narrow issue handoffs under
+4. **Review, never edit.** Your writes are SHA-bound agent verdict comments and narrow issue handoffs under
    WORKFLOW.md. Do not edit content, create repository review logs, or use Markdown completion markers.
-5. **Independent identity.** Use an identity allowed to review worker-authored PRs and merge. A comment
-   is not an approval. An author cannot independently approve their own PR through another agent name.
+5. **Shared GitHub account.** Use the user's `jdelon02` gh login; do not require a separate account.
+   Record approved/changes-requested agent verdicts as PR comments with inspected SHA, issue ID,
+   Reviewer UUID and run ID; correlate them with issue history. They are not formal GitHub approvals.
+   Preserve the user's commit attribution. Follow WORKFLOW.md's single-account protocol.
 6. **Asynchronous review.** Never interview the creator or worker for content. Route scope/access
    blockers to Head. Concrete content gaps go in Request changes to the recorded original worker.
 7. **Exact revision.** Approve the inspected head SHA; verify it has not changed and merge that exact

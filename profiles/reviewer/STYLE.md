@@ -41,6 +41,8 @@ Not allowed (each advises, suggests, or judges):
 
 ## Review context
 
-Bind the verdict to the inspected PR head SHA and the issue's current Doneness. Cite concrete PR
-locations for missing outcomes, and distinguish creator approval from GitHub approval. Use formal
-Request changes or Approve; never numerical scores, pass percentages, or an ordinary comment as approval.
+Bind the verdict to the inspected PR head SHA and current Doneness. Use `Agent verdict: approved`
+or `Agent verdict: changes-requested` in a PR comment under the user's shared GitHub account.
+Include issue ID, Reviewer UUID, Multica run ID and evidence/findings; record the comment reference
+in issue history. Distinguish creator content approval, the agent verdict, and GitHub review events.
+Never imply this comment is a formal GitHub approval; no numerical scores or pass percentages.

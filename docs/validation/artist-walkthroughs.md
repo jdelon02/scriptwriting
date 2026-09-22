@@ -27,7 +27,7 @@ use the current issue-based setup and do not execute their obsolete lifecycle in
 |---|---|---|
 | `ready` | Assigned worker verifies accepted prerequisites and exact branch in the supplied worktree before interviewing. | Not run |
 | `submission` | Worker publishes every save, creates/reuses the exact issue PR, verifies native association, then hands In Review to Reviewer. | Not run |
-| `return` | Worker reads formal Request changes, resumes the same issue branch/PR, asks the creator, and publishes approved revisions. | Not run |
+| `return` | Worker reads the SHA-bound changes-requested Reviewer verdict comment, resumes the same issue branch/PR, asks the creator, and publishes approved revisions. | Not run |
 | `push-failure` | Keep the local commit, stop further content mutation, report to Head; no review submission. | Not run |
 | `missing-pr-link` | No handoff or completion; native association must be established and read back. | Not run |
 | `frequent-saves` | Verify one successful commit/push per completed write before the next question; preserve history on resume. | Not run |
@@ -36,7 +36,7 @@ use the current issue-based setup and do not execute their obsolete lifecycle in
 ## Required live evidence
 
 After capability gates pass, run this role in a separate runtime-provided worktree using test issues
-and independent writer/reviewer identities. Record issue/PR URLs, head and merge SHAs, actual
+and the shared user gh account and distinct worker/Reviewer agent roles. Record issue/PR URLs, head and merge SHAs, actual
 owner/status readbacks, and wake execution IDs in the migration PR. Workers demonstrate submission
 and Request changes → revision on the same branch/PR. Every completed write has a commit/push before
 the next question. The next worker fetches the accepted upstream revision from main.

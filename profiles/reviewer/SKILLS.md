@@ -27,22 +27,29 @@ requires a fresh assessment; previous approval is not evidence for changed work.
 
 ## Skill: request-changes
 
-Submit a formal GitHub Request changes bound to the inspected head, with location-specific gaps
-against Doneness. Keep the PR open. Combine issue `in_progress` with the validated
-`original_assignee_id`, then read back both. Reuse existing formal evidence if retrying the same
+Post `Agent verdict: changes-requested` as a PR comment under the shared user account, bound to
+the inspected head and current Doneness, with location-specific gaps. Include issue ID, Reviewer
+UUID and run ID; persist its comment URL/ID and SHA in issue history before the handoff. Keep the PR open. Combine issue `in_progress` with the validated
+`original_assignee_id`, then read back both. Reuse existing SHA-bound verdict and correlated Reviewer run evidence if retrying the same
 head and verdict. Do not close the issue or PR, create a new branch, or choose a new implementer.
 If the original worker is missing or invalid, record findings but have Head reconcile identity before
 return dispatch. After three unsuccessful rounds, return normally and flag Head for the user's
-parking/revision decision. Count rounds from formal PR reviews and issue history, not file logs.
+parking/revision decision. Count rounds from Reviewer verdict comments and issue history, not file logs.
 
 ## Skill: approve-and-merge
 
-Confirm the authenticated reviewer can approve this author's PR and merge under repository rules.
-Inspect required review/check requirements; name required checks and read their results. No CI is
-not passing CI. Submit formal approval bound to the inspected SHA; an ordinary comment is insufficient.
+Use the user's authenticated `gh` account (`jdelon02`) and verify repository merge permissions.
+Inspect required checks and protections; name checks and read results. No CI is not passing CI.
+Post `Agent verdict: approved` as a PR comment containing inspected SHA, current Doneness reference,
+issue ID, mapped Reviewer UUID, run ID and result evidence. Record comment URL/ID and SHA in issue
+history. Verify this is the latest verdict for the current revision and scope, and correlate it with
+an actual Reviewer-assigned run. Do not submit formal self-approval or request a second GitHub account.
+A repository rule requiring formal GitHub approval is a conflict to report, not silently bypass.
 Immediately before merge, re-read the head and verify it is still the inspected SHA. Use a merge API
 or CLI with an expected-head-SHA guard. If the head changed, stop and review the new revision.
-Merge into main under repository rules, then read back merged state and merge commit. Confirm the
+Preserve user attribution on the merge commit. With gh, use `--author-email` for the configured
+user email together with `--match-head-commit` for the inspected SHA; do not use `--admin` to bypass
+rules. Merge into main under repository rules, then read back merged state and merge commit. Confirm the
 merge corresponds to the reviewed revision. A failed check, conflict, stale approval or denied merge
 is not Done. Content corrections follow request-changes; infrastructure/access blockers go to Head.
 Only verified merge permits a combined `done` + mapped Head UUID update. Read back owner/status and
@@ -51,7 +58,7 @@ verify the supported Head notification mechanism; never substitute a new termina
 ## Skill: recover-handoff
 
 Read the current issue and PR before retrying an ambiguous response. If merged but the issue update
-failed, verify the existing review/head/merge evidence and retry only the Done + Head handoff.
+failed, verify the existing verdict/comment/run/head/merge evidence and retry only the Done + Head handoff.
 If already Done and owned by Head, do not repeat the transition or dispatch; check reconciliation evidence.
 For a manual in_review → in_progress return, restore the recorded original worker after checking
 history and existing findings. Head may dispatch Reviewer to reconcile; Head never supplies the verdict.

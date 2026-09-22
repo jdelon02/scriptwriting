@@ -108,6 +108,20 @@ class FixtureTests(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertEqual(list(Path(temp).iterdir()), [])
 
+    def test_single_account_reviews_are_agent_comments_not_github_approvals(self):
+        from scripts.make_head_fixtures import build_scenario
+        for scenario in ("success", "return", "new-head", "merge-handoff-retry"):
+            data = build_scenario(scenario, 2)
+            for pr in data["pull_requests"]:
+                self.assertEqual(pr["author"], pr["reviewer"])
+                self.assertEqual(pr.get("review_kind"), "agent-comment")
+                self.assertIsNone(pr.get("github_review_state"))
+                if pr["review"]:
+                    self.assertTrue(pr.get("review_comment_id"))
+                    self.assertTrue(pr.get("reviewer_run_id"))
+                    self.assertEqual(pr.get("reviewer_agent_id"), "test-reviewer")
+                    self.assertIn(pr["review"], ("approved", "changes-requested"))
+
 
 if __name__ == "__main__":
     unittest.main()

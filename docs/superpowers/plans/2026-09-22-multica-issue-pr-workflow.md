@@ -10,6 +10,14 @@
 
 **Spec:** The target contract in this document implements the user's requirements of 2026-09-22. Confirmed decisions: Reviewer approves AND merges, marks Done, and assigns Head; Head reconciles dependencies while leaving the issue Done; Done and Cancelled are the only terminal issue statuses; issue branches merge directly into `main` through PRs. No `develop` or release branch layer. Remove scoring and the separate acceptance-criteria framework; require a plain-language Doneness section when Head creates each issue.
 
+## User correction: shared GitHub account
+
+All GitHub operations use the user's `gh` login (`jdelon02`); all commits are attributed to the
+user. No agent-specific GitHub accounts are required. This supersedes the original separate-account
+and formal GitHub review-event design. Reviewer records explicit SHA-bound agent verdict comments
+and remains the merge owner. The source checkout already uses Jeremy DeLong
+<jdelong@backofficethinking.com>. See the account/attribution contract below.
+
 ## Global constraints
 
 - Users assign new issues only to **Head Script Writer**. The Head delegates subsequent work.
@@ -59,8 +67,8 @@ The installed CLI supports combined `issue update --status ... --assignee-id ...
 | Backlog → Todo | Head | Scope ready; prerequisite PRs merged; original worker recorded; delegate | Stage worker |
 | Todo → In Progress | Head dispatch / worker start acknowledgement | Worker verifies assignment, prepares issue branch in supplied worktree before editing | Stage worker |
 | In Progress → In Review | Current worker | All changes committed and pushed; PR created or updated, correct title/base/head, linked to issue | Reviewer |
-| In Review → In Progress | Reviewer | Submit Request changes on the PR; retain open PR; retrieve original worker from issue metadata | Original worker |
-| In Review → Done | Reviewer | Approve current PR head; merge successfully into `main`; verify merge evidence | Head |
+| In Review → In Progress | Reviewer | Post changes-requested agent verdict on the PR; retain open PR; retrieve original worker from issue metadata | Original worker |
+| In Review → Done | Reviewer | Record approved agent verdict for current PR head; merge successfully into `main`; verify merge evidence | Head |
 | Done → Done (no status change) | Head | Confirm merge; reconcile parent/dependencies/blockers; release eligible next work | Head |
 | Open issue → Cancelled | Head | Record the cancellation decision; reconcile affected dependencies and any open PR; cancellation is not successful delivery | Head |
 
@@ -111,7 +119,7 @@ Workers use Doneness to understand their task and reference it in the PR. Review
 
 For existing issues, Head fills in Doneness from the actual request and current scope before resuming the migrated workflow. Editing Doneness never itself changes status, proves completion, or unblocks another issue.
 
-Retain escalation after three unsuccessful review rounds, recorded in PR reviews/issue history. Reviewer still returns rejected work as required. Head then handles the user decision and can park the issue using Multica's blocker mechanism. No approval override and no repository release-log entry.
+Retain escalation after three unsuccessful review rounds, recorded in Reviewer verdict comments/issue history. Reviewer still returns rejected work as required. Head then handles the user decision and can park the issue using Multica's blocker mechanism. No approval override and no repository release-log entry.
 
 ### Branch and worktree protocol
 
@@ -152,9 +160,30 @@ Use titles/branch identifiers for linking and omit automatic close-intent phrase
 
 **Worker:** Verify user-declared stage readiness; finish handoff content; commit and push; find an existing open PR for the issue branch before creating one; enforce `<ISSUE-ID> PR`, base `main`, expected head and scope. Put summary, provenance, a reference to the issue's Doneness and evidence of the result, and relevant validation in the PR. Do not create a separate acceptance-criteria list. Verify linked PR association and original worker before assigning Reviewer.
 
-**Reviewer:** Fetch the linked PR from its actual repository and inspect its current head SHA, full affected artifacts and prerequisites. Do not judge from stale local files, a worker's completion claim, or only a diff that omits required context. Compare the result with the issue's Doneness and respect source attribution and creator approval; do not calculate a score or apply the retired stage rubrics. Explain any missing outcome with a concrete PR location. Use formal Request changes for rejection; do not close the PR. On approval, submit an approval bound to the inspected SHA and merge that exact revision under repository rules. Verify merged state and merge commit before moving to Done and handing back to Head.
+**Reviewer:** Fetch the linked PR from its actual repository and inspect its current head SHA, full affected artifacts and prerequisites. Do not judge from stale local files, a worker's completion claim, or only a diff that omits required context. Compare the result with the issue's Doneness and respect source attribution and creator approval; do not calculate a score or apply the retired stage rubrics. Explain any missing outcome with a concrete PR location. For rejection, post the SHA-bound changes-requested agent verdict described below and keep the PR open. For acceptance, post the SHA-bound approved agent verdict and merge that exact revision under repository rules. Verify merged state and merge commit before moving to Done and handing back to Head.
 
-**Identity requirement:** Reviewer must have a GitHub identity permitted to review worker-authored PRs and merge them. Distinct Multica agents using the same GitHub author identity cannot provide an independent approval. Validate before the pilot. Do not use an ordinary comment as a substitute for required approval.
+**GitHub account and attribution:** All agents use the user's authenticated `gh` account,
+`jdelon02`; agents do not have separate GitHub accounts. All new commits use author
+`Jeremy DeLong <jdelong@backofficethinking.com>`, the existing configured user identity. Verify effective
+Git author/committer identity in each worktree before writing commits, and preserve this attribution
+through merge. Do not use agent identities or add agent co-author trailers. GitHub authentication
+comes from the existing gh login; username/email configure attribution, not a separate agent login.
+
+**Agent review under one account:** Reviewer is a distinct Multica role, not a separate GitHub user.
+Record both verdicts as PR comments under `jdelon02`: `Agent verdict: changes-requested` or
+`Agent verdict: approved`. Include the issue ID, mapped Reviewer UUID, executing Multica run ID,
+inspected head SHA, current Doneness/scope reference, and concrete findings or outcome evidence.
+Record the comment URL/ID, run ID and inspected SHA in issue history before handoff. On recovery,
+correlate that comment with the actual Reviewer-assigned run and issue history; the shared GitHub
+username or an arbitrary worker comment alone does not establish a Reviewer decision.
+
+These are agent verdicts, not GitHub APPROVED/CHANGES_REQUESTED review events. Do not attempt
+self-approval with `gh pr review --approve` or request another account. Before merging, require the
+latest Reviewer verdict for the current SHA and scope to be approved, enforce the expected-head-SHA
+merge guard, and obey repository protections/checks. If a future repository rule requires formal
+GitHub approvals, stop and report that incompatible rule to the user; never bypass or change it
+silently. New commits or scope changes invalidate the prior agent verdict. Reviewer still exclusively
+performs the merge and verified Done handoff; Head cannot substitute its own verdict.
 
 **Merge failures:** A conflict, failed required check, outdated approval, changed PR head, or denied merge is not Done. Content corrections return through Reviewer to the original worker; infrastructure/access blockers go to Head. Head cannot override a rejected PR or merge on Reviewer's behalf under the selected design.
 
@@ -198,7 +227,7 @@ Only one active content writer per issue is permitted. Metadata is not an atomic
 
 - [x] Confirm use of the built-in `done` and `cancelled` keys; no additional terminal status is needed.
 - [ ] Verify project repository/default branch, actual supplied worktree, branch checkout/resumption, and runtime cleanup after a pushed commit.
-- [ ] Verify GitHub writer/reviewer identities and repository approval/merge requirements. Required checks must be named; absence of CI is not a passing CI run.
+- [ ] Verify the shared `jdelon02` GitHub account, user commit attribution and repository merge requirements; use agent verdict comments, not self-approval. Required checks must be named; absence of CI is not a passing CI run.
 - [ ] Verify native PR association and how its URL is exposed. Establish an actual link and read it back, not just an issue comment.
 - [ ] Verify combined status+assignee updates and reviewer/head wake behavior, including terminal Done and a manual return transition.
 - [ ] Verify staged sibling notifications for Done and Cancelled, and that cancelled predecessors do not silently release dependent content work. Record supported dependency operations rather than inventing `link`/`unblock` commands absent from the installed CLI.
@@ -284,11 +313,11 @@ Only one active content writer per issue is permitted. Metadata is not an atomic
 
 Checked source tasks indicate instructions/templates/fixtures were implemented, **not** that an
 agent or live deployment executed the described behavior. Task 1 used its documented blocker-report
-alternative: the GitHub API connection is missing; independent Reviewer identity, native test PR
-association, worktree cleanup and wake behavior remain unproven. No live issue/profile changed.
+alternative: the initial GitHub API connection was missing. User login subsequently restored gh access; the user
+confirmed one shared GitHub account. Native test PR association, worktree cleanup and wake behavior remain unproven. No live issue/profile changed.
 
 - Source baseline: `486c402`; prepared branch: `multica-pr-workflow`.
-- Installer/context and fixture safety tests: 46 passed after review fixes; 31 synthetic scenarios generated and parsed.
+- Installer/context and fixture safety tests: 47 passed after review fixes and the single-account correction; 31 synthetic scenarios generated and parsed.
 - All six profile instruction bundles rendered successfully in scratch; live memory/config untouched.
 - Independent review completed. Fixture/installer regressions were observed failing before fixes and then passing; structural-request routing was manually traced and given a new walkthrough. Expected answers are isolated from agent observations.
 - Tasks 2–4: source implementation reviewed; the identified structural-routing and fixture consistency gaps were corrected.
@@ -302,13 +331,13 @@ Implementation decisions: use a local preparation branch in the existing source 
 runtime checkout); treat the user's implementation request as approval of the proposed parent index;
 keep installed/live copies unchanged until coherent cutover; preserve historical walkthroughs; prepare
 one local source commit because no authenticated issue/PR publication path is available. These do
-not relax the deployed workers' exact issue branch, per-write publishing or independent review rules.
+not relax the deployed workers' exact issue branch, per-write publishing or independent agent review rules under the shared GitHub account.
 
 ## Planning verification and unresolved deployment checks
 
 This plan was checked against all nine numbered requirements (the request repeats number 4), the confirmed merge owner, and the selected branch model. No live issue, assignment, PR, branch, installed profile or active workflow was changed during planning.
 
-Implementation is conditional on resolving: PR association behavior, GitHub reviewer identity, exact branch behavior in GitHub-repository worktrees, and reliable wake/dispatch behavior. These are explicit capability checks in Task 1, not assumed supported APIs.
+Implementation is conditional on resolving: PR association behavior, same-account Reviewer verdict evidence, exact branch behavior in GitHub-repository worktrees, and reliable wake/dispatch behavior. These are explicit capability checks in Task 1, not assumed supported APIs.
 
 Scoring and the separate acceptance-criteria framework are removed from this proposed workflow; Doneness in the issue description defines the intended result. At planning time, the remaining design proposal was a meaningful episode index PR for the Head-owned parent; the subsequent implementation request was treated as approval of that convention. The original plan was complete as a reviewable draft. See Implementation evidence above for the subsequent source work; it has not been deployed.
 

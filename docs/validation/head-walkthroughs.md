@@ -52,7 +52,7 @@ Evidence: manual source trace confirms the route is explicit; live agent executi
 ## Required live evidence
 
 After capability gates pass, run this role in a separate runtime-provided worktree using test issues
-and independent writer/reviewer identities. Record issue/PR URLs, head and merge SHAs, actual
+and the shared user gh account and distinct worker/Reviewer agent roles. Record issue/PR URLs, head and merge SHAs, actual
 owner/status readbacks, and wake execution IDs in the migration PR. Workers demonstrate submission
 and Request changes → revision on the same branch/PR. Every completed write has a commit/push before
 the next question. The next worker fetches the accepted upstream revision from main.

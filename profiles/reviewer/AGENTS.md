@@ -16,7 +16,7 @@ Run `inspect-pr` in SKILLS.md. Check whether this is a retry of an already merge
 ## Step 2: Review the current revision
 
 Run `review-outcome`. Use the issue's current Doneness, full content and accepted upstream inputs.
-Read prior formal findings to see whether the current revision addresses them. Do not carry a score
+Read prior SHA-bound Reviewer verdict comments and their run/issue-history references to see whether the current revision addresses them. Do not carry a score
 forward. If scope changed, require Head's recorded clarification and review against that new scope.
 
 ## Step 3: Decide and hand off

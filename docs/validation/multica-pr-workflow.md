@@ -15,11 +15,11 @@ this implementation. A completed installer or fixture test is not a successful o
 | Check | Actual observation | Disposition |
 |---|---|---|
 | Terminal statuses | Public Multica issue docs specify built-in `done` and `cancelled` as terminal; installed CLI accepts status keys as strings. Existing PERS-15 readback is `done`. No production probe used. | Contract confirmed; no new status needed. |
-| Project resource | `multica project resource list cd7092b1-5ccd-4444-9334-6346c91f10bf --output json` returned GitHub repository `https://github.com/jdelon02/delongpa-channel`, resource `d600497e-7c05-4827-9ce3-ddf154e78528`. | Repository mapping verified; default branch not verified remotely. |
+| Project resource | `multica project resource list cd7092b1-5ccd-4444-9334-6346c91f10bf --output json` returned GitHub repository `https://github.com/jdelon02/delongpa-channel`, resource `d600497e-7c05-4827-9ce3-ddf154e78528`. | Repository mapping verified; subsequent gh recheck confirms main. |
 | Agent directory | Readback matches all six UUIDs in WORKFLOW.md. All six reported idle and max_concurrent_tasks=6. | Mapping verified; idle is a snapshot, not a concurrency lock or cutover guarantee. |
-| GitHub authentication | `composio execute GITHUB_GET_THE_AUTHENTICATED_USER -d '{}'` returned `No active connection found for toolkit "github"`. `gh auth status` reported no logged-in hosts. | BLOCKED: connect a GitHub account for API operations. This does not establish whether remote agent runtimes have their own credentials. |
-| Independent Reviewer identity | No eligible reviewer identity/permissions established. | BLOCKED: verify writer and reviewer logins differ, and Reviewer can review/merge under repo rules. |
-| Default branch, protections, checks | Repository rules and check names could not be read without authenticated access. | NOT VERIFIED; absence of observed checks is not a passing CI run. |
+| GitHub authentication | `gh auth status` after user login confirms jdelon02 via keyring outside the sandbox; repository API calls succeed. Composio remains unconnected. | RESOLVED: use the user-selected gh connection. No agent-specific accounts. |
+| Shared GitHub account | User explicitly requires all agents to use their account and all commits to be attributed to them. Local author is Jeremy DeLong <jdelong@backofficethinking.com>. | Separate-account requirement removed. Reviewer records SHA-bound agent verdict comments; correlate its run in Multica before merge. |
+| Default branch, protections, checks | Both repos use main, with protected=false and no active rulesets. Channel has zero Actions workflows. | No configured formal-review gate observed; no CI run claimed. Recheck actual PR requirements before merge. |
 | Native PR association | `multica issue pull-requests PERS-15 --output json` returned `{"pull_requests": []}`. CLI provides readback but issue update has no PR URL flag. | No link demonstrated. Empty relation alone does not prove integration is disabled; verify using a test PR. |
 | Combined status/owner update | `multica issue update --help` exposes `--status`, `--assignee-id`, `--no-start`. | Syntax verified; server atomicity and wake delivery NOT TESTED. |
 | Staged siblings | `multica issue create --help` exposes `--parent` and `--stage`; docs describe parent wake after all staged children are Done or Cancelled. | Syntax/documented behavior only; cancelled input handling must be proven in pilot. |
@@ -27,8 +27,22 @@ this implementation. A completed installer or fixture test is not a successful o
 | Runtime worktree/cleanup | This is the source checkout, not an injected content task. No GitHub-resource worktree switched/resumed/cleaned up. | NOT VERIFIED; exact issue branch and cleanup are pilot gates. |
 | One active writer | Per-agent concurrency limit is six; same-issue branch serialization not observed. | NOT VERIFIED; duplicate-run and branch-collision cases must be exercised. |
 
-The first concrete blocker is GitHub API authentication. Connecting one account alone does not
-satisfy the independent-review requirement or prove linking/wake behavior.
+### Authentication recheck after user login
+
+`gh auth status` succeeded outside the sandbox as `jdelon02` using the macOS keyring. The sandboxed
+check misleadingly reported an invalid token; no re-login is needed. GitHub API readbacks confirm
+admin/push/pull access to both `jdelon02/scriptwriting` and `jdelon02/delongpa-channel`, each with
+`main` as its default branch. Both main branches report `protected: false`, and both repositories
+return no active rulesets. The channel repository has zero Actions workflows and no open PRs.
+These observations do not constitute a passing CI run or a native PR-association test.
+
+Composio remains unconnected, but the user-selected `gh` path works. The user clarified that all
+agents share `jdelon02` and commits must use their identity; a separate Reviewer account is no longer
+a prerequisite. GitHub disallows formal self-approval, so the workflow uses explicit agent verdict
+comments with SHA, Reviewer UUID and run correlation. This preserves separate agent responsibilities
+without inventing another GitHub identity. Remaining gates are native linking/wake/worktree pilot
+behavior and coherent deployment. No live mutation was performed during the authentication recheck.
+
 
 ## Existing work snapshot
 
@@ -59,7 +73,7 @@ controlled cutover; they must not be described as synchronized.
 
 ## Offline source verification
 
-- Full suite: 46 tests passed (`python3 -m unittest discover -s scripts -p 'test_*.py' -v`).
+- Full suite: 47 tests passed (`python3 -m unittest discover -s scripts -p 'test_*.py' -v`).
 - Generated and parsed all 31 scenario packages with operator-only expected actions isolated from
   agent observations; all six revised profiles rendered without source-profile path leaks.
 - Independent review found two source gaps: structural requests lacked an explicit Head notification
@@ -70,16 +84,20 @@ controlled cutover; they must not be described as synchronized.
   source and added as a walkthrough, not represented as live behavioral execution.
 - Historical creative procedures and walkthrough content were preserved. `git diff --check` passed.
 
+The user's single-account correction is covered by a fixture regression proving both actors share
+a GitHub account while verdict comments retain distinct Reviewer run evidence (observed RED→GREEN).
+
 The review also identified installer launch guidance and expected-answer leakage; both were fixed
 because they could misdirect deployment or invalidate behavioral evidence. No review findings are
 being deferred as minor polish. Live capabilities and deployment remain explicitly unverified.
 
 ## Safe capability pilot (not yet executed)
 
-1. Connect authenticated GitHub access and identify the **actual runtime** writer and Reviewer logins.
-   Read both repository default branches, permissions, protection/rulesets, review requirements and
-   required check names. Authors cannot approve their own PRs. Do not substitute comments or bypass
-   protection. Verify Multica integration authorization includes the content and source repositories.
+1. Verify the shared gh account is jdelon02 in the actual worker/Reviewer runtimes and effective Git
+   author/committer identity is the user's. Read repository merge permissions, rulesets and required
+   checks. Use SHA-bound agent verdict comments, not formal self-approval; if rules require formal
+   GitHub approvals, report the conflict instead of silently changing rules or requesting an agent
+   account. Verify Multica integration authorization includes the source and content repositories.
 2. Head defines isolated test scope in a dedicated test episode/issue family. Test content is explicitly
    synthetic and cannot modify real episodes. Use one Head parent and four staged siblings, initially
    backlog so creating/assigning them does not dispatch unknown work. Populate Doneness and durable
@@ -92,10 +110,11 @@ being deferred as minor polish. Live capabilities and deployment remain explicit
    URL/repository/branch appears in the native relation. If absent, fix supported integration/API
    configuration; do not claim success from metadata or a comment.
 5. Exercise a worker → Reviewer combined status/owner handoff and read back both plus the new run ID.
-   Reviewer formally requests changes at the actual head, returns to original worker, then worker
+   Reviewer posts a changes-requested agent verdict comment at the actual head, returns to original worker, then worker
    resumes the same branch/PR, publishes the revision and resubmits. Also test a manual status-only
    return and prove Reviewer/Head reconciliation wakes the proper original worker.
-6. Reviewer approves a stable inspected SHA, merges that exact head under repo rules, verifies merge
+6. Reviewer posts an approved agent verdict comment with inspected SHA, issue ID, agent UUID and run
+   ID, records its comment reference in issue history, and merges that exact head under repo rules. Verify merge
    state/commit, then sets Done + Head together. Prove Head wakes and reconciles while leaving Done
    unchanged. If terminal assignment does not wake Head, validate a supported rerun/notification
    mechanism on the test scope; do not assume CLI help proves terminal delivery.
@@ -146,6 +165,6 @@ reset content history, delete worktrees, or restore Markdown completion fields a
 - [Multica issues](https://multica.ai/docs/issues): built-in status meanings and staged terminal notifications.
 - [Multica GitHub integration](https://multica.ai/docs/github-integration): native PR linking and close-intent behavior.
 - [Multica project resources](https://multica.ai/docs/project-resources): repository worktree context; local-directory behavior is not assumed identical.
-- [GitHub required reviews](https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/approving-a-pull-request-with-required-reviews): independent reviewer constraint.
+- [GitHub required reviews](https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/approving-a-pull-request-with-required-reviews): GitHub self-approval limitation; agent verdict comments do not claim formal approval.
 - Local CLI help/readbacks described above. Documentation and CLI syntax are evidence of a contract,
   not proof of successful live transitions on this deployment.

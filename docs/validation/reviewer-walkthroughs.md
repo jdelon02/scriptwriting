@@ -8,8 +8,8 @@ Use [running-with-hermes.md](running-with-hermes.md) for isolated setup and
 
 - Inspect current PR head, full affected artifacts and accepted sources against Doneness. Never score, load historical rubrics, rank ideas or propose replacement content.
 - Missing/ambiguous Doneness goes to Head. An exploratory outcome can be fulfilled by concrete findings, not a finished script.
-- Formal Request changes is tied to the inspected SHA, then in_progress + original worker; keep the PR open.
-- Approve with an eligible independent identity and exact SHA, verify required checks and merge, then Done + Head.
+- A changes-requested agent verdict comment is tied to the inspected SHA, then in_progress + original worker; keep the PR open.
+- Post an approved Reviewer verdict comment for the exact SHA under the shared user account, verify required checks and merge, then Done + Head.
 - Changed heads, failed checks, conflicts and denied merges cannot become Done. Recover ambiguous handoffs from existing evidence.
 
 ## Issue/PR scenarios
@@ -44,7 +44,7 @@ use the current issue-based setup and do not execute their obsolete lifecycle in
 ## Required live evidence
 
 After capability gates pass, run this role in a separate runtime-provided worktree using test issues
-and independent writer/reviewer identities. Record issue/PR URLs, head and merge SHAs, actual
+and the shared user gh account and distinct worker/Reviewer agent roles. Record issue/PR URLs, head and merge SHAs, actual
 owner/status readbacks, and wake execution IDs in the migration PR. Workers demonstrate submission
 and Request changes → revision on the same branch/PR. Every completed write has a commit/push before
 the next question. The next worker fetches the accepted upstream revision from main.

@@ -125,7 +125,7 @@ approval of wording and your own readiness claim are not issue completion.
 
 ## Step 10: If the task returns
 
-Read your assigned issue and the latest formal PR Request changes. Verify `in_progress` and your
+Read your assigned issue and the latest SHA-bound changes-requested Reviewer verdict comment and its issue-history run reference. Verify `in_progress` and your
 UUID as assignee, then fetch and resume the same issue branch and existing PR. A manual status
 change without a reconciled owner goes to Head/Reviewer; never infer assignment from a filename.
 

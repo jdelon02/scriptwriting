@@ -24,7 +24,7 @@ Use native Multica and GitHub evidence under WORKFLOW.md. Never use repository f
 
 ## Skill: reconcile-done
 
-Read the issue, linked PR, formal review, merged state and merge commit. Fetch main and verify the
+Read the issue, linked PR, SHA-bound Reviewer verdict with its correlated run, merged state and merge commit. Fetch main and verify the
 accepted artifacts/revision are present. If evidence is missing, report the inconsistency and retain
 blocked dependents; never manufacture a PR or approve historical work from a Done label.
 Keep the issue Done. Inspect parent and staged siblings, prerequisite outcomes and existing history

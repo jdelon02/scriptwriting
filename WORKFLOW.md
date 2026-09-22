@@ -74,8 +74,8 @@ it is not issue completion or permission to dispatch another stage.
 | Backlog → Todo | Head | Scope ready; prerequisite PRs merged; original worker recorded; delegate | Stage worker |
 | Todo → In Progress | Head dispatch / worker start acknowledgement | Worker verifies assignment, prepares issue branch in supplied worktree before editing | Stage worker |
 | In Progress → In Review | Current worker | All changes committed and pushed; PR created or updated, correct title/base/head, linked to issue | Reviewer |
-| In Review → In Progress | Reviewer | Submit Request changes on the PR; retain open PR; retrieve original worker from issue metadata | Original worker |
-| In Review → Done | Reviewer | Approve current PR head; merge successfully into `main`; verify merge evidence | Head |
+| In Review → In Progress | Reviewer | Post changes-requested agent verdict on the PR; retain open PR; retrieve original worker from issue metadata | Original worker |
+| In Review → Done | Reviewer | Record approved agent verdict for current PR head; merge successfully into `main`; verify merge evidence | Head |
 | Done → Done (no status change) | Head | Confirm merge; reconcile parent/dependencies/blockers; release eligible next work | Head |
 | Open issue → Cancelled | Head | Record the cancellation decision; reconcile affected dependencies and any open PR; cancellation is not successful delivery | Head |
 
@@ -126,7 +126,7 @@ Workers use Doneness to understand their task and reference it in the PR. Review
 
 For existing issues, Head fills in Doneness from the actual request and current scope before resuming the migrated workflow. Editing Doneness never itself changes status, proves completion, or unblocks another issue.
 
-Retain escalation after three unsuccessful review rounds, recorded in PR reviews/issue history. Reviewer still returns rejected work as required. Head then handles the user decision and can park the issue using Multica's blocker mechanism. No approval override and no repository release-log entry.
+Retain escalation after three unsuccessful review rounds, recorded in Reviewer verdict comments/issue history. Reviewer still returns rejected work as required. Head then handles the user decision and can park the issue using Multica's blocker mechanism. No approval override and no repository release-log entry.
 
 ## Branch and worktree protocol
 
@@ -167,9 +167,30 @@ Use titles/branch identifiers for linking and omit automatic close-intent phrase
 
 **Worker:** Verify user-declared stage readiness; finish handoff content; commit and push; find an existing open PR for the issue branch before creating one; enforce `<ISSUE-ID> PR`, base `main`, expected head and scope. Put summary, provenance, a reference to the issue's Doneness and evidence of the result, and relevant validation in the PR. Do not create a separate acceptance-criteria list. Verify linked PR association and original worker before assigning Reviewer.
 
-**Reviewer:** Fetch the linked PR from its actual repository and inspect its current head SHA, full affected artifacts and prerequisites. Do not judge from stale local files, a worker's completion claim, or only a diff that omits required context. Compare the result with the issue's Doneness and respect source attribution and creator approval; do not calculate a score or apply the retired stage rubrics. Explain any missing outcome with a concrete PR location. Use formal Request changes for rejection; do not close the PR. On approval, submit an approval bound to the inspected SHA and merge that exact revision under repository rules. Verify merged state and merge commit before moving to Done and handing back to Head.
+**Reviewer:** Fetch the linked PR from its actual repository and inspect its current head SHA, full affected artifacts and prerequisites. Do not judge from stale local files, a worker's completion claim, or only a diff that omits required context. Compare the result with the issue's Doneness and respect source attribution and creator approval; do not calculate a score or apply the retired stage rubrics. Explain any missing outcome with a concrete PR location. For rejection, post the SHA-bound changes-requested agent verdict described below and keep the PR open. For acceptance, post the SHA-bound approved agent verdict and merge that exact revision under repository rules. Verify merged state and merge commit before moving to Done and handing back to Head.
 
-**Identity requirement:** Reviewer must have a GitHub identity permitted to review worker-authored PRs and merge them. Distinct Multica agents using the same GitHub author identity cannot provide an independent approval. Validate before the pilot. Do not use an ordinary comment as a substitute for required approval.
+**GitHub account and attribution:** All agents use the user's authenticated `gh` account,
+`jdelon02`; agents do not have separate GitHub accounts. All new commits use author
+`Jeremy DeLong <jdelong@backofficethinking.com>`, the existing configured user identity. Verify effective
+Git author/committer identity in each worktree before writing commits, and preserve this attribution
+through merge. Do not use agent identities or add agent co-author trailers. GitHub authentication
+comes from the existing gh login; username/email configure attribution, not a separate agent login.
+
+**Agent review under one account:** Reviewer is a distinct Multica role, not a separate GitHub user.
+Record both verdicts as PR comments under `jdelon02`: `Agent verdict: changes-requested` or
+`Agent verdict: approved`. Include the issue ID, mapped Reviewer UUID, executing Multica run ID,
+inspected head SHA, current Doneness/scope reference, and concrete findings or outcome evidence.
+Record the comment URL/ID, run ID and inspected SHA in issue history before handoff. On recovery,
+correlate that comment with the actual Reviewer-assigned run and issue history; the shared GitHub
+username or an arbitrary worker comment alone does not establish a Reviewer decision.
+
+These are agent verdicts, not GitHub APPROVED/CHANGES_REQUESTED review events. Do not attempt
+self-approval with `gh pr review --approve` or request another account. Before merging, require the
+latest Reviewer verdict for the current SHA and scope to be approved, enforce the expected-head-SHA
+merge guard, and obey repository protections/checks. If a future repository rule requires formal
+GitHub approvals, stop and report that incompatible rule to the user; never bypass or change it
+silently. New commits or scope changes invalidate the prior agent verdict. Reviewer still exclusively
+performs the merge and verified Done handoff; Head cannot substitute its own verdict.
 
 **Merge failures:** A conflict, failed required check, outdated approval, changed PR head, or denied merge is not Done. Content corrections return through Reviewer to the original worker; infrastructure/access blockers go to Head. Head cannot override a rejected PR or merge on Reviewer's behalf under the selected design.
 

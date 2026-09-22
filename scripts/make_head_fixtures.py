@@ -17,7 +17,7 @@ EXPECTATIONS = {
     'success': 'Head verifies all four merged revisions on main, reconciles once and prepares the parent index PR; no Done transition repeats.',
     'ready': 'Assigned worker verifies accepted prerequisites and exact branch in the supplied worktree before interviewing.',
     'submission': 'Worker publishes every save, creates/reuses the exact issue PR, verifies native association, then hands In Review to Reviewer.',
-    'return': 'Worker reads formal Request changes, resumes the same issue branch/PR, asks the creator, and publishes approved revisions.',
+    'return': 'Worker reads the SHA-bound changes-requested Reviewer verdict comment, resumes the same issue branch/PR, asks the creator, and publishes approved revisions.',
     'missing-original': 'Head reconciles the original worker from history; Reviewer does not guess a return recipient.',
     'missing-pr-link': 'No handoff or completion; native association must be established and read back.',
     'push-failure': 'Keep the local commit, stop further content mutation, report to Head; no review submission.',
@@ -173,8 +173,9 @@ def build_scenario(name, stage):
             'linked_pull_requests': [n],
         })
         prs.append({'number': n, 'title': issue_id+' PR', 'head_ref': issue_id, 'base_ref': 'main',
-                    'head_sha': sha, 'reviewed_sha': sha, 'review': 'APPROVED',
-                    'author': 'test-writer', 'reviewer': 'test-reviewer',
+                    'head_sha': sha, 'reviewed_sha': sha, 'review': 'approved',
+                    'author': 'test-user', 'reviewer': 'test-user',
+                    'review_kind': 'agent-comment', 'github_review_state': None,
                     'merged': True, 'merge_commit_sha': chr(96+n)*40,
                     'mergeable': True, 'required_checks': {'fixture-validation': 'success'}})
     parent = {
@@ -207,7 +208,7 @@ def build_scenario(name, stage):
     if name in ('success', 'repeat-reconcile', 'no-head-wake', 'parent-index', 'post-merge-revision'):
         data['actor'] = 'head'
     if name in ('return', 'missing-original', 'three-returns', 'manual-return'):
-        pr.update(review='CHANGES_REQUESTED', reviewed_sha=pr['head_sha'], findings=[{'path': FILES[stage-1], 'section': 'Open threads', 'text': 'The handoff does not identify the intentionally excluded material.'}])
+        pr.update(review='changes-requested', reviewed_sha=pr['head_sha'], findings=[{'path': FILES[stage-1], 'section': 'Open threads', 'text': 'The handoff does not identify the intentionally excluded material.'}])
     if name == 'missing-original':
         del issue['metadata']['original_assignee_id']
     elif name == 'missing-pr-link':
@@ -216,15 +217,15 @@ def build_scenario(name, stage):
     elif name == 'push-failure':
         data['git'].update(push_succeeded=False, published_matches_local=False)
     elif name == 'new-head':
-        pr.update(review='APPROVED', reviewed_sha='0'*40)
+        pr.update(review='approved', reviewed_sha='0'*40)
     elif name == 'merge-conflict':
         pr['mergeable'] = False
     elif name == 'failed-merge':
-        pr.update(review='APPROVED', reviewed_sha=pr['head_sha'], merge_error='permission denied')
+        pr.update(review='approved', reviewed_sha=pr['head_sha'], merge_error='permission denied')
     elif name == 'failed-check':
         pr['required_checks']['fixture-validation'] = 'failure'
     elif name == 'merge-handoff-retry':
-        pr.update(merged=True, merge_commit_sha='a'*40, review='APPROVED', reviewed_sha=pr['head_sha'])
+        pr.update(merged=True, merge_commit_sha='a'*40, review='approved', reviewed_sha=pr['head_sha'])
         data['history'].append('Merge succeeded; combined Done/Head update timed out.')
     elif name == 'duplicate-runs':
         data['runtime']['active_writers'] = 2
@@ -253,7 +254,7 @@ def build_scenario(name, stage):
     elif name == 'scope-change':
         data['history'].append('User expanded scope to include CTA; Head recorded the changed Doneness during review.')
         issue['description'] += ' The creator-approved CTA is also required.'
-        pr.update(review='APPROVED', reviewed_sha=pr['head_sha'], approved_scope='excerpt without CTA')
+        pr.update(review='approved', reviewed_sha=pr['head_sha'], approved_scope='excerpt without CTA')
     elif name == 'empty-result':
         pr['body'] = 'All done.'
     elif name == 'frequent-saves':
@@ -273,6 +274,17 @@ def build_scenario(name, stage):
         for successor in issues[stage:]:
             successor.update(status='backlog', assignee_id='test-head', linked_pull_requests=[])
         data['pull_requests'] = prs[:stage]
+    # Same GitHub account, distinct Multica reviewer role; verdicts are comments, not approvals.
+    for reviewed_pr in data['pull_requests']:
+        has_verdict = bool(reviewed_pr['review'])
+        number = reviewed_pr['number']
+        reviewed_pr['review_comment_id'] = f'test-verdict-{number}' if has_verdict else None
+        reviewed_pr['reviewer_run_id'] = f'test-reviewer-run-{number}' if has_verdict else None
+        reviewed_pr['reviewer_agent_id'] = 'test-reviewer' if has_verdict else None
+        if has_verdict:
+            data['history'].append({'event': 'reviewer-verdict', 'comment_id': reviewed_pr['review_comment_id'],
+                                    'run_id': reviewed_pr['reviewer_run_id'], 'agent_id': 'test-reviewer',
+                                    'head_sha': reviewed_pr['reviewed_sha'], 'verdict': reviewed_pr['review']})
     return data
 
 
