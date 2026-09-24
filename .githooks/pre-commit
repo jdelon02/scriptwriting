@@ -5,6 +5,12 @@
 
 set -e
 
+run_rag() {
+    local repo_root
+    repo_root="$(git rev-parse --show-toplevel)"
+    PYTHONDONTWRITEBYTECODE=1 python3 "$repo_root/scripts/push_to_rag.py" --repo "$repo_root" --hook
+}
+
 # Terminal formatting colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -26,6 +32,7 @@ fi
 # ------------------------------------------------------------------------------
 if ! command -v okf &> /dev/null; then
     echo -e "${YELLOW}[WARN] 'okf' CLI is not installed or not in PATH. Skipping OKF check.${NC}"
+    run_rag
     exit 0
 fi
 
@@ -33,6 +40,7 @@ fi
 STAGED_DOCS=$(git diff --cached --name-only --diff-filter=ACM | grep '^docs/' || true)
 
 if [ -z "$STAGED_DOCS" ]; then
+    run_rag
     exit 0
 fi
 
@@ -58,6 +66,7 @@ if [ $EXIT_CODE -eq 0 ]; then
     fi
 
     echo -e "${GREEN}✔ OKF Validation Passed! Proceeding with commit.${NC}"
+    run_rag
     exit 0
 
 else

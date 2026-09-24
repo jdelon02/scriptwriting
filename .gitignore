@@ -1,0 +1,5 @@
+.env
+.rag/
+/docs/knowledge/repository/
+__pycache__/
+*.pyc
