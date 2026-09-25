@@ -11,10 +11,14 @@ from pathlib import Path
 import re
 import subprocess
 import sys
-from urllib import error, parse, request
+import time
+from urllib import parse
+
+import requests
 
 
-MODEL = 'embedding-model'
+MODEL = 'text-embedding-ada-002'
+EMBEDDING_BASE_URL = 'https://nano-gpt.com/api/v1'
 DIMENSIONS = 1536
 BUNDLE = Path('docs/knowledge')
 
@@ -63,6 +67,15 @@ def validate_url(url):
 
 
 def connection_settings(env, hermes_path):
+    embedding_key = resolve_value(env.get('NANOGPT_API_KEY'))
+    if not embedding_key:
+        raise ValueError('Set NANOGPT_API_KEY in the project .env or process environment')
+    vector_url = validate_url(env.get('rag_base_url', ''))
+    vector_key = resolve_value(env.get('rag_api_key'))
+    if vector_key:
+        return EMBEDDING_BASE_URL, embedding_key, vector_url, vector_key
+    # Preserve the legacy vector-service credential fallback; never send the
+    # NanoGPT key to the vector service or a Hermes proxy key to NanoGPT.
     try:
         import yaml
     except ImportError:
@@ -73,14 +86,11 @@ def connection_settings(env, hermes_path):
         raise ValueError('Cannot read Hermes YAML configuration; use --hermes-config') from None
     model = config.get('model', {})
     if not isinstance(model, dict):
-        raise ValueError('Hermes config must contain model.base_url and model.api_key')
-    proxy_url = validate_url(resolve_value(model.get('base_url')))
-    proxy_key = resolve_value(model.get('api_key'))
-    vector_url = validate_url(env.get('rag_base_url', ''))
-    vector_key = resolve_value(env.get('rag_api_key') or proxy_key)
-    if not proxy_key or not vector_key:
+        raise ValueError('Hermes config must contain model.api_key for the vector service fallback')
+    vector_key = resolve_value(model.get('api_key'))
+    if not vector_key:
         raise ValueError('Missing API key; configure Hermes model.api_key or rag_api_key')
-    return proxy_url, proxy_key, vector_url, vector_key
+    return EMBEDDING_BASE_URL, embedding_key, vector_url, vector_key
 
 
 def command_json(args):
@@ -150,23 +160,77 @@ def collect_chunks(repo, max_chars):
     return chunks
 
 
-class NoRedirect(request.HTTPRedirectHandler):
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        return None
+class APIHTTPError(ValueError):
+    def __init__(self, status, detail):
+        self.status = status
+        super().__init__(f'API returned HTTP {status}: {detail}')
+
+
+def request_json(url, key, body=None):
+    if not isinstance(key, str) or not key or any(ord(c) < 33 or ord(c) > 126 for c in key):
+        raise ValueError('API key must contain printable non-whitespace ASCII characters')
+    headers = {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}
+    method = 'POST' if body is not None else 'GET'
+    if os.environ.get('RAG_DEBUG', '').lower() in ('1', 'true', 'yes'):
+        debug = f'RAG DEBUG: {method} {url}\nContent-Type: application/json\nAuthorization: Bearer [REDACTED]'
+        if body is not None and parse.urlsplit(url).path.rstrip('/').endswith('/embeddings'):
+            debug += '\nBody: ' + json.dumps(body, allow_nan=False)
+        debug = debug.replace(key, '[REDACTED]').replace(json.dumps(key)[1:-1], '[REDACTED]')
+        print(debug, file=sys.stderr, flush=True)
+    try:
+        if body is None:
+            response = requests.get(url, headers=headers, timeout=90, allow_redirects=False)
+        else:
+            response = requests.post(url, headers=headers, json=body, timeout=90, allow_redirects=False)
+        with response:
+            if not 200 <= response.status_code < 300:
+                detail = response.text.replace(key, '[REDACTED]').replace(json.dumps(key)[1:-1], '[REDACTED]')
+                raise APIHTTPError(response.status_code, detail or '(empty response body)')
+            try:
+                return response.json()
+            except ValueError:
+                raise ValueError('API returned an invalid JSON response') from None
+    except requests.RequestException:
+        raise ValueError('API connection failed or timed out; check endpoints and connectivity') from None
 
 
 def post_json(url, key, body):
-    if not isinstance(key, str) or not key or any(ord(c) < 33 or ord(c) > 126 for c in key):
-        raise ValueError('API key must contain printable non-whitespace ASCII characters')
-    req = request.Request(url, data=json.dumps(body, allow_nan=False).encode(), method='POST',
-                          headers={'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'})
-    try:
-        with request.build_opener(NoRedirect).open(req, timeout=90) as response:
-            return json.load(response)
-    except error.HTTPError as exc:
-        raise ValueError(f'API returned HTTP {exc.code}; response omitted to protect credentials') from None
-    except (error.URLError, TimeoutError, OSError):
-        raise ValueError('API connection failed or timed out; check endpoints and connectivity') from None
+    return request_json(url, key, body)
+
+
+def embed_batch(texts, proxy_url, key, post=post_json):
+    """Send a synchronous array-of-texts request; retry transient HTTP failures."""
+    payload = {'model': MODEL, 'input': texts, 'encoding_format': 'float'}
+    for attempt in range(4):
+        try:
+            return post(proxy_url.rstrip('/') + '/embeddings', key, payload)
+        except APIHTTPError as exc:
+            if exc.status not in (429, 500, 502, 503, 504) or attempt == 3:
+                raise
+            delay = 2 ** attempt
+            print(f'Embedding HTTP {exc.status}; retry {attempt + 1}/3 in {delay}s.',
+                  file=sys.stderr, flush=True)
+            time.sleep(delay)
+
+
+def resolve_store_name(vector_url, key, name, get=request_json):
+    root = vector_url.rstrip('/').removesuffix('/v1')
+    result = get(root + '/v1/vector_stores?limit=100', key)
+    if not isinstance(result.get('data'), list) or not isinstance(result.get('has_more'), bool):
+        raise ValueError('Invalid vector-store listing response')
+    matches = [row for row in result['data'] if row.get('name') == name]
+    if len(matches) > 1:
+        raise ValueError('Vector-store name is ambiguous; choose a unique name')
+    # This backend orders by creation date but paginates by ID, so subsequent
+    # pages cannot establish uniqueness reliably. Never silently pick a store.
+    if result['has_more']:
+        raise ValueError('Vector-store listing is incomplete; name lookup requires at most 100 stores until backend pagination is fixed')
+    if not matches:
+        raise ValueError('Vector-store name not found; create it first or check the configured name')
+    store_id = matches[0].get('id')
+    if not isinstance(store_id, str) or not store_id:
+        raise ValueError('Vector-store listing returned an invalid ID')
+    return store_id
 
 
 def embedding_vectors(response, count):
@@ -189,7 +253,9 @@ def save_state(path, state):
     temporary.replace(path)
 
 
-def upload_chunks(chunks, state_path, proxy_url, proxy_key, vector_url, vector_key, store_id, post=post_json):
+def upload_chunks(chunks, state_path, proxy_url, proxy_key, vector_url, vector_key, store_id, post=post_json, batch_size=16):
+    if type(batch_size) is not int or not 1 <= batch_size <= 2048:
+        raise ValueError('Batch size must be an integer from 1 to 2048')
     state = json.loads(state_path.read_text()) if state_path.exists() else {'uploaded': {}}
     if state.get('pending'):
         raise ValueError('Previous upload is unconfirmed; inspect the local pending batch before retrying')
@@ -199,15 +265,16 @@ def upload_chunks(chunks, state_path, proxy_url, proxy_key, vector_url, vector_k
         print(f'Warning: {len(old)} previously uploaded chunks are no longer current; the append-only API retains them.', file=sys.stderr)
     remaining = [c for c in chunks if c['metadata']['chunk_id'] not in state['uploaded']]
     vector_root = vector_url.rstrip('/').removesuffix('/v1')
-    proxy_root = proxy_url.rstrip('/')
-    if not proxy_root.endswith('/v1'):
-        proxy_root += '/v1'
     uploaded = 0
-    for offset in range(0, len(remaining), 16):
-        batch = remaining[offset:offset + 16]
-        response = post(proxy_root + '/embeddings', proxy_key,
-                        {'model': MODEL, 'input': [c['content'] for c in batch]})
+    batches = (len(remaining) + batch_size - 1) // batch_size
+    for offset in range(0, len(remaining), batch_size):
+        batch = remaining[offset:offset + batch_size]
+        print(f'Embedding batch {offset // batch_size + 1}/{batches}: {len(batch)} texts; model {MODEL}.', flush=True)
+        response = embed_batch([c['content'] for c in batch], proxy_url, proxy_key, post=post)
         vectors = embedding_vectors(response, len(batch))
+        usage = response.get('usage')
+        if isinstance(usage, dict) and type(usage.get('total_tokens')) is int:
+            print(f'Embedding usage: total_tokens={usage["total_tokens"]}.', flush=True)
         ids = [c['metadata']['chunk_id'] for c in batch]
         # Persist intent before the non-idempotent insert. A timeout may mean it committed.
         state['pending'] = ids
@@ -274,24 +341,34 @@ def main(argv=None):
     parser.add_argument('--hook', action='store_true', help='Pre-commit mode: refresh OKF, stage changed indexes, and upload; skip unset store')
     parser.add_argument('--hermes-config', type=Path)
     parser.add_argument('--chunk-chars', type=int, default=3000)
+    parser.add_argument('--batch-size', type=int, help='Texts per embedding request (1–2048); overrides rag_batch_size, default 16')
     args = parser.parse_args(argv)
     try:
         repo = args.repo.resolve()
         env = read_env(repo / '.env')
-        for key in ('primary_vector_store_id', 'vector_stores', 'rag_base_url', 'rag_api_key'):
+        for key in ('primary_vector_store_name', 'primary_vector_store_id', 'vector_stores', 'rag_base_url', 'rag_api_key', 'rag_batch_size', 'NANOGPT_API_KEY'):
             if key in os.environ:
                 env[key] = os.environ[key]
-        store = env.get('primary_vector_store_id', '').strip()
-        if args.hook and not store:
-            print('RAG upload skipped: primary_vector_store_id is empty.')
+        if env.get('primary_vector_store_id', '').strip():
+            raise ValueError('Replace primary_vector_store_id with primary_vector_store_name using the store name, not its ID')
+        store_name = env.get('primary_vector_store_name', '')
+        store = None
+        if args.hook and not store_name.strip():
+            print('RAG upload skipped: primary_vector_store_name is empty.')
             return 0
         stores = json.loads(env.get('vector_stores') or '[]')
         if not isinstance(stores, list) or any(not isinstance(s, str) or not s.strip() for s in stores):
-            raise ValueError('vector_stores must be a JSON array of nonempty ID strings, or []')
+            raise ValueError('vector_stores must be a JSON array of nonempty store names, or []')
         if args.chunk_chars < 100:
             raise ValueError('--chunk-chars must be at least 100')
-        if not args.dry_run and not store:
-            raise ValueError('Set primary_vector_store_id in .env before uploading')
+        try:
+            batch_size = args.batch_size if args.batch_size is not None else int(env.get('rag_batch_size') or '16')
+        except ValueError:
+            raise ValueError('Batch size must be an integer from 1 to 2048') from None
+        if not 1 <= batch_size <= 2048:
+            raise ValueError('Batch size must be an integer from 1 to 2048')
+        if not args.dry_run and not store_name.strip():
+            raise ValueError('Set primary_vector_store_name in .env before uploading')
         if args.hook:
             check_staged_markdown(repo)
         settings = None
@@ -302,6 +379,7 @@ def main(argv=None):
                 if not hermes.exists():
                     hermes = Path.home() / '.hermes/config.yaml'
             settings = connection_settings(env, hermes)
+            store = resolve_store_name(settings[2], settings[3], store_name)
         if args.hook and not args.dry_run:
             prepare_commit_bundle(repo)
         chunks = collect_chunks(repo, args.chunk_chars)
@@ -313,12 +391,12 @@ def main(argv=None):
         target = digest([vector_url, store, proxy_url, MODEL, DIMENSIONS])
         state_path = repo / '.rag' / (target + '.json')
         with upload_lock(repo / '.rag/upload.lock'):
-            count = upload_chunks(chunks, state_path, *settings, store)
+            count = upload_chunks(chunks, state_path, *settings, store, batch_size=batch_size)
         print(f'Complete: {count} new chunks uploaded; {len(chunks) - count} already confirmed locally.')
         return 0
     except (ValueError, OSError, KeyError, TypeError, subprocess.CalledProcessError) as exc:
         # External payloads and credential files must not appear in tracebacks.
-        message = str(exc) if type(exc) is ValueError else type(exc).__name__ + ': check configuration and tool availability'
+        message = str(exc) if isinstance(exc, ValueError) else type(exc).__name__ + ': check configuration and tool availability'
         print('RAG: ' + message, file=sys.stderr)
         return 1
 

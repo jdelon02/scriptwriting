@@ -1,7 +1,7 @@
 ---
 type: reference
 title: OKF to RAG ingestion
-description: Configure and run the local OKF ingestion test through LiteLLM embeddings and litellm-pgvector.
+description: Configure and run the local OKF ingestion test through direct NanoGPT embeddings and litellm-pgvector.
 tags: [scriptwriting, rag, okf, tooling]
 ---
 
@@ -18,32 +18,42 @@ not independently ingested a second time.
 The local `.env` is ignored by Git. Start from `.env.example` in a new checkout.
 
 ```dotenv
-primary_vector_store_id=vs-your-store
-vector_stores='["vs-your-store", "vs-another-store"]'
+primary_vector_store_name=delongpa_channel
+vector_stores='["delongpa_channel", "another_store"]'
 rag_base_url=https://your-vector-service.example
 rag_api_key=
+NANOGPT_API_KEY=
 ```
 
-`vector_stores` is a JSON array; `[]` means no additional configured IDs. Only
-`primary_vector_store_id` is a write target. The script does not create stores.
-An empty primary ID disables the pre-commit upload. Process environment values
-override these four local settings. Dotenv values are read as data, never sourced
+`vector_stores` is a JSON array; `[]` means no additional configured names. Only
+`primary_vector_store_name` is a write target. The script does not create stores. Names are exact and case-sensitive.
+It looks up the primary name using `GET /v1/vector_stores?limit=100`, requires
+exactly one match, and uses the returned ID for uploads and local state. Missing
+or duplicate names stop the upload. The current backend has inconsistent cursor
+ordering, so lookup rejects incomplete listings (more than 100 stores) until that
+backend pagination is fixed. It never silently picks the first matching name.
+A nonempty legacy `primary_vector_store_id` setting produces a migration error;
+replace it with `primary_vector_store_name`, and change list entries to names.
+The API itself still uses IDs in its URLs; this script handles the translation.
+An empty primary name disables the pre-commit upload. Process environment values
+override matching local settings. Dotenv values are read as data, never sourced
 as shell code; use one assignment per line with optional surrounding quotes.
 
-The embedding URL and credential come from `model.base_url` and `model.api_key`
-in `~/.hermes/config.yml`, falling back to `~/.hermes/config.yaml`. An alternative
-file can be selected with `--hermes-config`. `${NAME}`, `$NAME`, and `env:NAME`
-references resolve from the process environment. Export the referenced variable
-in the shell running Git if necessary; the script does not read or modify the
-Hermes `.env` file. Credentials are neither printed nor saved in upload state.
+Embedding requests now go directly to `https://nano-gpt.com/api/v1/embeddings`,
+using `NANOGPT_API_KEY` from the project `.env` (or a process environment override).
+They use the script's `MODEL`, currently `text-embedding-ada-002`, without a
+LiteLLM provider prefix. Returned vectors must contain 1,536 finite numbers.
+The deployed vector service must use the same embedding model for search.
 
-The embedding request uses model `embedding-model`; returned vectors must contain
-1,536 finite numbers. Configure the deployed vector service to use the same model
-for search. `rag_base_url` is the litellm-pgvector service URL, which may differ
-from the embedding proxy URL. Its key defaults to the resolved Hermes key; use
-`rag_api_key` when the service has a different `SERVER_API_KEY`.
+`rag_base_url` and `rag_api_key` still configure the litellm-pgvector service.
+When `rag_api_key` is blank, only the vector-service key falls back to
+`model.api_key` in `~/.hermes/config.yml` or `~/.hermes/config.yaml` (override with
+`--hermes-config`). An explicit vector key removes the need for Hermes config.
+The NanoGPT key is never used as the vector-service fallback. `${NAME}`, `$NAME`,
+and `env:NAME` key references resolve from the process environment. The script
+does not read or modify Hermes `.env` or save credentials in upload state.
 
-Dependencies are the existing `okf` CLI and Python 3.10+ with PyYAML:
+Dependencies are the existing `okf` CLI and Python 3.10+ with PyYAML and requests:
 
 ```bash
 python3 -m pip install -r scripts/requirements-rag.txt
@@ -70,10 +80,45 @@ targets Meilisearch; its upsert behavior is not available through this vector AP
 
 Each chunk carries concept ID, title, type, tags, lifecycle/trust fields when
 available, bundle path, filename, section, chunk index, and a content/metadata
-hash. Text is embedded in batches of 16, then posted to
-`/v1/vector_stores/{primary_vector_store_id}/embeddings/batch` as `content`,
+hash. Text is embedded in configurable synchronous batches (default 16), then posted to
+`/v1/vector_stores/{resolved_store_id}/embeddings/batch` as `content`,
 `embedding`, and `metadata`. API IDs and creation timestamps are server-generated.
 This prototype uses flat chunks, not the proposed parent-child database design.
+
+### Batch requests and debugging
+
+Following [NanoGPT's batch embedding guide](https://docs.nano-gpt.com/api-reference/embeddings#batch-processing),
+the HTTP transport uses the documented `requests.post(url, headers=headers, json=data)`
+form from the [direct API example](https://docs.nano-gpt.com/api-reference/embeddings#direct-api-usage).
+Each embedding request sends an `input` array of texts and requests
+`encoding_format: "float"`. Calls go directly to NanoGPT at
+`https://nano-gpt.com/api/v1/embeddings`. These are synchronous requests,
+not background `/batches` jobs.
+
+Set `rag_batch_size=32` in the repository `.env` for the commit hook, or override
+it for a manual run:
+
+```bash
+RAG_DEBUG=1 python3 scripts/push_to_rag.py --batch-size 32
+```
+
+Batch size must be 1–2048. Precedence is CLI, process environment, repository
+`.env`, then 16. The provider's model/token limits still apply; the maximum
+text count is not a guarantee that a request of that size fits those limits.
+Batch size does not change chunk hashes or confirmed-upload state.
+
+Progress reports the batch number, text count, model, and `usage.total_tokens`
+when returned. Returned indexes associate vectors with their original chunks;
+count, index, dimension, and finite-number checks run before storage.
+Embedding HTTP 429, 500, 502, 503, and 504 errors get at most three retries after
+1, 2, and 4 seconds. Other errors, including HTTP 400, stop immediately.
+Vector-store inserts are never automatically retried because they may already
+have committed. Confirmed chunks are skipped on later runs; unconfirmed vectors
+are not cached across runs.
+
+`RAG_DEBUG=1` in the process environment prints request URLs, headers, and full
+embedding request bodies, with the request API key redacted. HTTP error bodies
+are shown with the same key redaction. Debug output includes the document text.
 
 ## Git integration
 
@@ -96,7 +141,7 @@ not ignored by Git. These indexes join the same commit; generated repository
 copies remain ignored. It then uploads new chunks. No after-commit indexing step
 is added, so the refresh does not leave tracked index changes outside the commit.
 RAG errors stop the commit; refreshed indexes may remain staged after a failed
-attempt. With an empty primary ID, the RAG step exits successfully without
+attempt. With an empty primary name, the RAG step exits successfully without
 refreshing OKF, loading credentials, or making network requests.
 
 This runs **before** Git creates the commit. The RAG upload can succeed even if
@@ -106,11 +151,12 @@ successful publication and does not introduce a GitHub Actions workflow.
 ## Repeat runs and prototype limitations
 
 Confirmed chunk hashes are recorded in ignored `.rag/` JSON files, separately
-for each vector endpoint, store ID, proxy endpoint, and embedding model. A local
+for each vector endpoint, store ID, embedding endpoint, and embedding model. A local
 lock prevents concurrent uploads. Repeated runs skip those confirmed chunks.
 Preserve this state: another clone or a deleted state directory cannot identify
-previously uploaded chunks and may duplicate them. Changing the model behind the
-`embedding-model` alias requires a new/rebuilt store and matching search config.
+previously uploaded chunks and may duplicate them. Switching embedding endpoints
+also uses separate local state. Changing the embedding model requires a new/rebuilt
+store and matching search config.
 
 The current backend only appends. Changed chunks are added; old versions and
 deleted documents remain searchable. The script reports how many locally known
@@ -135,4 +181,4 @@ python3 scripts/push_to_rag.py --dry-run
 
 Tests use temporary OKF bundles and simulated API responses. They do not upload
 documents or call the live embedding service. A successful live ingestion still
-requires the target URL, existing store ID, and reachable services.
+requires the target URL, existing store name, and reachable services.
