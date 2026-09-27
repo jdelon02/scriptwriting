@@ -8,14 +8,14 @@ source_path: "templates/02-architect.md"
 
 # S<SS>E<EE> — <Working Title> · Architect
 
-Interview step: intake | inputs | payoffs | setups | tension | sequence | framing | flow-check
+Interview step: episode-shape | skeleton | loop-review | sequence | framing | flow-check
 
 This field tracks interview progress only; issue status and PR evidence live in Multica/GitHub.
 
 ## Inputs
 - Title: <verbatim>
 - Story spine: <verbatim, five lines: situation, desire, conflict, change, result>
-- Viewer questions: <4-6, verbatim>
+- Viewer questions: <user-provided questions, verbatim; no minimum count>
 - Target length: <user's words>
 - Loop count: <the user's decision>
 - Source: 01-artist.md (Grand Payoff: entry #<N>)
@@ -44,10 +44,10 @@ This field tracks interview progress only; issue status and PR evidence live in 
 
 ### Introduction
 - Promise: <"By the end of this video you'll have ..."> [from: ...]
-- Roadmap (3-5 on-screen topics): <topics> [from: ...]
+- Roadmap: <sourced on-screen topics; 3-5 is guidance, not a quota> [from: ...]
 
 ### Summary
-- Takeaways (3-5, derived from the payoffs): <takeaways> [from: ...]
+- Takeaways: <derived from the payoffs; 3-5 is guidance, not a quota> [from: ...]
 
 ### Call to action
 - Link (to content covered): <...> [from: ...]
@@ -59,6 +59,12 @@ This field tracks interview progress only; issue status and PR evidence live in 
 
 ## Unused material
 - #<N> "<user's words>": not used in this skeleton
+
+## Approval record
+<Creator wording approval only; this is not issue completion or Reviewer acceptance.
+For each explicit approval, identify the sections/loops, the presented wording's commit or
+message reference, and the approving issue-comment ID/link. Preserve earlier records when
+wording changes; mark them superseded for the affected portion. Open elements remain unresolved.>
 
 ## Open threads
 <Open loop elements, skipped questions, missing answers, anything the user could not yet answer.>

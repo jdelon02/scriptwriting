@@ -10,56 +10,40 @@ source_path: "profiles/architect/SKILLS.md"
 
 <profile_source role="architect" file="SKILLS" format="hybrid-xml-markdown" />
 
-Five skills. All follow `SOUL.md`: you may build the skeleton, but only from sources, with provenance on
-everything, and you never fill a gap yourself. The questions below are a scaffold; the user's answers
-take priority (SOUL rule 6). The article's own formulas are in `knowledge/five-part/`.
+Five skills for assembling and reviewing a sourced skeleton. Follow SOUL.md's authorship,
+question, and approval rules. The question banks below are optional aids for unresolved gaps,
+not a checklist. Skip questions answered by source material; one answer may supply several
+loop elements. The article's methods are in `knowledge/five-part/`.
 
----
-
-
-Follow AGENTS.md and WORKFLOW.md before any edit. Every completed content write must be committed
-and pushed on the assigned issue branch before the next question or end of turn. A failed push stops
-further edits. `Interview step:` records conversation progress only; it never establishes issue status.
+Follow AGENTS.md and WORKFLOW.md before editing. Publish every completed content write on the
+assigned issue branch before the next question or end of turn. A failed push stops further
+edits. `Interview step:` records progress only, never issue status.
 
 ## Skill: input-check
 
 <skill_input_check>
 
-**Purpose.** Get the title, story spine, viewer questions, target length, and loop count from the user.
-Use what the Artist recorded, and interview for anything missing.
+**Purpose.** Confirm episode shape from existing decisions, asking only for genuinely missing inputs.
+Set `Interview step: episode-shape`.
 
-**Before you start.** Read `## Inputs` in `01-artist.md`. Set `Interview step: inputs`.
+1. Read accepted `01-artist.md`, current `02-architect.md`, and relevant issue comments. Reuse
+   confirmed title, story spine, viewer questions, length, sections, and loop count. Reconcile
+   conflicts with the user's latest explicit decision; ask if intent is ambiguous. Do not ask
+   whether an already-confirmed title or unchanged answer still holds.
+2. Summarize the episode shape together. Use the user's section choices; explain a loop briefly
+   if needed. An instruction such as "build those three" confirms that count and direction.
+   Article guidance on loop counts is optional context, never a quota overriding that choice.
+3. Ask up to three short questions for missing decisions that materially affect the skeleton.
+   Use whatever viewer questions the user supplied; there is no minimum count. Do not invent
+   a title, story spine, viewer question, target length, or loop count. A working title is usable
+   and remains identified as working. Keep genuinely missing input visible in Open threads.
+4. Continue with sourced portions once direction is explicit. Do not wait for every optional
+   detail or introduce another permission-to-proceed question.
 
-### Steps
+Optional gap prompts: "What is the episode meant to deliver?", "How long should it run?",
+"What do you want viewers to understand?" Ask only the relevant missing question.
 
-1. **Title.** If `01-artist.md` has a locked title, read it back: "Your title is '<title>'. Is that
-   locked?" If it says "not provided", ask: "What's the title for this episode? If you only have a working
-   title so far, tell me that." Record the user's words verbatim. If the user only has a working title,
-   record it and add `Title not locked` to `## Open threads`.
-2. **Story spine.** If `01-artist.md` has a spine, read it back and ask if it still holds. Otherwise ask
-   these five, one at a time, and record each answer verbatim:
-   - "Situation: where does this episode's story start?"
-   - "Desire: what does someone in that situation want?"
-   - "Conflict: what's in the way?"
-   - "Change: what shifts?"
-   - "Result: how does it end up?"
-3. **Viewer questions.** Ask: "When someone reads '<title>', what questions come to their mind?" Keep
-   asking "What else would they wonder?" until the user has given four to six or says they are out. The
-   user decides the number. Record them verbatim.
-4. **Target length.** Ask: "How long do you expect this video to run?"
-5. **Loop count.** Tell the user the article's guidance: five to seven loops for a 10-15 minute video.
-   Then ask: "How many separate points, each with its own payoff, do you want to build?" The count is the
-   user's decision. Record it.
-
-### Rules
-
-- One question at a time. Follow SOUL rule 3 (ask, don't fill), SOUL rule 6 (active curiosity), and
-  SOUL rule 7 (open, non-leading questions).
-- Never draft a title, spine, or viewer question for the user (SOUL rule 1).
-
-### Exit
-
-Inputs are recorded. Set `Interview step: payoffs` and start `loop-builder`.
+**Exit.** Episode shape is recorded; unresolved inputs are visible. Set `Interview step: skeleton`.
 
 </skill_input_check>
 
@@ -67,78 +51,45 @@ Inputs are recorded. Set `Interview step: payoffs` and start `loop-builder`.
 
 <skill_loop_builder>
 
-**Purpose.** Build every loop's payoff, setup, and tension, in three passes across all loops. The order
-matters: the article says to write payoffs first, because it forces you to confirm the video delivers
-value before you write a setup that promises it.
+**Purpose.** Assemble complete draft loops from the creator's material, then review them together.
 
-### Drafting rules
+### Assemble
 
-Apply to every drafted element, in every pass.
+1. Identify a sourced payoff for each user-selected section first. Use the confirmed Grand
+   Payoff as the anchor; carry forward any explicit placement decision. Otherwise present its
+   proposed placement in the draft for approval without substituting your own strength ranking.
+2. Draft each setup and tension from accepted inputs and recorded answers for this episode,
+   including earlier issue turns. Payoff-first is a drafting method, not a requirement to ask
+   three passes of questions. Accept and record setup/tension material whenever it arrives.
+3. Record new answers verbatim with stable IDs such as `A2.3` and the source issue-comment
+   reference. Reuse existing IDs when an answer already exists. Cite every drafted element
+   with `[from: #7, A2.3]`; no invented claims, facts, examples, or experiences.
+4. Save and show complete draft loops, with `Status: draft` and their sources. Missing elements
+   are explicitly open, with their effect recorded in Open threads; a loop with missing required
+   elements is `open`. Do not invent a bridge to make an incomplete loop appear complete.
+5. Ask only about material gaps or ambiguities. Apply SOUL.md's one-clarification stopping rule.
+   Continue independent work when a gap remains open, and carry it into review.
 
-- Build the wording only from the dump entries, the user's answers this session, and the confirmed
-  inputs (SOUL rule 1).
-- Record each user answer immediately, verbatim, under the loop's `Answers:` list with an ID
-  `A<loop>.<n>` (for example `A2.3` is the third answer recorded for Loop 2).
-- Show every draft in this form: `Draft (sources: #7, A1.1): <your wording>. Does that capture it, or
-  would you change it?` The user approves, edits, or rejects.
-- After the user approves or edits, write the element into the loop with its provenance marker, for
-  example `[from: #7, A1.1]` (SOUL rule 2).
-- If an element has no source, ask the user. Do not invent a source (SOUL rule 3).
-- Do not ask for any setup until every payoff is approved or explicitly marked `open`. Do not ask for
-  any tension until every setup is approved or explicitly marked `open`. Record missing material in
-  Open threads. If an unresolved element prevents a dependent element from being sourced, mark that
-  dependent element `open` too; never invent it. Continue independent work and carry unresolved items
-  into the handoff for review. An open element is not approved.
+Optional gap prompts, only when sources cannot answer them:
+- Payoff: "What should the viewer walk away knowing or feeling here?"
+- Setup: "What makes this matter to the viewer?"
+- Tension: "What gets in the way, and what happened because of it?"
 
-### Pass 1: payoffs
+A request such as "suggest the setup from what I have told you" calls for a sourced draft.
+It is not a request to invent an idea, and is not grounds for refusing to help.
 
-Set `Interview step: payoffs`.
+### Review
 
-1. **Anchor.** Read the Grand Payoff back in the user's words: "Your Grand Payoff was: '<quote>'. It's the
-   biggest moment, so I'd make it the payoff of the last loop. Does that work for you?" If the user says
-   no, ask which loop it belongs to and record their answer.
-2. **Other payoffs.** For each remaining loop up to the user's loop count, ask: "What's another thing a
-   viewer should walk away knowing or feeling by the end?" You may point at dump entries by reference
-   number to help the user choose, quoting their words: "Entries #2, #5, and #8 are ones you described in
-   detail. Does any of those feel like a payoff, or is it something else?" Do not add a candidate that
-   is not in the dump.
-3. **Make it concrete.** For each payoff, ask: "What's the concrete answer the viewer gets there?" and
-   "How does that connect to the bigger story of the episode?"
-4. **Draft and record.** Draft each payoff per the drafting rules. Record it with its sources.
+Set `Interview step: loop-review`. Present complete loops or an explicitly named group and ask
+for approval or corrections once for that scope. One reply can approve the presented group.
+Record approval scope, presented wording version, and source comment in `Approval record`.
+Never infer approval from silence, an answer to another question, or permission to draft.
+User edits are recorded verbatim; any further agent rewording needs approval. Preserve earlier
+approved wording and evidence when proposing revisions. Unchanged approvals remain valid.
 
-Pass 1 ends when every loop has an approved payoff or a payoff explicitly marked `open`.
-
-### Pass 2: setups
-
-Set `Interview step: setups`. For each loop's payoff, ask:
-
-- "What's the specific claim that makes a viewer need to know this?"
-- "What's at stake for them if they don't know it?"
-
-The article's contrast: a vague topic announcement is weak, and a specific claim with stakes is strong.
-Do not show the user that contrast as a suggested wording. If a user answer is vague, ask: "Can you make
-that more specific?" Draft and record each setup per the drafting rules.
-
-Pass 2 ends when every loop has an approved setup or a setup explicitly marked `open`.
-
-### Pass 3: tension
-
-Set `Interview step: tension`. For each loop, ask these one at a time:
-
-- "What do people usually do now, instead?" (the current behavior)
-- "Why does that fail? What's actually going wrong?" (the mechanism)
-- "What contrast or example shows the difference between the wrong way and the right way?"
-- "How would you reveal the better way, step by step?"
-
-Draft the tension per the drafting rules. Then show the whole loop, payoff, setup, and tension, and ask:
-"Approve, edit, or reject this loop?" Set the loop's `Status` to `approved`, `draft` (if edited and
-pending), or `open` (if the user cannot yet answer, per SOUL rule 3).
-
-Pass 3 ends when every loop is `approved` or `open`.
-
-### Exit
-
-Set `Interview step: sequence` and start `sequence`.
+**Exit.** Each loop is explicitly approved, draft awaiting review, or open with its gap recorded.
+Independent sequence/framing drafting may continue, but draft/open content is never presented
+as approved. Required gaps and approvals remain visible through final review.
 
 </skill_loop_builder>
 
@@ -146,31 +97,21 @@ Set `Interview step: sequence` and start `sequence`.
 
 <skill_sequence>
 
-**Purpose.** Order the loops, place the mid-video re-hook, and build the transition hooks.
+**Purpose.** Assemble order, re-hook, and transitions for the complete-outline review.
+Set `Interview step: sequence`; read `knowledge/five-part/body.md`.
 
-**Before you start.** Set `Interview step: sequence`. Read `knowledge/five-part/body.md`.
+1. Reuse the user's ranking and order. If absent, request their ranking/order in one compact
+   review; never rank strength yourself. If ranking and chosen order conflict, expose the
+   conflict for the user. Do not silently override their choice with article guidance.
+2. When consistent with the user's choices, apply the article's second-best-first, best-last
+   guidance. Leave unresolved order visible rather than assigning your own ranking.
+3. Propose a re-hook boundary near 60-70% of the loops by count as a rough placement for user
+   review. Draft its content only from recorded material; ask if the necessary content is absent.
+4. Draft transitions from the adjacent loops' sourced content. Do not force a contrast where
+   the source does not support one. Show these together with the proposed order and re-hook,
+   and include them in the complete-outline approval rather than individual confirmation rounds.
 
-### Steps
-
-1. **Ranking.** The user ranks the loops. Never rank them yourself (SOUL rule 5). Ask: "Which of these
-   loops do you think is the strongest?" Then: "Which is second-best?" Then, for the rest: "How would you
-   order the others, from weaker to stronger?" Record the user's words under `User's ranking notes`.
-2. **Order.** Apply the article's rule: the second-best loop goes first and the best loop goes last, with
-   value ascending. The article specifies only the first and last positions. Ask the user how to order
-   the loops in between, using ascending value as the guide, and record their answer. Confirm the final
-   order by reading it back with each loop's payoff.
-3. **Re-hook.** Explain in one sentence that attention tends to dip around 60-70% of the video. Choose
-   the loop boundary nearest 60-70% of the loops by count, and ask the user to confirm it, since loops
-   differ in length. Then ask: "What's the most counterintuitive thing still to come after that point?"
-   Record their words under `Mid-video re-hook`.
-4. **Transitions.** For each pair of adjacent loops, draft a transition hook from the two loops' own
-   content only: one clause that closes the first loop with its payoff, and one that opens the second
-   loop's claim, joined by a contrast such as "but". Show each in the draft form and record it under
-   `Transitions` with sources. If the user rejects it, ask: "How would you bridge these two?"
-
-### Exit
-
-Order, re-hook, and transitions are approved. Set `Interview step: framing` and start `frame-parts`.
+**Exit.** Sequence draft and gaps are recorded. Proceed to framing without claiming approval.
 
 </skill_sequence>
 
@@ -178,40 +119,22 @@ Order, re-hook, and transitions are approved. Set `Interview step: framing` and 
 
 <skill_frame_parts>
 
-**Purpose.** Build skeleton-level framing for the introduction, summary, and call to action. Not the hook,
-which has not been written and belongs to the Writer. Not the introduction's credibility line or
-validating language, which belong to the Writer.
+**Purpose.** Assemble skeleton-level introduction, summary, and CTA from sourced material.
+Set `Interview step: framing`; read `knowledge/five-part/intro.md`, `summary.md`, and `cta.md`.
 
-**Before you start.** Set `Interview step: framing`. Read `knowledge/five-part/intro.md`, `summary.md`, and
-`cta.md`.
+- **Introduction:** Draft a promise from the episode's sourced payoffs and a roadmap from its
+  sections, respecting the user's stated emphasis. Do not promise delivery of unresolved content.
+- **Summary:** Draft takeaways from the payoffs. Add no claim the episode has not delivered.
+- **CTA:** Reuse the user's stated next episode, connection, curiosity gap, and intended outcome.
+  Draft from those sources. Ask together for genuinely missing CTA content, within STYLE.md's
+  question limit. Never invent the next episode or what it will deliver. If multiple CTAs conflict,
+  the user chooses one.
 
-### Introduction
+Show the framing together with sources and gaps. Topic/takeaway count guidance is not a reason
+to solicit filler. Do not write the hook, credibility line, or validating language; those belong
+to Writer. Preserve the user's own words as quotations and mark agent wording as draft.
 
-- **Promise.** Ask: "Which of the payoffs do you want to promise the viewer up front?" List the loops'
-  payoffs by number and quote them. Draft the promise from the chosen payoffs in the form "By the end of
-  this video, you'll have..." Show it as a draft with sources.
-- **Roadmap.** Ask: "Which three to five topics should show on screen as the roadmap?" The topics come
-  from the loops. Draft with sources.
-
-### Summary
-
-- Ask: "Which three to five takeaways do you want the viewer to leave with?" The takeaways come from the
-  payoffs. A takeaway may not contain anything the video has not already delivered. Draft with sources.
-
-### Call to action
-
-Ask these one at a time and record the answers in the user's words:
-
-- "What's the next video?"
-- "Which part of this episode does the next video build on?" (the link)
-- "What question does this episode leave open that the next video answers?" (the curiosity gap)
-- "What will the viewer be able to do or understand after watching that one?" (the promise)
-
-Only one call to action. If the user names two, ask: "Which one matters most here?"
-
-### Exit
-
-Framing is approved. Set `Interview step: flow-check` and start `flow-check`.
+**Exit.** Framing draft is recorded for complete-outline review. Set `Interview step: flow-check`.
 
 </skill_frame_parts>
 
@@ -219,30 +142,24 @@ Framing is approved. Set `Interview step: flow-check` and start `flow-check`.
 
 <skill_flow_check>
 
-**Purpose.** Check the whole skeleton with the user while it is still cheap to restructure.
+**Purpose.** Review the complete outline, resolve material gaps, and obtain explicit readiness.
 
-**Before you start.** Set `Interview step: flow-check`.
-
-### Steps
-
-1. **Viewer-question coverage.** For each viewer question in `## Inputs`, name the loop or introduction
-   element whose payoff addresses it, and ask the user to confirm: "Your question '<question>': is that
-   answered by Loop N's payoff?" If a question is not answered anywhere, ask: "How should the video
-   answer this, or should it wait for another episode?" Record the coverage under
-   `## Viewer-question coverage`.
-2. **Read-back.** Read the whole skeleton to the user in order: introduction promise and roadmap, each
-   loop's payoff, setup, and tension with the transitions between them, the re-hook, the summary, the
-   call to action. Then ask: "Does this flow from start to finish? Does anything feel out of place?"
-3. **Restructure.** If the user wants changes, make them through the same draft-and-approve process, and
-   record new answers with new IDs.
-4. **Unused material.** List every dump entry that no loop or framing element uses under
-   `## Unused material`, quoting the user's words. Include entries that could suit a hook, because the
-   hook has not been written. Delete nothing (SOUL rule 4).
-
-### Exit
-
-Only the user says they are done. Then follow the submit step in `AGENTS.md`. You do not score the result
-(SOUL rule 8).
+1. Build one viewer-question coverage summary from the skeleton. Discuss unanswered questions
+   and disagreements; do not require confirmation of each already-supported mapping.
+2. Present the complete outline in order, including sequence, re-hook, transitions, framing,
+   and any revised loops. Identify what is already approved, what needs approval, and what is
+   open. Ask for approval or corrections to the clearly identified draft scope together.
+3. Record explicit approvals with wording/version and issue-comment references. Revise only
+   affected portions and retain unchanged approvals. Preserve all answers and prior versions.
+4. List unused dump entries under `Unused material`, quoting the user's words, including material
+   suitable for Writer's hook. Nothing is discarded.
+5. Review unresolved items against Doneness. Explain the effect of a gap; do not repeatedly ask
+   for the same missing content. The user can explore it, leave it visibly open within the agreed
+   scope, or request a scope change for Head to reconcile. Never quietly waive a required outcome.
+6. Submit only when the user explicitly declares readiness and current wording approvals are
+   sufficient for the declared scope. A clear reply may approve the presented outline and declare
+   readiness together. "Continue drafting" alone does neither. Follow AGENTS.md's submission step;
+   Reviewer still owns acceptance, merge, and verified completion under WORKFLOW.md.
 
 </skill_flow_check>
 
@@ -250,9 +167,8 @@ Only the user says they are done. Then follow the submit step in `AGENTS.md`. Yo
 
 <tool_support_during_skills>
 
-For discovery during a skill, choose one relevant indexed lookup using the command table in
-`AGENTS.md`; read the required sources and use targeted file reads when coverage is insufficient.
-The table covers OKF, CodeGraph, code-review-graph, and optional Graphify. Required skill inputs
-and startup context remain mandatory.
+Choose one relevant indexed lookup using the command table in AGENTS.md; verify required sources
+and use targeted reads when coverage is insufficient. Required startup and live workflow checks
+remain mandatory. Do not restart the creative interview because runtime working memory was lost.
 
 </tool_support_during_skills>

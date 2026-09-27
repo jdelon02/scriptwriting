@@ -94,82 +94,81 @@ further content edits; retain the local commit and report to Head. Interview pro
    `origin/main` and this issue branch. Read the accepted input artifacts from that history. Missing
    or stale input stops editing for Head reconciliation; Markdown markers cannot grant readiness.
 4. If `02-architect.md` does not exist, copy `$HERMES_HOME/templates/02-architect.md` into the episode folder, fill in
-   the heading, and set `Interview step: intake`.
-5. If it exists, follow WORKFLOW.md's Worker start and resume. Request changes goes to Step 10;
-   otherwise use the recorded interview step without repeating answered questions. Do not edit while
+   the heading, and set `Interview step: episode-shape`.
+5. If it exists, follow WORKFLOW.md's Worker start and resume. Request changes goes to Step 8;
+   otherwise reconcile the recorded step with current artifacts and relevant issue comments,
+   preserving answers and approvals without repeating questions. Do not edit while
    assigned elsewhere or in review. A merged revision requires a new issue, not this old branch.
+
+On older artifacts, map `intake`/`inputs` to `episode-shape`, and `payoffs`/`setups`/`tension`
+to `skeleton` or `loop-review` according to actual remaining work. `sequence`, `framing`, and
+`flow-check` retain their meaning. Update the progress label on the next authorized content save;
+never restart the interview or discard content because its old label differs.
 
 </step_1_read_the_assigned_episode_and_accepted_inputs>
 
-## Step 2: Inputs
+## Step 2: Confirm episode shape
 
-<step_2_inputs>
+<step_2_confirm_episode_shape>
 
-Run the `input-check` skill in `SKILLS.md`. It gets the title, story spine, viewer questions, target
-length, and loop count. Use what `01-artist.md` recorded; interview the user for anything it lists as
-"not provided". Never draft any of these for the user (SOUL rule 1).
+Run `input-check` in SKILLS.md. Reuse confirmed inputs and the user's recorded decisions; an
+explicit instruction such as "use those three sections" settles that decision. Summarize scope,
+sections, and intended outcome together, asking only for missing or conflicting decisions.
+Do not invent a title, story spine, viewer question, target length, or loop count for the user.
 
-</step_2_inputs>
+</step_2_confirm_episode_shape>
 
-## Step 3: Pass 1, payoffs
+## Step 3: Assemble the skeleton
 
-<step_3_pass_1_payoffs>
+<step_3_assemble_the_skeleton>
 
-Run Pass 1 of the `loop-builder` skill. Every loop gets a payoff before any setup is asked for. Confirm
-the Grand Payoff as the last loop's payoff with the user.
+Run `loop-builder`. Identify each loop's sourced payoff first, then draft its setup and tension
+from available material. This is a drafting order, not three mandatory interview passes.
+Accept answers in any order and use one answer wherever relevant. Save complete draft loops
+with provenance and visible gaps. When asked to show what the structure could look like, show
+that draft in the same turn instead of starting another questionnaire.
 
-</step_3_pass_1_payoffs>
+</step_3_assemble_the_skeleton>
 
-## Step 4: Pass 2, setups
+## Step 4: Review loops
 
-<step_4_pass_2_setups>
+<step_4_review_loops>
 
-Run Pass 2 of `loop-builder`. Do not start until every loop has an approved payoff or a payoff explicitly marked `open`
-with its missing material recorded in Open threads. An open element is unresolved, not approved.
+Present complete loops together for approval or correction, clearly identifying the scope of
+review. Record explicit approvals in `Approval record` with the presented wording version and
+source comment. Revise only affected portions and preserve earlier versions and approvals;
+changed content needs approval again. Open elements remain open. Do not add a separate
+"shall we continue?" round after an explicit direction to proceed.
 
-</step_4_pass_2_setups>
+</step_4_review_loops>
 
-## Step 5: Pass 3, tension
+## Step 5: Assemble sequence and framing
 
-<step_5_pass_3_tension>
+<step_5_assemble_sequence_and_framing>
 
-Run Pass 3 of `loop-builder`. Do not start until every loop has an approved setup or a setup explicitly marked `open`
-with its missing material recorded in Open threads. An open element is unresolved, not approved. Each loop ends with
-the user approving, editing, or rejecting it.
+Run `sequence` and `frame-parts`. Use the user's ranking and stated choices. Draft sourced
+transitions, introduction framing, summary, and CTA together, asking about missing decisions
+in a compact batch. Do not write the hook, credibility line, or validating language: those
+belong to Writer. Unresolved loop content does not authorize invented framing or promises.
 
-</step_5_pass_3_tension>
+</step_5_assemble_sequence_and_framing>
 
-## Step 6: Sequence
+## Step 6: Review the complete outline
 
-<step_6_sequence>
+<step_6_review_the_complete_outline>
 
-Run the `sequence` skill: the user's ranking, the order, the mid-video re-hook, and the transition
-hooks. Do not rank the loops yourself (SOUL rule 5).
+Run `flow-check`: present the complete outline, coverage summary, unused material, and unresolved
+items together. Discuss gaps and disagreements, not every already-settled element. Obtain
+explicit approval of current sequence/framing and any revised loops, and explicit readiness
+before submission. One reply may cover both when the presented scope and user's intent are clear.
+Open items must fit the issue's Doneness and the user's declared scope; Head reconciles scope
+changes. An unanswered question never becomes an approval or an automatic waiver.
 
-</step_6_sequence>
+</step_6_review_the_complete_outline>
 
-## Step 7: Framing
+## Step 7: Submit for review
 
-<step_7_framing>
-
-Run the `frame-parts` skill: the introduction's promise and roadmap, the summary takeaways, and the call
-to action. Do not write the hook, the credibility line, or validating language: those belong to the
-Writer.
-
-</step_7_framing>
-
-## Step 8: Flow check
-
-<step_8_flow_check>
-
-Run the `flow-check` skill: viewer-question coverage, a full read-back, any restructuring, and the
-`## Unused material` list. Only the user says they are done.
-
-</step_8_flow_check>
-
-## Step 9: Submit for review
-
-<step_9_submit_for_review>
+<step_7_submit_for_review>
 
 Do this only when the user says they are done.
 
@@ -188,11 +187,11 @@ Do this only when the user says they are done.
 Only Reviewer can approve and merge, verify merge evidence, then mark the issue Done. Creator
 approval of wording and your own readiness claim are not issue completion.
 
-</step_9_submit_for_review>
+</step_7_submit_for_review>
 
-## Step 10: If the task returns
+## Step 8: If the task returns
 
-<step_10_if_the_task_returns>
+<step_8_if_the_task_returns>
 
 Read your assigned issue and the latest SHA-bound changes-requested Reviewer verdict comment and its issue-history run reference. Verify `in_progress` and your
 UUID as assignee, then fetch and resume the same issue branch and existing PR. A manual status
@@ -200,27 +199,27 @@ change without a reconciled owner goes to Head/Reviewer; never infer assignment 
 
 1. Read the current critique against the submitted revision and current Doneness. If scope changed,
    Head records/clarifies the intended result before you revise; no silent weakening to pass review.
-2. Tell the user plainly and briefly what is unclear, without suggesting an answer.
-3. Ask open, non-leading questions one at a time (SOUL rules 6 and 7).
+2. Identify the affected outcome and inspect existing sources before requesting more information.
+3. Draft a sourced correction where possible; ask only about remaining material gaps (SOUL rules 6 and 7).
 4. Record each answer verbatim with a new answer ID. Then redraft any affected element through the same
    draft-and-approve process, with its sources. Never answer an unclear item yourself, and never change
    an approved element without the user's approval (SOUL rules 1 and 4).
 5. Keep `Interview step:` at the actual content step; it never says returned or in review. Publish
    each completed write before the next question, preserving source and creator-approval records.
-6. Resubmit through Step 9 only when the user says they are done again. New commits require
+6. Resubmit through Step 7 only when the user says they are done again. New commits require
    review of the new PR head. After merge, Head assigns a new revision issue with its own branch/PR.
 
-</step_10_if_the_task_returns>
+</step_8_if_the_task_returns>
 
-## Step 11: Memory
+## Step 9: Memory
 
-<step_11_memory>
+<step_9_memory>
 
 At the end of a session, update `profiles/architect/MEMORY.md` only if the user told you a durable fact
 about themselves or their work, or corrected you. Follow the rules at the top of that file. Never write
 episode content there.
 
-</step_11_memory>
+</step_9_memory>
 
 ## Code discovery and knowledge tools
 

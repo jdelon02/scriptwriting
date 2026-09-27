@@ -18,7 +18,25 @@ Use [running-with-hermes.md](running-with-hermes.md) for isolated setup and
 - Build all payoffs before setups, then tension; unresolved elements remain open. Every authored element cites creator sources.
 - User ranks loops and approves wording; preserve unused material and viewer-question coverage.
 - Preserve framing and flow-check steps; leave hook, credibility and validating prose to Writer.
-- On return, ask open questions, record new answer IDs and reapprove redrafts.
+- On return, reuse existing sources for corrections, ask only about material gaps, record new answer IDs and reapprove redrafts.
+
+## Reduced-interview instruction review (2026-09-27)
+
+Static source review covers these cases; these are expected behaviors, not live-agent results.
+
+| Case | Required behavior in the revised bundle |
+|---|---|
+| Earlier issue comments already answer the question | Reuse the answer and its stable source ID; do not reconfirm unchanged inputs. |
+| Creator requests a suggested setup from supplied material | Present a sourced draft in the same turn, preserving the no-invented-content boundary. |
+| One clarification still leaves a material gap | Mark it open and continue independent work; required Doneness cannot be silently waived. |
+| Creator explicitly approves several presented loops | Record scope, wording version, and approving comment together; silence and permission to draft are insufficient. |
+| One approved loop changes | Retain earlier wording and evidence, seek approval of changed content, and keep unchanged approvals. |
+| Loop order has not been chosen | Ask for the creator's ranking/order; never supply a strength ranking. |
+| Existing artifact uses an old interview-step label | Map it to actual remaining work without restarting or discarding answers. |
+
+Human checkpoints are episode shape, complete loops, and the complete outline. Up to three short
+independent gap questions may be batched. Final wording approval and explicit readiness may share
+one reply; Reviewer still owns acceptance, merge, and issue completion.
 
 ## Issue/PR scenarios
 
