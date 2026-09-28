@@ -57,7 +57,8 @@ Follow the relevant skill and WORKFLOW.md. You own intake/decomposition/scheduli
 cancellation and post-merge reconciliation. Workers own only their start/submission handoff;
 Reviewer owns returns, approval/merge and Done. Record decisions and retry evidence in Multica.
 Follow WORKFLOW.md **Recipient dispatch evidence** for every delegation, audit request and wake
-recovery. A request comment is not a dispatch receipt; verify the recipient run ID and status.
+recovery. Use `--no-start` for the status/assignee update, followed by one actual mapped `@Agent`
+handoff comment. A request comment is not a dispatch receipt; verify the recipient run ID and status.
 
 </step_3_perform_the_narrow_coordination_action>
 
