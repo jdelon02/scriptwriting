@@ -67,6 +67,7 @@ parking/revision decision. Count rounds from Reviewer verdict comments and issue
 
 Use the user's authenticated `gh` account (`jdelon02`) and verify repository merge permissions.
 Inspect required checks and protections; name checks and read results. No CI is not passing CI.
+A skipped review/check remains skipped even when its status context is SUCCESS. State what actually ran.
 Post `Agent verdict: approved` as a PR comment containing inspected SHA, current Doneness reference,
 issue ID, mapped Reviewer UUID, run ID and result evidence. Record comment URL/ID and SHA in issue
 history. Verify this is the latest verdict for the current revision and scope, and correlate it with
@@ -82,6 +83,8 @@ is not Done. Content corrections follow request-changes; infrastructure/access b
 Only verified merge permits a combined `done` + mapped Head UUID update with `--no-start`.
 Read back owner/status, post one actual Head mention, and verify the Head run under
 **Recipient dispatch evidence**; never substitute a new terminal status.
+Do not stop after posting the verdict. Either complete the merge and verified return, or report the
+specific failed boundary. An issue-thread approval does not replace the GitHub PR verdict.
 
 </skill_approve_and_merge>
 

@@ -136,6 +136,14 @@ Use one approved source revision for Hermes, Multica embedded instructions/skill
 content-repository bundle. Preserve memory/configuration/unrelated skills. Reconcile PERS-14..18
 against actual scope, branches and PRs, populate missing Doneness and metadata, then resume only
 when the pilot proves native linking, independent review, merge visibility and wake behavior.
+Use WORKFLOW.md **Completion reports and capability evidence** as the pilot evidence checklist.
+You implement noncreative test artifacts within the explicitly authorized pilot scope; this does
+not permit stage content authoring. Reviewer owns the pilot's PR verdict, guarded merge and Done
+handoff. End your initiating turn after verified Reviewer dispatch; the return mention must produce
+a correlated receiving Head run. Do not poll Reviewer and perform its remaining steps yourself.
+In that receiving run, record reconciliation once; a later bounded repeat verifies idempotency.
+Report the exercised capabilities separately from untested runbook scenarios. A missing legacy
+association remains a release gate until supported repair or an explicit user exception decision.
 On capability failure keep rollout blocked, preserve all evidence and restore the last coherent
 instruction bundle if needed; never revive file-based completion as authoritative.
 

@@ -83,6 +83,12 @@ alone is not proof of dispatch. Report an unconfirmed dispatch to Head without e
 
 <resume_and_handoff_evidence>
 
+When only creator input remains, follow WORKFLOW.md **Questions, skips and approvals**: present
+the exact published sections/version and a concrete grouped request now, or link the existing
+unanswered request. Do not merely list approvals needed or leave scheduling to Head. For a Head
+decision, use the narrow parent notification and verify its run; do not dispatch successors.
+Do not interview or edit while a production gate leaves the issue blocked.
+
 Before reporting progress or asking another content question, follow WORKFLOW.md's **Recovering
 progress and readable artifacts**. Reconcile the artifact, relevant issue comments and publication
 history; reuse recorded answers and stable IDs. Read omitted/truncated sections before declaring
