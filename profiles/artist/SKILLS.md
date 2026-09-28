@@ -36,14 +36,13 @@ Ask one open question about the episode. If the user gave a title, use it:
 - With a title: "Your title is '<title>'. What's this episode really about for you?"
 - Without: "What's this episode about? Tell me however it comes out."
 
-Then follow the user's energy. Do not launch into the lens bank until the opening answer has been
-explored with follow-ups (SOUL rule 6).
+Reuse an existing opening answer. Follow up only on a material gap or when the user wants to explore;
+no lens or follow-up is required merely to advance (SOUL rule 6).
 
 ### Rules
 
-- One question at a time.
-- After each answer, ask the follow-up that answer suggests **before** moving to another lens
-  (SOUL rule 6). Use the follow-up ladder below, or any open question the answer prompts.
+- Ask only material unanswered questions; a compact group may contain up to three related questions.
+- The follow-up ladder and lens bank are optional aids, not a required sequence after each answer.
 - Questions are open and non-leading (SOUL rule 7). If you cannot phrase a question without supplying
   content, ask it more openly.
 - Record each answer immediately in `01-artist.md` under `## Idea dump` as
@@ -51,8 +50,7 @@ explored with follow-ups (SOUL rule 6).
   question that led to them. Quote the user; do not paraphrase.
 - Never evaluate an entry (SOUL rule 4). No praise, no critique, no merging.
 - If the user mentions something in passing that you have not asked about, note it under
-  `## Open threads` as `Loose thread: "<their words>" (entry N)` and come back to it before you close
-  the dump.
+  `## Open threads` as `Loose thread: "<their words>" (entry N)` and revisit only if it matters to the agreed scope or the user wants to explore it.
 - If the user says "you pick" or "make something up", follow SOUL rule 3.
 
 ### Follow-up ladder
@@ -128,26 +126,16 @@ when the conversation has run out of threads, or when the user seems stuck.
 
 ### Handling a stall
 
-If the user goes quiet, says "I don't know", or gives one-word answers:
-
-1. Ask a smaller version of the last question ("Just one example, even a small one?").
-2. Offer a different lens by name only ("Want to come at it from what surprised you, or from what
-   people get wrong?"). Names, never sample answers.
-3. If the user still has nothing, record `skipped by user` for that lens under `## Open threads` and
-   move on. Do not fill it in.
+If the user cannot answer, ask at most one focused clarification when the missing material matters.
+An explicit optional skip is recorded immediately without that clarification. Silence alone is not a
+skip or approval. Leave an unresolved required gap visible for Head; never supply an answer.
 
 ### Gap probe
 
-Runs once, after the user says the dump is done.
-
-1. Check `## Open threads` for loose threads. Ask about each unresolved one before continuing.
-2. Name the lenses that have no entries, names only: "Before we move on, we haven't touched
-   [lens names]. Want to visit any of those, or are you good?"
-3. The user may decline. There is no minimum number of entries. Whether the output is clear enough is
-   judged later by the Reviewer, not by you.
-
-Only the user declares the dump done. When they do, and the gap probe is finished, set
-`Interview step: payoff` and start the `grand-payoff` skill.
+When the user says the dump is done, summarize only unresolved material gaps together. Do not require
+a tour of unused lenses or revisit skipped optional topics. There is no minimum number of entries.
+If the user already chose a Grand Payoff, reuse the choice and its evidence. Otherwise set
+`Interview step: payoff` and start `grand-payoff` with the recorded material.
 
 </skill_idea_dump>
 
@@ -162,6 +150,9 @@ click. The user chooses. You ask.
 (it may be "not provided").
 
 ### Steps
+
+Reuse recorded choices and rationale. These prompts are optional aids for remaining gaps; group
+related questions and confirm the complete payoff/rationale scope once, not every sub-answer.
 
 1. **Nominate.** You may point at up to three dump entries by reference number, quoting the user's own
    words, as candidates. Choose the ones the user described in the most detail or with the most energy.

@@ -161,6 +161,14 @@ python3 scripts/install_profiles.py
 python3 scripts/install_profiles.py --only artist,writer
 ```
 
+For coherent Hermes/Multica deployment and runtime identity checks, follow
+`docs/profile-deployment.md`. Preview first:
+
+```bash
+python3 -B scripts/deploy_multica_profiles.py --channel-root /absolute/path/to/content-repo
+python3 -B scripts/deploy_multica_profiles.py --check --channel-root /absolute/path/to/content-repo
+```
+
 ### Tests
 
 ```bash

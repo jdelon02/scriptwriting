@@ -48,7 +48,9 @@ Apply to every skill that changes the script.
   (SOUL rule 2).
 - Show proposals in this form and wait for the answer:
   `Edit E4 (sentence) in Loop 2, Tension: "<before>" -> "<after>". Reason: <why>. Approve, edit, or reject?`
-  Present all of a section's proposals together, then ask once per proposal.
+  Present a named group of proposals together and ask once for approval, edits or rejection of that scope.
+  Record the approved IDs, exact wording version and source answer/comment in Approval record; apply only covered edits.
+  Unmentioned IDs remain proposed/unapplied, not rejected. Do not automatically re-ask about them.
 - On approve, set the row `approved`, apply the after text to the section, and add the ID to the section's
   `Edits:` line. On edit, record the user's version as the after text and approve it. On reject, set the row
   `rejected` and change nothing.
@@ -62,11 +64,10 @@ Apply to every skill that changes the script.
 
 For each section in script order:
 
-1. **Jargon.** List candidate terms in the section that someone outside the topic might not know. For each,
-   one at a time, ask: "Would your audience know '<term>'?" If the user says no, propose a replacement that
-   means the same thing, using the user's own wording from `series/VOICE.md` and the dump where possible.
-   If the user says "you decide", decline and ask: "How would you say that to a friend who's new to this?"
-   (SOUL rule 3).
+1. **Jargon.** Use the recorded audience and voice to identify consequential terms. Where meaning is
+   clear, propose sourced equivalents alongside the other edits; do not ask about every term.
+   Ask only when meaning or audience knowledge is materially ambiguous. Honor an explicit decision
+   to keep the wording or skip an optional simplification without another question.
 2. **Sentences.** Find long or multi-clause sentences. Propose splits or trims using the same words. There is
    no length threshold for the body; judge it and show it. Hook sentences must stay under ten words (fewer
    than ten).
@@ -105,7 +106,7 @@ and the re-hook.
 
 ### Exit
 
-Every flagged gap has an answer. Set `Interview step: read-aloud` and start `read-aloud`.
+Every flagged gap has an answer, an explicit optional skip, or a visible unresolved required decision. Continue independent work; required scope gaps still need Head reconciliation. Set `Interview step: read-aloud` and start `read-aloud`.
 
 </skill_gap_check>
 
@@ -119,9 +120,10 @@ Every flagged gap has an answer. Set `Interview step: read-aloud` and start `rea
 
 ### Steps
 
-For each section in script order:
+For the complete script or a named section group, offer one read-aloud review. Honor an optional
+skip and record it without treating it as script approval.
 
-1. Show the section text and ask: "Read this section aloud, the way you'd say it. Is there anything you'd
+1. Show the selected text and ask: "Read this section aloud, the way you'd say it. Is there anything you'd
    never say in conversation?"
 2. Record the user's answer verbatim as `Q<n>`. If they mark nothing, record that.
 3. For each piece of text the user marked, propose a cut or a rewording as a logged `conversational` edit,
@@ -134,7 +136,7 @@ For each section in script order:
 
 ### Exit
 
-Every section has been read. Set `Interview step: cues` and start `visual-cues`.
+The selected scope has been read or the optional pass explicitly skipped; record that choice without claiming script approval. Set `Interview step: cues` and start `visual-cues`.
 
 </skill_read_aloud>
 
@@ -158,26 +160,29 @@ the user approves.
   - `wizard-suggested`, with `approval: Q<n>` where `Q<n>` records the user's approval.
 - A suggested cue describes what to show. It never contains a digit, a `%` sign, or any new claim, statistic,
   or fact (SOUL rule 5).
-- Show each cue as a proposal and get approve, edit, or reject. A suggestion is final only after the user's
+- Present a named group of cues together and ask once for approval or corrections to those IDs. A suggestion is final only after the user's
   approval is recorded as `Q<n>`.
 
 ### Steps
 
 1. **Chapter markers.** For each loop, in the skeleton's `Order`, propose a `CHAPTER` cue titled in the
-   user's words from the loop's payoff (source `L<n>.payoff`). One per loop.
+   user's words from the loop's payoff (source `L<n>.payoff`). Require one per loop only when Doneness
+   requires it; otherwise honor an explicit optional skip.
 2. **On-screen text.** Propose cues from the introduction's promise and roadmap, the takeaways, and the
-   user's own key phrases (`user-sourced`). Ask once: "Is there a phrase you want on screen?" You may then
+   user's own key phrases (`user-sourced`). Ask only if the requested pass lacks a necessary decision: "Is there a phrase you want on screen?" You may then
    suggest more, each labeled `wizard-suggested`.
-3. **B-roll.** For each section that could carry it, first ask: "What footage or visuals do you already have
+3. **B-roll.** Reuse recorded footage/visual plans. Ask once for genuinely missing plans across the
+   relevant sections, only if this optional pass is wanted: "What footage or visuals do you already have
    or plan to shoot for this part?" Record the answer as `Q<n>`. Then point at the dump's `[visuals]` entries
-   by number, quoting the user: "Entry #5 '<quote>' is about something to show. Does it belong here?" Then
+   by number only where placement is undecided, quoting the user: "Entry #5 '<quote>' is about something to show. Does it belong here?" Then
    you may suggest further notes as an editor would, each labeled `wizard-suggested`.
-4. **If the user rejects every suggestion for a beat,** leave that cue open with
-   `[PLACEHOLDER P<n>: what to show here]` and a row in `## Placeholders`. Never fill it yourself.
+4. **Optional skips.** If the user declines optional cues, record `skipped by user` in Open threads;
+   do not create a required placeholder for declined optional work. Leave rejected proposals unapplied.
+   A missing cue required by Doneness stays visibly open and needs Head scope reconciliation.
 
 ### Exit
 
-Every cue is `approved` or `open`. Set `Interview step: final-check` and start `final-check`.
+Every included cue is explicitly approved or visibly open. Optional skipped cues remain omitted with the decision recorded. Set `Interview step: final-check` and start `final-check`.
 
 </skill_visual_cues>
 
@@ -191,16 +196,16 @@ Every cue is `approved` or `open`. Set `Interview step: final-check` and start `
 
 ### Steps
 
-1. **Placeholders.** For each open placeholder (carried over from `03-writer.md` or added during the cues
-   pass), ask once more for the material. If the user supplies it, record the answer as `Q<n>`, draft the
+1. **Placeholders.** Summarize remaining required placeholders together; do not re-ask previously
+   clarified, answered or explicitly deferred questions. Ask only about newly material gaps. If the user supplies it, record the answer as `Q<n>`, draft the
    text from their answer, and log it as an edit of type `placeholder` whose before text is the placeholder
    marker, with approval. If they cannot, leave it `open` and list it under `## Open threads`. Never fill it.
-2. **Chapter cues.** Confirm every loop has a `CHAPTER` cue.
+2. **Chapter cues.** Verify cues required by Doneness; record explicit optional omissions. Required omissions need Head scope reconciliation.
 3. **Integrity.** Run the helper below. Every `DIFF` line must correspond to an approved edit in
    `## Edit log`. If one does not, ask the user about it and log it or undo it. No change may be unlogged.
 4. **Read-back.** Read the whole script to the user in order, with the cues, and ask: "Does anything feel out
-   of place?" Handle changes through the same log-and-approve process. Then ask the user to approve each
-   section. Set each approved section's `Status: approved`. Set a section that still holds an open placeholder
+   of place?" Handle changes through the same log-and-approve process. Ask once for approval/corrections to the explicitly named complete script or section group.
+   Record scope, wording version and the source answer/comment. Set each approved section's `Status: approved`. Set a section that still holds an open placeholder
    to `Status: open`.
 5. **Structural requests.** Confirm that every requested structural change is listed under `## Open threads`
    and was not applied (SOUL rule 4).

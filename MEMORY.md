@@ -36,6 +36,12 @@ source_path: "MEMORY.md"
 
 <tooling>
 
+- `scripts/deploy_multica_profiles.py` previews/applies/checks coherent Hermes + Multica
+  deployment. Agent UUIDs come from WORKFLOW.md; exact runtime/profile/executable identity is
+  verified. Multica stores generated bootstraps and synchronized role skills. Installed
+  `profile_guard.py` checks receipts, runtime mappings, content hashes and the channel workflow;
+  Head uses `--preflight` before dispatch. See `docs/profile-deployment.md`.
+
 - RAG embedding requests use synchronous text arrays with configurable `rag_batch_size` (default 16, range 1–2048; `--batch-size` overrides). Embeddings currently go directly to `https://nano-gpt.com/api/v1/embeddings` using project `NANOGPT_API_KEY` and `text-embedding-ada-002`. Only transient embedding HTTP failures retry; vector inserts retain pending-batch protection. The model comes from `MODEL` in the script.
 
 - `scripts/push_to_rag.py` ingests OKF concept bodies through direct NanoGPT embeddings into the local `.env`'s `primary_vector_store_name` (resolved to an ID by exact name). `.githooks/pre-commit` refreshes OKF, stages changed navigation indexes, and uploads when configured; an empty name skips it. Markdown must be fully staged first. This is an append-only prototype with local `.rag/` deduplication, not replacement/deletion sync. See `docs/rag-ingestion.md` for credentials, configuration, and recovery.
@@ -51,6 +57,14 @@ source_path: "MEMORY.md"
 ## Durable Decisions
 
 <decisions>
+
+- Resume recovery reconciles artifacts, comments and commits before asking again; truncated output
+  is incomplete evidence. Review handoffs identify repository, branch, PR, SHA and artifact paths.
+  Legacy acceptance uses an explicit read-only Reviewer audit, preserving historical Done. See
+  `docs/validation/progress-handoffs-legacy.md` for the 2026-09-28 administrative reconciliation.
+- The deployed Multica metadata CLI stores predecessor arrays as text: JSON-encode issue UUID lists
+  and parse once on read; support native arrays too. A metadata target branch is not evidence that
+  it exists; preserve legacy commits and dirty work when establishing the issue branch.
 
 - Multica owns issue lifecycle and ownership; GitHub PR review and verified merges are the evidence of accepted work. Markdown fields never indicate completion.
 - Numerical scoring, deductions, pass thresholds, and the separate acceptance-criteria framework are retired; Reviewer compares PR results against the issue's Doneness prose.

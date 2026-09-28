@@ -63,6 +63,34 @@ If the issue is in review, blocked, cancelled, Done, or assigned elsewhere, do n
 
 </before_any_content_edit>
 
+## Resume and handoff evidence
+
+<resume_and_handoff_evidence>
+
+Before reporting progress or asking another content question, follow WORKFLOW.md's **Recovering
+progress and readable artifacts**. Reconcile the artifact, relevant issue comments and publication
+history; reuse recorded answers and stable IDs. Read omitted/truncated sections before declaring
+anything missing. Preserve approval scope and wording versions; a prior agent claim is not approval.
+After saving, verify real Markdown line breaks and read back the affected content before publishing.
+
+At submission follow **Revision-specific handoff evidence**: verify local/remote/PR head agreement,
+record exact artifact paths and revision, verify native association and the owner/status readback.
+Report the precise incomplete boundary on failure. Recover existing side effects before retrying.
+Legacy metadata/acceptance gaps go to Head under **Reconciling legacy issues**; do not restart the
+creative interview, infer acceptance or bypass a prerequisite while waiting for reconciliation.
+
+</resume_and_handoff_evidence>
+
+## Questions and review scope
+
+<questions_and_review_scope>
+
+Follow WORKFLOW.md's **Questions, skips and approvals** in every skill: reuse recorded answers,
+honor optional skips, and group related review decisions without inventing content or approval.
+A clear approval applies only to the named wording/version or proposal IDs; retain prior evidence.
+
+</questions_and_review_scope>
+
 ## Saving as you go
 
 <saving_as_you_go>
@@ -86,8 +114,7 @@ further content edits; retain the local commit and report to Head. Interview pro
 Look for `series/SERIES.md`.
 
 - **If it exists,** read it and go to Step 2.
-- **If it is missing,** create it from `$HERMES_HOME/templates/SERIES.md`. Ask the user for each of these, one
-  question at a time, and write their answer verbatim:
+- **If it is missing,** create it from `$HERMES_HOME/templates/SERIES.md`. Reuse recorded inputs; ask only for missing items in compact groups and write answers verbatim:
   1. The series title.
   2. The tagline.
   3. The overarching theme, in their own words.
@@ -102,7 +129,7 @@ Look for `series/SERIES.md`.
 
 <step_2_episode_selection>
 
-Use the episode identified in Head's assigned issue. Confirm its working title with the user;
+Use the episode identified in Head's assigned issue. Reuse its recorded working title;
 if the issue lacks an episode or conflicts with their request, ask Head to reconcile it before writing.
 Do not choose another episode or create an issue yourself.
 
@@ -110,7 +137,7 @@ Do not choose another episode or create an issue yourself.
 For Request changes, go to Step 7; for ongoing content, resume the recorded interview step without
 repeating answered questions. A post-merge revision is a new Head-assigned issue and branch.
 
-**New.** Ask these, one at a time:
+**New.** Reuse supplied decisions; ask only about missing or conflicting items:
 1. Confirm the assigned season and episode number; use what the issue already supplies.
 2. Confirm the working title supplied by the issue. (A working title is only a label for the folder and the `SERIES.md` entry. It is
    not a locked title.)
@@ -196,7 +223,7 @@ change without a reconciled owner goes to Head/Reviewer; never infer assignment 
 1. Read the current critique against the submitted revision and current Doneness. If scope changed,
    Head records/clarifies the intended result before you revise; no silent weakening to pass review.
 2. Tell the user plainly and briefly what is unclear, without suggesting an answer.
-3. Ask open, non-leading questions one at a time (SOUL rules 6 and 7).
+3. Reuse recorded sources; ask only necessary open, non-leading questions in a compact group (SOUL rules 6 and 7).
 4. Record each answer as a new dump entry in the user's words, or as an annotation to the entry it
    clarifies, attributed to the user. Never answer an unclear item yourself, and never edit an existing
    entry to make it clearer.

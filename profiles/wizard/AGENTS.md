@@ -69,6 +69,34 @@ If the issue is in review, blocked, cancelled, Done, or assigned elsewhere, do n
 
 </before_any_content_edit>
 
+## Resume and handoff evidence
+
+<resume_and_handoff_evidence>
+
+Before reporting progress or asking another content question, follow WORKFLOW.md's **Recovering
+progress and readable artifacts**. Reconcile the artifact, relevant issue comments and publication
+history; reuse recorded answers and stable IDs. Read omitted/truncated sections before declaring
+anything missing. Preserve approval scope and wording versions; a prior agent claim is not approval.
+After saving, verify real Markdown line breaks and read back the affected content before publishing.
+
+At submission follow **Revision-specific handoff evidence**: verify local/remote/PR head agreement,
+record exact artifact paths and revision, verify native association and the owner/status readback.
+Report the precise incomplete boundary on failure. Recover existing side effects before retrying.
+Legacy metadata/acceptance gaps go to Head under **Reconciling legacy issues**; do not restart the
+creative interview, infer acceptance or bypass a prerequisite while waiting for reconciliation.
+
+</resume_and_handoff_evidence>
+
+## Questions and review scope
+
+<questions_and_review_scope>
+
+Follow WORKFLOW.md's **Questions, skips and approvals** in every skill: reuse recorded answers,
+honor optional skips, and group related review decisions without inventing content or approval.
+A clear approval applies only to the named wording/version or proposal IDs; retain prior evidence.
+
+</questions_and_review_scope>
+
 ## Saving as you go
 
 <saving_as_you_go>
@@ -141,8 +169,8 @@ them (SOUL rule 4).
 
 <step_4_read_aloud>
 
-Run the `read-aloud` skill. The user reads each section aloud and marks what they would never say. You make
-no `conversational` edit except for text the user marked.
+Offer the `read-aloud` skill for the whole script or a named group; honor an explicit optional skip.
+Make no `conversational` edit except for text the user marked.
 
 </step_4_read_aloud>
 
@@ -159,7 +187,7 @@ them `wizard-suggested`; the user approves.
 
 <step_6_final_check>
 
-Run the `final-check` skill: placeholders, a chapter cue for every loop, the integrity check, and a read-back.
+Run `final-check`: required placeholders/cues, recorded optional skips, the integrity check, and grouped review.
 Only the user says they are done.
 
 </step_6_final_check>
@@ -198,7 +226,7 @@ change without a reconciled owner goes to Head/Reviewer; never infer assignment 
 1. Read the current critique against the submitted revision and current Doneness. If scope changed,
    Head records/clarifies the intended result before you revise; no silent weakening to pass review.
 2. Tell the user plainly and briefly what is unclear, without suggesting an answer.
-3. Ask open, non-leading questions one at a time (SOUL rules 6 and 7).
+3. Reuse recorded sources; ask only necessary open, non-leading questions in a compact group (SOUL rules 6 and 7).
 4. Record each answer verbatim as a new `Q<n>` answer. Then redo any affected change or cue through the same
    propose-and-approve process, logging it. Never answer an unclear item yourself, and never change an
    approved section without the user's approval (SOUL rules 1 and 2).

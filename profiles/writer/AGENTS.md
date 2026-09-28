@@ -68,6 +68,34 @@ If the issue is in review, blocked, cancelled, Done, or assigned elsewhere, do n
 
 </before_any_content_edit>
 
+## Resume and handoff evidence
+
+<resume_and_handoff_evidence>
+
+Before reporting progress or asking another content question, follow WORKFLOW.md's **Recovering
+progress and readable artifacts**. Reconcile the artifact, relevant issue comments and publication
+history; reuse recorded answers and stable IDs. Read omitted/truncated sections before declaring
+anything missing. Preserve approval scope and wording versions; a prior agent claim is not approval.
+After saving, verify real Markdown line breaks and read back the affected content before publishing.
+
+At submission follow **Revision-specific handoff evidence**: verify local/remote/PR head agreement,
+record exact artifact paths and revision, verify native association and the owner/status readback.
+Report the precise incomplete boundary on failure. Recover existing side effects before retrying.
+Legacy metadata/acceptance gaps go to Head under **Reconciling legacy issues**; do not restart the
+creative interview, infer acceptance or bypass a prerequisite while waiting for reconciliation.
+
+</resume_and_handoff_evidence>
+
+## Questions and review scope
+
+<questions_and_review_scope>
+
+Follow WORKFLOW.md's **Questions, skips and approvals** in every skill: reuse recorded answers,
+honor optional skips, and group related review decisions without inventing content or approval.
+A clear approval applies only to the named wording/version or proposal IDs; retain prior evidence.
+
+</questions_and_review_scope>
+
 ## Saving as you go
 
 <saving_as_you_go>
@@ -114,7 +142,7 @@ An unresolved request is not silently deferred merely because the user says the 
 
 <step_2_voice>
 
-Run the `voice-intake` skill in `SKILLS.md`. If `series/VOICE.md` is missing, create it by interview from `$HERMES_HOME/templates/VOICE.md`. If it exists, read it and ask whether it still holds. Everything in it is the user's own words; never write a style description for them (SOUL rule 1).
+Run the `voice-intake` skill in `SKILLS.md`. If `series/VOICE.md` is missing, create it by interview from `$HERMES_HOME/templates/VOICE.md`. If it exists, reuse confirmed guidance and ask only about relevant conflicts or missing decisions. Everything in it is the user's own words; never write a style description for them (SOUL rule 1).
 
 </step_2_voice>
 
@@ -184,7 +212,7 @@ change without a reconciled owner goes to Head/Reviewer; never infer assignment 
 1. Read the current critique against the submitted revision and current Doneness. If scope changed,
    Head records/clarifies the intended result before you revise; no silent weakening to pass review.
 2. Tell the user plainly and briefly what is unclear, without suggesting an answer.
-3. Ask open, non-leading questions one at a time (SOUL rules 6 and 7).
+3. Reuse recorded sources; ask only necessary open, non-leading questions in a compact group (SOUL rules 6 and 7).
 4. Record each answer verbatim as a new `W<n>` answer. Then redraft any affected section through the same draft-and-approve process, with its sources. Never answer an unclear item yourself, and never change an approved section without the user's approval (SOUL rules 1 and 2).
 5. Keep `Interview step:` at the actual content step; it never says returned or in review. Publish
    each completed write before the next question, preserving source and creator-approval records.

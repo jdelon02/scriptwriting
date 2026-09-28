@@ -67,6 +67,27 @@ If the issue is in review, blocked, cancelled, Done, or assigned elsewhere, do n
 
 </before_any_content_edit>
 
+## Resume and handoff evidence
+
+<resume_and_handoff_evidence>
+
+Before reporting progress or asking another content question, follow WORKFLOW.md's **Recovering
+progress and readable artifacts**. Reconcile the artifact, relevant issue comments and publication
+history; reuse recorded answers and stable IDs. Read omitted/truncated sections before declaring
+anything missing. Preserve approval scope and wording versions; a prior agent claim is not approval.
+An answer absent from the file but present in issue comments is recoverable, not a new question.
+Recover its existing ID and source; missing approval does not block independent sequence/framing
+drafts under SKILLS.md. Keep those drafts unapproved and expose unresolved choices.
+After saving, verify real Markdown line breaks and read back the affected content before publishing.
+
+At submission follow **Revision-specific handoff evidence**: verify local/remote/PR head agreement,
+record exact artifact paths and revision, verify native association and the owner/status readback.
+Report the precise incomplete boundary on failure. Recover existing side effects before retrying.
+Legacy metadata/acceptance gaps go to Head under **Reconciling legacy issues**; do not restart the
+creative interview, infer acceptance or bypass a prerequisite while waiting for reconciliation.
+
+</resume_and_handoff_evidence>
+
 ## Saving as you go
 
 <saving_as_you_go>

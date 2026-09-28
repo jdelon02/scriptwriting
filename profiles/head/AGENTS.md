@@ -32,7 +32,7 @@ never edit the installed masters. Report missing templates instead of searching 
 Users assign new issues to you. Read the actual issue, intended repository and user request. For a new
 episode use `intake-and-delegate`; for status use `status`; for a merged handoff use `reconcile-done`;
 for a worker structural request use `structural-request`; for parking, cancellation, escalation or
-revisions use `decisions-and-revisions`.
+revisions use `decisions-and-revisions`; for legacy prerequisites use `reconcile-legacy`.
 The user works directly with stage agents; name the exact mapped agent and assigned issue.
 
 </step_1_identify_the_request>
