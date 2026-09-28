@@ -32,6 +32,11 @@ Use native Multica and GitHub evidence under WORKFLOW.md. Never use repository f
 5. Verify the correct mapped agent and accepted inputs, set eligible work Todo/assign, and verify
    resulting state/owner and wake behavior. Never treat cancelled predecessors or parent notifications
    alone as success. Resolve branch collisions and duplicate runs before dispatch.
+   Before dispatch, run the target role's installed guard:
+   `python3 ~/.hermes/profiles/script-<role>/profile_guard.py --preflight --channel-root <content-repo>`.
+   This checks the live agent/runtime/profile mapping, executable, deployed instructions and skill,
+   and channel workflow without reading private memory. A failed check stops dispatch; report the
+   mismatch for deployment reconciliation. Do not substitute another runtime or bypass the guard.
 6. Record issue IDs and coordination actions in Multica history. Direct the creator to the assigned
    issue. Do not create head-log files, interview on behalf of workers, or write their creative output.
 
@@ -142,3 +147,18 @@ The table covers OKF, CodeGraph, code-review-graph, and optional Graphify. Requi
 and startup context remain mandatory.
 
 </tool_support_during_skills>
+
+## Skill: reconcile-legacy
+
+<skill_reconcile_legacy>
+
+Follow WORKFLOW.md's **Reconciling legacy issues** before resuming an unmigrated episode. Snapshot
+history and dirty artifacts; recover scope, original workers and publication/merge evidence; fill
+Doneness and metadata; reconcile staged siblings and parked successors using no-start updates.
+Preserve historical Done and acceptance claims without treating them as current merge/review proof.
+Record precise release gates, read back mutations and ensure no run was dispatched. Do not author
+or publish a worker's creative recovery, supply a Reviewer verdict, or fabricate an empty PR.
+For status, follow **Recovering progress and readable artifacts** and distinguish recorded answers,
+creator approval, publication and lifecycle. Route unresolved recovery to its actual owner.
+
+</skill_reconcile_legacy>

@@ -34,34 +34,34 @@ request in Open threads for someone to discover later.
 
 ### If the file exists
 
-Read it, then ask: "Does this still hold for this episode?" If the user wants to add something, record it verbatim as a new entry. Do not rewrite earlier entries. Then go to the exit.
+Read it and reuse its confirmed guidance. Ask only if current directions conflict or a relevant decision is missing. If the user wants to add something, record it verbatim as a new entry. Do not rewrite earlier entries. Then go to the exit.
 
 ### If the file is missing
 
 1. Create `series/VOICE.md` from `$HERMES_HOME/templates/VOICE.md`.
-2. **Samples.** Ask these three, one at a time. Record each answer verbatim with the next ID, in the form
+2. **Samples.** Reuse existing suitable creator samples; ask only for material still needed, in a compact group. These are optional prompts, not three mandatory samples. Record each answer verbatim with the next ID, in the form
    `V<n> (<short label of the prompt>): "<their words>"`:
    - V1: "The series is about '<the theme from series/SERIES.md>'. Explain that to a friend, the way you'd
      actually say it."
    - V2: "Tell me about a time something went wrong for you, the way you'd tell it at dinner."
    - V3: "What do you say when you want to make a point land? Say it the way it would come out."
-   Follow up with "Say more about that." if an answer is very short.
-3. **Style, in their words.** Ask, one at a time, and record each answer verbatim under the matching heading:
+   Do not require a longer answer merely because it is short.
+3. **Style, in their words.** Ask only where relevant guidance is missing, and record each answer verbatim under the matching heading:
    - "How would you describe the way you talk on camera?" (`## How I describe my style`)
    - "Are there words or phrases you always use?" (`## Phrases I use`)
    - "Are there any you'd never say?" (`## Phrases I avoid`)
-   Ask "Any others?" once after each of the last two.
+   Do not add automatic follow-up questions.
 4. **Read back.** Read the whole file to the user, verbatim, and ask: "Is this right?" Record any corrections
    verbatim.
 
 ### Rules
 
 - Everything in the file is the user's words. Never write a style description for the user, never paraphrase, and never fill a heading you have no answer for (SOUL rules 1 and 3).
-- One question at a time (SOUL rule 7).
+- Use up to three related short questions; questions remain open and non-leading.
 
 ### Exit
 
-The user confirms the file. Set `Interview step: body` and start `draft-body`.
+Record explicit confirmation for newly captured voice guidance; reuse unchanged confirmed guidance. Set `Interview step: body` and start `draft-body`.
 
 </skill_voice_intake>
 
@@ -83,8 +83,10 @@ Apply to every drafted element, in every skill.
 - Show every draft in this form: `Draft (sources: L1.setup, #2, A1.2): <prose>. Approve, edit, or reject?`
   Sources use the IDs in `03-writer.md` conventions: `L<n>.payoff|setup|tension`, `T<a>-<b>`, `REHOOK`,
   `INTRO.promise|roadmap`, `SUMMARY`, `CTA.link|gap|promise`, `#N`, `A<loop>.<n>`, `V<n>`, `W<n>`.
-- After the user approves or edits, write the text into the section with a `Sources:` line and set the
-  section's `Status` to `approved` (SOUL rule 2).
+- Save complete sourced sections as `Status: draft` with `Sources:` lines. Present a named group once
+  for approval/correction. Record the explicit reply's scope, wording version and source comment in Approval record;
+  only covered sections become approved. Changed wording needs approval again; unchanged approvals
+  remain valid. Unresolved required content stays open. Permission to draft is not approval.
 - Match `series/VOICE.md`: use phrases the user uses, never phrases they avoid (SOUL rule 5).
 - If the sources lack the material for a beat, follow "Placeholders" below (SOUL rule 3).
 - Do not restructure. If the user asks to change the order, the loops, a transition, or the re-hook
@@ -100,19 +102,19 @@ Apply to every drafted element, in every skill.
 
 ### Steps
 
-1. For each loop, in the skeleton's `Order` (not by loop number), draft in this sequence, with approve, edit, or reject after each:
+1. For each loop, in the skeleton's `Order` (not by loop number), draft in this sequence, as a complete sourced loop draft, then review the named loop/group once:
    - **Setup.** A specific claim that creates stakes and a curiosity gap.
    - **Tension.** The current (wrong) behavior, why it fails, and the contrast that reveals the alternative.
    - **Payoff.** The concrete answer, connected to the larger journey of the episode.
    Write the three into the loop's `### Loop <n> (position <p>)` section with one `Sources:` line.
 2. **Transitions.** For each pair of adjacent loops, draft the transition from the skeleton's approved
-   transition for that pair (`T<a>-<b>`) and the two loops' content. Approve, edit, or reject.
+   transition for that pair (`T<a>-<b>`) and the two loops' content. Include it in the grouped review.
 3. **Re-hook.** Draft the mid-video re-hook from the skeleton's `REHOOK` element at the position the
-   skeleton names. Approve, edit, or reject.
+   skeleton names. Include it in the grouped review.
 
 ### Exit
 
-Every loop, transition, and the re-hook is `approved` or `open`. Set `Interview step: frame` and start `draft-frame`.
+Every loop, transition and re-hook is `draft`, explicitly `approved`, or visibly `open`. Independent framing may proceed while draft approvals are pending. Set `Interview step: frame` and start `draft-frame`.
 
 </skill_draft_body>
 
@@ -127,7 +129,8 @@ Follow the drafting rules and placeholders in `draft-body`.
 
 ### Introduction
 
-Draft the five labeled lines, one at a time, each with approve, edit, or reject:
+Draft the introduction together from existing sources and review it as one named section. Ask the
+following content questions only where recorded answers do not already supply the material:
 
 1. **Validating language.** Ask: "When someone clicks this video, what are they feeling or worried about?" Record the answer as `W<n>`. Draft the line from it.
 2. **Problem.** Name the problem specifically, from the skeleton's title, story spine, and answers.
@@ -146,7 +149,7 @@ From `CTA.link`, `CTA.gap`, and `CTA.promise`: the link to content just covered,
 
 ### Exit
 
-Introduction, summary, and call to action are `approved` or `open`. Set `Interview step: hook` and start `draft-hook`.
+Introduction, summary and CTA are drafted with sources and their approval/gap states visible. Set `Interview step: hook` and start `draft-hook`.
 
 </skill_draft_frame>
 
@@ -156,16 +159,16 @@ Introduction, summary, and call to action are `approved` or `open`. Set `Intervi
 
 **Purpose.** Draft the hook, last, from the article's three-part formula.
 
-**Before you start.** Read `knowledge/five-part/hook.md`. **Check that no other section in `## Draft` has `Status: draft`.** If one does, finish it first: the hook is written last. Set `Interview step: hook`.
+**Before you start.** Read `knowledge/five-part/hook.md`. **Draft the body and framing first; the hook is written last.** Pending approval of unchanged drafts does not require stopping independent hook drafting. Set `Interview step: hook`.
 
 ### Steps
 
 1. Read the sources for the hook: the Grand Payoff in `01-artist.md`, the approved loops, and the entries listed under `## Unused material` in `02-architect.md`. You may point at unused entries by number, quoting the user's words: "These weren't used in the loops: #3 '<quote>'. Does any of it belong in the hook?"
-2. Interview for the three parts, one at a time. Record each answer as `W<n>`:
+2. Reuse recorded material for all three parts; ask only about material gaps in a compact group. Record new answers as `W<n>`:
    - **Context lean-in.** "What does your viewer already worry about that this episode connects to?"
    - **Scroll stop.** "Where does that take a turn the viewer wouldn't see coming?"
    - **Contrarian snapback.** "What's the statement that goes against what they expect?"
-3. Draft each part from the answers and the sources. Show it as a draft with its sources and ask approve, edit, or reject.
+3. Draft the complete sourced hook and include it in one named scope for approval or correction.
 
 ### Rules
 
@@ -176,7 +179,7 @@ Introduction, summary, and call to action are `approved` or `open`. Set `Intervi
 
 ### Exit
 
-The hook is `approved` or `open`. Set `Interview step: completeness` and start `completeness-check`.
+The hook is a sourced draft, explicitly approved, or open with its gap visible. Set `Interview step: completeness` and start `completeness-check`.
 
 </skill_draft_hook>
 
@@ -190,9 +193,9 @@ The hook is `approved` or `open`. Set `Interview step: completeness` and start `
 
 ### Steps
 
-1. **Skeleton coverage.** List every element in `02-architect.md`: each loop's setup, tension, and payoff (`L<n>.setup`, `L<n>.tension`, `L<n>.payoff`); each transition (`T<a>-<b>`); the re-hook (`REHOOK`); the intro promise and roadmap (`INTRO.promise`, `INTRO.roadmap`); the summary (`SUMMARY`); and the CTA parts (`CTA.link`, `CTA.gap`, `CTA.promise`). Record each under `## Skeleton coverage` as `<ID>: drafted in <section>` or `<ID>: not used, "<the user's reason>"`. If an element is undrafted, ask the user why. Never drop one silently (SOUL rule 2).
-2. **Placeholders.** For each `open` placeholder, ask the user once more for the material. If they supply it, draft and approve it. If they cannot, leave it `open` and list it under `## Open threads`. Never fill it.
-3. **Read-back.** Read the whole draft to the user in script order: hook, introduction, loops with their transitions, the re-hook after the designated loop, summary, call to action. Ask: "Does anything feel out of place? Is there anything here you'd never say out loud?" Handle changes through the draft-and-approve process, and record new answers as `W<n>`.
+1. **Skeleton coverage.** List every element in `02-architect.md`: each loop's setup, tension, and payoff (`L<n>.setup`, `L<n>.tension`, `L<n>.payoff`); each transition (`T<a>-<b>`); the re-hook (`REHOOK`); the intro promise and roadmap (`INTRO.promise`, `INTRO.roadmap`); the summary (`SUMMARY`); and the CTA parts (`CTA.link`, `CTA.gap`, `CTA.promise`). Record each under `## Skeleton coverage` as `<ID>: drafted in <section>` or `<ID>: not used, "<the user's reason>"`. For an undrafted element, check recorded decisions before asking; an intentional omission affecting accepted structure goes to Head. Never drop one silently (SOUL rule 2).
+2. **Placeholders.** Summarize remaining required placeholders together. Do not re-ask a question already answered, clarified once, or explicitly deferred. Ask only about a newly material unresolved gap. If they supply it, draft and approve it. If they cannot, leave it `open` and list it under `## Open threads`. Never fill it.
+3. **Read-back.** Read the whole draft to the user in script order: hook, introduction, loops with their transitions, the re-hook after the designated loop, summary, call to action. Ask: "Does anything feel out of place? Is there anything here you'd never say out loud?" Ask once for approval/corrections to the named complete draft scope. Handle changes through the draft-and-approve process, preserve unchanged approvals, and record new answers as `W<n>`.
 4. **Structural requests.** Confirm that any requested structural change is listed under `## Open threads` and was not applied (SOUL rule 4).
 
 ### Exit

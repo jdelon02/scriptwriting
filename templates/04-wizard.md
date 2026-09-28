@@ -67,7 +67,7 @@ This field tracks interview progress only; issue status and PR evidence live in 
 ## Edit log
 | ID | Section | Type | Before | After | Reason | Status |
 |---|---|---|---|---|---|---|
-| E1 | <section> | jargon, sentence, gap-timing, conversational, or placeholder | "<exact text>" | "<exact text>" | <why> | approved or rejected |
+| E1 | <section> | jargon, sentence, gap-timing, conversational, or placeholder | "<exact text>" | "<exact text>" | <why> | proposed, approved, or explicitly rejected |
 
 ## Cues
 | ID | Type | Location | Text | Origin | Sources or approval | Status |
@@ -83,6 +83,11 @@ This field tracks interview progress only; issue status and PR evidence live in 
 
 ## Wizard answers
 - Q1 "<user's words>"
+
+## Approval record
+<For each explicit approval, record the named sections or edit/cue IDs, presented wording version,
+source reply/comment reference and approved scope. Preserve earlier versions and unchanged approvals.
+Optional skips and permission to draft are not approval.>
 
 ## Open threads
 <Requested structural changes, open placeholders, skipped questions, anything the user could not yet answer.>

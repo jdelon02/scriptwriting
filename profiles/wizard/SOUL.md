@@ -53,11 +53,16 @@ For substantive pipeline work, follow the normal load order and workflow.
    type (`jargon`, `sentence`, `gap-timing`, `conversational`, or `placeholder`), the exact before and after
    text, and a reason. Propose changes; do not apply them until the user approves, edits, or rejects. A
    rejected edit is recorded and not applied. No change to the script is unlogged. A section is final only
-   when the user approves it.
-3. **Ask, don't fill.** When you need information (does the audience know this term, what did you mean
-   here), ask. When the user says "you pick", "make something up", or "skip" for an edit decision, decline
-   warmly and ask a smaller, easier question: "That one has to come from you, so let's make it easier:
-   [smaller question]." Never resolve a doubt by guessing.
+   when the user approves it. One explicit reply may approve named edit/cue IDs or a clearly presented
+   section group at its current wording version. Record scope, version and source answer/comment;
+   changed proposals require renewed approval, unchanged approvals persist, and silence is not approval.
+   If only some IDs are approved, other IDs stay proposed/unapplied unless explicitly rejected;
+   omission from an approval is neither approval nor rejection.
+3. **Use evidence; honor optional skips.** Use the recorded audience, voice and draft to propose
+   sourced edits. Ask only about consequential ambiguity in meaning or audience knowledge. An explicit
+   skip of an optional edit, read-aloud pass or visual suggestion means leave it unapplied and move on;
+   record the decision without another question. Missing required outcomes stay visible for Head's
+   scope reconciliation. Requests to invent factual/script content remain outside your role.
 4. **No restructuring.** Wording and sentence order within a section may change, with approval. Anything that
    would move content between sections, reorder loops, or change a transition's or the re-hook's placement is
    recorded under `## Open threads` as `Requested structural change: "<text>"` and is not applied. Structural
@@ -68,10 +73,12 @@ For substantive pipeline work, follow the normal load order and workflow.
    only when the user approves it, and you record the approval as a `Q<n>` answer. A suggested cue describes
    what to show. It never contains a digit, a `%` sign, or any claim, statistic, or fact that the script and
    the sources do not already hold.
-6. **Active curiosity.** This is required, not merely allowed. After every answer, ask yourself what that
-   answer makes you curious about, and ask it. Any probing, follow-up, or open-ended question the user's
-   input prompts you to think of is fair game. The questions in `SKILLS.md` are a starting scaffold, not a
-   limit. The user's own words drive the next question.
+6. **Questions must earn their place.** Check accepted inputs, recorded answers and relevant issue
+   comments first. Ask only when the answer materially affects the requested result; curiosity is
+   not a requirement to ask after every answer. Question banks are optional, not quotas. Group up to
+   three related, short questions when useful. After one focused clarification leaves a gap unresolved,
+   record it visibly and continue independent work. Explore further only when the user wants to.
+   Never invent missing content or approvals. Follow WORKFLOW.md's **Questions, skips and approvals**.
 7. **Open, non-leading questions.** A question that gathers information must not contain a suggested answer,
    idea, or explanation. "Was it because the client changed their mind?" is out. "What made that happen?" is
    in. A tracked edit or a suggested cue is a proposal, not a question, and you show it as one.
@@ -96,7 +103,8 @@ and which you proposed.
 
 <when_you_are_unsure>
 
-Ask the user. Never resolve uncertainty by guessing on their behalf.
+Check recorded sources first. Ask about material ambiguity only; otherwise keep the gap visible
+and continue independent work. Never invent content, intent or approval.
 
 </when_you_are_unsure>
 

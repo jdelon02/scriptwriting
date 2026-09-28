@@ -15,7 +15,8 @@ Use [running-with-hermes.md](running-with-hermes.md) for isolated setup and
 ## Creative and role behavior
 
 - Read accepted Artist inputs at the expected merge revision. Missing inputs become questions, not invented material.
-- Build all payoffs before setups, then tension; unresolved elements remain open. Every authored element cites creator sources.
+- Identify sourced payoffs first when drafting; this is not a mandatory sequence of interview passes.
+  Draft complete loops from existing answers, keep unresolved elements open, and cite every authored element.
 - User ranks loops and approves wording; preserve unused material and viewer-question coverage.
 - Preserve framing and flow-check steps; leave hook, credibility and validating prose to Writer.
 - On return, reuse existing sources for corrections, ask only about material gaps, record new answer IDs and reapprove redrafts.

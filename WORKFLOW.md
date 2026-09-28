@@ -21,6 +21,22 @@ not require an episode. Missing issue/repository context goes to Head, never a g
 
 ## Agent directory
 
+### Deployed instruction identity
+
+The source bundles in scriptwriting are authoritative. Multica stores a generated bootstrap
+pointing to the installed Hermes files, not a separately maintained copy of their procedure.
+The assigned Multica role skill must match the installed skill. Deploy these together with
+`scripts/deploy_multica_profiles.py` in the source repo; its default is a read-only preview.
+Use `--check --channel-root <content-repo>` for source/deployment drift verification.
+
+Each installed profile has a `deployment.json` receipt and `profile_guard.py`. Before content
+mutation, the Multica bootstrap requires its guard with `--channel-root <assigned-content-repo>`.
+Head runs the target role's guard with `--preflight` before dispatch. These checks validate the
+exact agent → runtime → Hermes profile mapping, executable contents, instructions, skill and
+workflow version. Missing or inconsistent deployment evidence stops dispatch/content mutation.
+They do not establish issue readiness, replace Doneness or prove the PR/merge/wake pilot.
+Never hand-edit generated workdir AGENTS.md; Multica refreshes it when preparing a new run.
+
 Verified with `multica agent list --output json` on 2026-09-22 in workspace `Personal Stuff`
 (`aa1884cb-1770-444b-b66d-4a036cba7e82`, issue prefix `PERS`). These six agents belong to the scripting
 workflow; other workspace agents are not interchangeable with them.
@@ -172,6 +188,11 @@ Head populates these metadata keys before dispatch:
 | `base_branch` | `main` |
 | `prerequisite_issue_ids` | Predecessor references under the selected native dependency representation |
 
+The deployed metadata CLI stores `prerequisite_issue_ids` as text. Write a JSON-encoded array of
+issue UUIDs (including `[]` for no predecessors), then parse that value once when reading it.
+Accept a native array if the API supplies one; malformed or ambiguous values stop dispatch for
+Head reconciliation. Do not treat a nonempty serialized string as a satisfied dependency.
+
 Use native fields for parent and stage ordering. Prefer a single Head-owned episode parent with four staged sibling issues. Stage ordinals are scheduling groups, not a replacement for verifying actual merged inputs. Do not confuse setting `parent` with creating a blocking relationship.
 
 Worker submission records the PR URL and submitted head SHA in issue metadata as recovery evidence. It must also verify the PR appears in Multica's actual linked-PR relation. A description link or metadata key alone is not enough.
@@ -212,6 +233,25 @@ performs the merge and verified Done handoff; Head cannot substitute its own ver
 **Merge failures:** A conflict, failed required check, outdated approval, changed PR head, or denied merge is not Done. Content corrections return through Reviewer to the original worker; infrastructure/access blockers go to Head. Head cannot override a rejected PR or merge on Reviewer's behalf under the selected design.
 
 **Head:** Confirm the PR merged and its content is present on main; refresh dependency state; release only eligible successors from the new main revision; leave the issue Done after reconciliation. Record coordination actions in Multica issue history so retries do not duplicate dispatch; no extra completion status or repository flag is needed. A downstream assignment must include the expected upstream merge revision. Parent notifications alone are not completion evidence.
+
+## Revision-specific handoff evidence
+
+Before assigning Reviewer, the worker verifies that local HEAD, the remote issue branch head and
+PR head all identify the same intended commit. Record a handoff in the issue containing repository,
+branch, PR URL, submitted head SHA, artifact paths and creator-approved scope. Persist the PR URL
+and submitted SHA in metadata, verify native PR association, then perform and read back the combined
+owner/status update. Distinguish local-only, committed-only, pushed, PR-linked and handed-off states;
+name the exact failed boundary rather than saying “submitted” after a partial operation.
+
+Reviewer fetches the linked PR's actual head in its supplied worktree and checks the artifact paths
+at that SHA. Pulling Reviewer's default branch cannot prove a submitted artifact is absent. Compare
+the fetched PR head with the submitted SHA; a changed head requires assessment of the new revision
+and invalidates earlier approval. A missing artifact claim must identify the inspected repository,
+SHA and path. Missing association or inaccessible revision is a handoff blocker, not a content verdict.
+
+On retry, inspect existing local/remote commits, PR, metadata and owner/status before writing or
+creating anything. Reuse the existing publication and retry only the incomplete boundary. A provider
+failure never proves that the prior operation had no side effects.
 
 ## Safe handoff and retry behavior
 
@@ -258,6 +298,52 @@ logs and `head-log.md` never override the issue/PR state; retain historical file
 them. An old checked box cannot release work. Filmed/Published remain user-maintained content metadata.
 After a merge, requested changes require a new revision issue, never reopening the merged branch.
 
+## Questions, skips and approvals
+
+Workers check recorded sources before asking. Ask only when the answer materially affects the agreed
+result; group up to three related short questions when useful. No role must ask after every answer.
+After one focused clarification leaves a gap unresolved, retain it visibly and continue independent
+work; explore further when the creator wants to. Silence does not mean skip or approval.
+
+An explicit skip of optional work is recorded once and honored. Do not equate skipping with inventing
+content. Required outcomes or structural changes still need Head scope reconciliation; explain the
+specific consequence once rather than repeatedly asking. Artist still never authors ideas. Writer
+still drafts only from sources; Wizard applies only approved logged edits and cues.
+
+One explicit reply may approve a clearly named group of sections, edits or cues at the presented
+wording version. Record scope, stable IDs, version and source reply. Changed wording needs renewed
+approval; unchanged approvals remain valid. Permission to continue drafting, optional skips and
+approval of unrelated content never substitute for approval or readiness to submit.
+
+## Recovering progress and readable artifacts
+
+Before a status answer, resumed interview, or new content question, the worker reconciles the
+current artifact with relevant issue comments and published commits. For each disputed section,
+identify its recorded answers and stable IDs, current wording, explicit approval reference/version,
+and actual remaining gap. Reuse answered inputs. An agent's earlier “complete” claim is not creator
+approval; an old progress label is not evidence that recorded material is missing. If evidence
+conflicts, explain the specific discrepancy and recover the supported state before proceeding.
+
+Truncated output is incomplete evidence. Read the omitted section or bounded comment pages before
+claiming an answer or file is absent. After a failed run, inspect files, git status, remote commits,
+PRs and issue history: a failed run may already have saved, pushed, or handed off work.
+
+Write Markdown with real line breaks. After each completed save, read the affected sections back
+from disk and verify expected headings, answers, source IDs and approval records survived before
+committing/pushing. If a document is serialized as one physical line with literal `\n` separators,
+preserve the original and repair only verified serialization damage; never blindly replace escaped
+sequences in quotations or code. Verify the repair's content before publication. If repair cannot
+be established safely, report the defect without restarting the interview. Recovery writes still
+require the assigned worker, permitted issue state and normal publication protocol.
+
+Keep four facts separate in status reports: content drafted, creator-approved scope, published
+revision, and issue review/merge state. Report uncertainty precisely instead of converting one into
+another. Recovered answers remain usable even when publication or approval is unresolved. If an answer is
+missing from the artifact but present in a creator comment, recover it from that comment with its
+existing ID; do not ask the creator to supply it again. Ask only when both sources lack necessary
+content or contain a material conflict. Missing approval is not missing source material, and it does
+not stop independent drafting allowed by the role; keep such drafts explicitly unapproved.
+
 ## Worker submission
 
 After the user declares readiness, write the stage handoff, commit and push it before the next
@@ -286,6 +372,52 @@ or supersedes affected downstream work in Multica. If the user withdraws/defers 
 that decision and any scope change; the worker does not invent it. A retry reuses the recorded
 request/decision, avoiding duplicate revision issues. Content Open threads preserve the creative
 context; issue history and Head's action determine routing and scheduling.
+
+## Reconciling legacy issues
+
+Head performs a bounded migration before resuming legacy work. Snapshot descriptions, metadata,
+status/owner, parent/stage, comments, runs, linked PRs, repository refs and dirty artifacts. Preserve
+original descriptions and historical review claims. Do not dispatch while reconciling; use verified
+no-start updates and read back every change. An idle check alone is not a scheduler lock.
+
+1. Recover scope and original workers from the actual request, comments and run history. Add specific
+   Doneness and durable identity metadata without weakening or inventing the requested outcome.
+   Record an unresolved scope question once when evidence cannot settle it; continue independent
+   reconciliation. Record legacy branch refs separately from the future exact issue-ID branch.
+   A target branch in metadata is not proof that it exists. Before worker resume, reconcile the
+   legacy commits and dirty work in the supplied worktree; establish the issue-ID branch from
+   preserved work without reset, forced checkout or discarded changes. Check worktree collisions
+   and accepted-main ancestry. Do not treat migrated work as a blank first start from main or
+   rewrite runtime-owned refs; unresolved branch recovery remains a Head blocker.
+2. Reparent the four existing stage issues as staged siblings under the Head-owned episode parent.
+   Record predecessor IDs; native stage order alone never establishes accepted inputs. Preserve IDs
+   and history; do not create replacement issues solely to make the board look new.
+3. Inspect actual publication and merge history even when the native linked-PR list is empty. Record
+   discovered legacy PR/head/merge identities as recovery evidence. A metadata URL does not repair
+   native association. Verify artifact presence on fresh main; never manufacture an empty PR or
+   relabel an old numerical review as a current SHA-bound approval.
+4. Preserve historical Done while marking its acceptance reconciliation unresolved in metadata when
+   current evidence is insufficient; block successors explicitly. Head does not fabricate a Reviewer
+   verdict or reopen a verified merged revision. For an already-merged legacy PR,
+   Head may explicitly request a read-only legacy acceptance reconciliation by the mapped Reviewer
+   on the existing Done issue, recording `legacy_reconciliation: pending` and the historical
+   repository/PR/head/merge refs. This narrow audit does not reopen the issue, merge again, or grant
+   general permission to edit Done work. The legacy branch/title and absent native association are
+   recorded exceptions for this audit only; Head must verify the refs directly on GitHub.
+   Reviewer records an issue-history finding bound to its actual Reviewer run, inspected PR head,
+   merge commit, artifact paths and current Doneness: `accepted-legacy` or `revision-required`.
+   This is a present assessment of historical delivery, not a fabricated pre-merge verdict. Missing
+   creator approval or unresolved scope prevents acceptance. Head verifies the finding and records
+   its evidence before changing `legacy_reconciliation` to `verified`; native association remains
+   a separately recorded integration gate. Substantive corrections use a linked revision issue.
+5. Park unstarted or prerequisite-blocked work using the deployed native blocker/status mechanism,
+   with reason and release evidence recorded. Keep the intended worker identity; do not leave work
+   in_progress merely because an old assignment used that status. Preserve unpublished content and
+   return recovery to its owning worker when eligible. Do not push or rewrite its creative draft as
+   an administrative migration.
+6. Read back descriptions, metadata, sibling relationships, owner/status and run lists. Record what
+   changed and remaining gates. Only Head releases a successor after verified upstream acceptance,
+   deployment alignment and the capability pilot. Metadata completion alone is not readiness.
 
 ## Historical material
 

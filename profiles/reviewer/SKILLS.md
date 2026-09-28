@@ -23,6 +23,8 @@ Read Doneness; missing, placeholder-only, ambiguous or conflicting text requires
 Fetch the actual PR head and full changed artifacts plus cited sources and prerequisite merge revisions.
 Use detached inspection in your supplied worktree; never seize the worker's checked-out branch or
 edit their files. Verify upstream inputs are accepted, not merely present on an unmerged branch.
+Follow WORKFLOW.md's **Revision-specific handoff evidence**: compare submitted and fetched SHA,
+inspect the specified paths at that revision, and name the inspected SHA/path in missing-file findings.
 Record the inspected head SHA and current scope. If the PR is already merged, verify the existing
 review/merge evidence and use recover-handoff rather than submitting a duplicate review or merge.
 
@@ -106,3 +108,22 @@ The table covers OKF, CodeGraph, code-review-graph, and optional Graphify. Requi
 and startup context remain mandatory.
 
 </tool_support_during_skills>
+
+## Skill: reconcile-legacy-acceptance
+
+<skill_reconcile_legacy_acceptance>
+
+Use only Head's explicit legacy audit request under WORKFLOW.md's **Reconciling legacy issues**.
+Verify your mapped Reviewer assignment/run, historical PR/head/merge identities directly on GitHub,
+artifact presence in current main, current Doneness, original sources and creator approvals. Fetch
+and inspect the actual historical revision. Record legacy branch/title/native-link exceptions;
+they do not authorize exceptions for new submissions. Do not require a preexisting current-contract
+verdict, and never turn an old numerical score into one.
+
+Record `accepted-legacy` or `revision-required` with actual run ID, inspected head, merge commit,
+paths, scope and concrete findings in the issue history. Missing evidence remains unresolved rather
+than accepted. Leave Done and content unchanged, do not merge again, and route substantive corrections
+to Head for a new linked revision issue. Head verifies the finding before releasing prerequisites;
+this audit does not repair native PR linking or waive the deployment capability pilot.
+
+</skill_reconcile_legacy_acceptance>

@@ -10,13 +10,60 @@ source_path: "docs/validation/multica-pr-workflow.md"
 
 ## Current disposition
 
-**Source implementation prepared; live rollout blocked.** This document records observed capability
+**Profile alignment deployed on 2026-09-27; full episode rollout still gated by the pilot below.**
+See the dated deployment addendum below. The original 2026-09-22 observations are retained as
+history, not a description of the current installed instructions. This document records observed capability
 and explicit gaps. It is not episode lifecycle state. Evidence was collected on 2026-09-22 from
 source baseline `486c402`, branch `multica-pr-workflow`. The approved target is the
 [migration plan](../superpowers/plans/2026-09-22-multica-issue-pr-workflow.md).
 
-No live issue was mutated, no profile was installed, and no production run was dispatched during
-this implementation. A completed installer or fixture test is not a successful orchestration pilot.
+During the original 2026-09-22 implementation, no live issue was mutated, no profile was installed,
+and no production run was dispatched. A completed installer or fixture test is not a successful orchestration pilot.
+
+## 2026-09-27 profile alignment deployment
+
+The user authorized fixes 1–3 from the profile/run audit. The deployment command completed
+successfully for all six roles at content revision `ff79e9f10b63bcca4a62`. Its final fresh
+readback reported: `PASS: all six profiles, remote prompts/skills, runtime mappings and channel workflow agree.`
+All six deployment receipts contain that revision; no deployment-pending markers remain.
+
+- Canonical rendered instructions and templates were installed with `--no-config --no-bundled-skills`.
+  Multica embedded procedures were replaced with short installed-bundle bootstraps, and the existing
+  assigned role skill IDs were updated in place. No production episode run was dispatched.
+- Exact agent/runtime/profile/launcher mappings were verified. The installed guard checks actual
+  `HERMES_HOME`, launch overrides, executable and instruction hashes, remote prompt/skill content,
+  and the assigned checkout's workflow before content work. Head checks the target before dispatch.
+  Failed or interrupted deployments leave every role blocked until complete verification.
+- The Architect's existing sourced-draft instructions now reach both local and remote instruction
+  surfaces. The outdated mandatory interview-pass walkthrough was corrected.
+- The complete Python suite passed **102 tests**, including **16 deployment tests**. Independent
+  review identified partial activation and unchecked launcher drift; both received failing
+  regression cases and fixes before deployment.
+- Backup: `/private/tmp/scriptwriting-deployment-20260927/before.json`. Test output:
+  `/private/tmp/scriptwriting-deployment-tests.log`. These local paths are operator evidence,
+  not portable repository artifacts.
+
+An isolated local Hermes Architect one-shot exited successfully. It identified itself as Architect,
+accepted a sourced setup draft without another three-pass interview, and kept missing tension open
+while continuing independent work after one clarification. However, its sample changed the supplied
+answer ID `A1` to `A1.1`, and its draft wording broadened the source slightly. Thus the two targeted
+workflow decisions were observed; citation fidelity and overall creative quality did not receive a
+clean pass. Output: `/private/tmp/scriptwriting-architect-smoke/result.log`. The supplied role skill
+was included in this diagnostic prompt; this was not a new Multica issue, a test of generated workdir
+instructions, or an end-to-end production pilot.
+
+The supplied PERS-16 channel checkout's WORKFLOW.md was synchronized while preserving its preamble
+and unpublished episode outline. That workflow change is **local and uncommitted**; publishing it to
+channel main and refreshing other worktrees remains a normal reviewed change. Older checkouts will
+fail the new workflow drift check until updated. Existing run contexts are not rewritten; start a new
+run to receive the new Multica bootstrap. No PERS-14–18 lifecycle reconciliation, PR association,
+merge/wake pilot, or production restart was performed. Those gates remain open.
+
+## 2026-09-28 recovery and legacy reconciliation
+
+The user authorized audit fixes 4–6. See [progress/handoff/migration evidence](progress-handoffs-legacy.md)
+for instruction changes, recovered historical PR evidence, administrative issue reconciliation and
+remaining release gates. The earlier snapshots below remain historical observations.
 
 ## Capability evidence
 
@@ -76,8 +123,8 @@ SOUL wording difference. Head and Reviewer differed across AGENTS/SOUL/STYLE/ski
 files matched before retirement. Five memory templates matched; Head learned memory differed and
 must be preserved. Both root SKILL.md and MEMORY.md were symlinks for all six profiles.
 
-After source migration, installed instructions intentionally remain on their old version until
-controlled cutover; they must not be described as synchronized.
+At the 2026-09-22 source migration, installed instructions remained on their old version pending
+controlled cutover. The 2026-09-27 addendum supersedes that deployment status.
 
 ## Offline source verification
 
@@ -140,7 +187,8 @@ continue independent source validation. Test transitions never use production is
 
 ## Publication and coherent deployment
 
-These steps remain **pending**, not implied by local source edits:
+This is the original cutover checklist. The 2026-09-27 addendum records the completed profile
+alignment; publication, episode reconciliation and the capability pilot remain separate gates:
 
 1. Head schedules cutover between active runs, stops new dispatch, and snapshots issue ownership,
    branches/PRs, instruction versions, agent runtime/profile selection and attached skill IDs.

@@ -27,6 +27,17 @@ review. Their presence does not authorize content authoring or add review requir
 
 </load_order>
 
+## Legacy acceptance reconciliation
+
+<legacy_acceptance_reconciliation>
+
+When Head explicitly requests WORKFLOW.md's read-only **Reconciling legacy issues** audit on an
+already-merged Done issue with `legacy_reconciliation: pending`, run `reconcile-legacy-acceptance`
+instead of the normal in_review submission path. This is the sole legacy audit exception; it does
+not authorize content edits, reopening, merging again or ordinary review of an unlinked submission.
+
+</legacy_acceptance_reconciliation>
+
 ## Step 1: Identify the assigned review
 
 <step_1_identify_the_assigned_review>
@@ -37,6 +48,19 @@ Keep status `in_review` while reviewing; do not reset it to in_progress on agent
 Run `inspect-pr` in SKILLS.md. Check whether this is a retry of an already merged PR first.
 
 </step_1_identify_the_assigned_review>
+
+## Revision evidence and recovery
+
+<revision_evidence_and_recovery>
+
+Follow WORKFLOW.md's **Revision-specific handoff evidence**. Fetch and inspect the linked PR head,
+not your default branch. Before claiming an artifact absent, name the repository, inspected SHA
+and path and read complete relevant output. A missing link/access failure is a handoff blocker.
+Use **Recovering progress and readable artifacts** to reconcile sources and creator approvals;
+agent completion claims and failed runs do not establish content state. For legacy acceptance,
+follow **Reconciling legacy issues** without converting historical scores into current verdicts.
+
+</revision_evidence_and_recovery>
 
 ## Step 2: Review the current revision
 
