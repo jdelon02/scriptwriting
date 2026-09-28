@@ -43,9 +43,8 @@ class RagTests(unittest.TestCase):
         result = self.rag.resolve_store_name('https://store/v1', 'store-key', 'delongpa_channel', get=get)
         self.assertEqual(result, '79ac5af9-8471-4aeb-8f0e-bc415185418c')
 
-    def test_name_lookup_rejects_missing_ambiguous_or_incomplete_listing(self):
+    def test_name_lookup_rejects_ambiguous_or_incomplete_listing(self):
         cases = [
-            ({'data': [], 'has_more': False}, 'not found'),
             ({'data': [{'id': 'a', 'name': 'Demo'}, {'id': 'b', 'name': 'Demo'}], 'has_more': False}, 'ambiguous'),
             ({'data': [{'id': 'a', 'name': 'Demo'}], 'has_more': True}, 'incomplete'),
         ]
@@ -54,8 +53,23 @@ class RagTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, message):
                     self.rag.resolve_store_name('https://store', 'key', 'Demo', get=lambda url, key: payload)
 
+    def test_missing_store_is_created_automatically(self):
+        posts = []
+        def post(url, key, body):
+            posts.append((url, key, body))
+            return {'id': 'vs-created'}
+        result = self.rag.resolve_store_name('https://store/v1', 'store-key', 'Demo',
+                                             get=lambda url, key: {'data': [], 'has_more': False}, post=post)
+        self.assertEqual(result, 'vs-created')
+        self.assertEqual(posts, [('https://store/v1/vector_stores', 'store-key', {'name': 'Demo'})])
+        with self.assertRaisesRegex(ValueError, 'creation did not return a valid ID'):
+            self.rag.resolve_store_name('https://store', 'key', 'Demo',
+                                        get=lambda url, key: {'data': [], 'has_more': False},
+                                        post=lambda url, key, body: {})
+
     def test_main_uploads_to_resolved_id_and_keeps_id_based_state(self):
-        (self.repo / '.env').write_text('primary_vector_store_name=Demo\nvector_stores=\'["Demo"]\'\n')
+        (self.repo / '.env').write_text('primary_vector_store_name=Demo\nvector_stores=\'["Demo"]\'\n'
+                                        'NANOGPT_API_KEY=nano\nrag_base_url=https://store\nrag_api_key=key\n')
         settings = ('https://proxy/v1', 'key', 'https://store', 'key')
         with patch.dict('os.environ', {}, clear=True), \
                 patch.object(self.rag, 'connection_settings', return_value=settings), \
@@ -265,12 +279,26 @@ class RagTests(unittest.TestCase):
             self.assertEqual(self.rag.main(['--repo', str(self.repo)]), 1)
             settings.assert_not_called()
 
-    def test_empty_store_hook_skips_without_credentials_or_network(self):
-        (self.repo / '.env').write_text('primary_vector_store_name=\nvector_stores=[]\n')
-        result = subprocess.run(['python3', str(SCRIPT), '--repo', str(self.repo), '--hook'],
-                                capture_output=True, text=True)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn('skipped', result.stdout)
+    def test_missing_configuration_error_includes_fix_instructions(self):
+        (self.repo / '.env').write_text('primary_vector_store_name=Demo\nvector_stores=[]\n')
+        output = io.StringIO()
+        with patch.dict('os.environ', {}, clear=True), \
+                patch.object(self.rag.sys, 'stderr', output), \
+                patch.object(self.rag, 'connection_settings') as settings:
+            self.assertEqual(self.rag.main(['--repo', str(self.repo)]), 1)
+            settings.assert_not_called()
+        message = output.getvalue()
+        self.assertIn('Missing RAG configuration: NANOGPT_API_KEY, rag_base_url.', message)
+        self.assertIn('To fix, create ' + str(self.repo.resolve() / '.env'), message)
+        self.assertIn('NANOGPT_API_KEY=<NanoGPT API key>', message)
+
+    def test_absent_env_file_error_names_the_missing_file(self):
+        output = io.StringIO()
+        with patch.dict('os.environ', {}, clear=True), patch.object(self.rag.sys, 'stderr', output):
+            self.assertEqual(self.rag.main(['--repo', str(self.repo)]), 1)
+        message = output.getvalue()
+        self.assertIn('No .env file found at ' + str(self.repo.resolve() / '.env'), message)
+        self.assertIn('primary_vector_store_name=<store name', message)
 
     def test_hook_rejects_unstaged_markdown_before_upload(self):
         subprocess.run(['git', 'init', '-q', str(self.repo)], check=True)
