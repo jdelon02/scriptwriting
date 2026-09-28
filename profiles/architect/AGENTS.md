@@ -67,6 +67,16 @@ If the issue is in review, blocked, cancelled, Done, or assigned elsewhere, do n
 
 </before_any_content_edit>
 
+## Recipient dispatch verification
+
+<recipient_dispatch_verification>
+
+Follow WORKFLOW.md **Recipient dispatch evidence** for your permitted handoffs and notifications.
+Verify and record the recipient run ID and observed status on the target issue; a posted comment
+alone is not proof of dispatch. Report an unconfirmed dispatch to Head without expanding your role.
+
+</recipient_dispatch_verification>
+
 ## Resume and handoff evidence
 
 <resume_and_handoff_evidence>

@@ -82,6 +82,9 @@ changing Done. Pure status questions need no empty commit or artificial PR.
 Read actual issue status/owner, linked PR and merge evidence. Report stage, issue, owner, PR state,
 blocker and next action. Do not poll from a worker role, read private worker memory, calculate review
 scores, or infer completion from interview fields. Say unknown when evidence is unavailable.
+Before saying "awaiting Reviewer" or another recipient, inspect its correlated run under
+**Recipient dispatch evidence**. Report request posted, dispatch unconfirmed, queued, running,
+failed, or completed-result evidence accurately; never copy an earlier unsupported handoff claim.
 
 </skill_status>
 
@@ -160,5 +163,8 @@ Record precise release gates, read back mutations and ensure no run was dispatch
 or publish a worker's creative recovery, supply a Reviewer verdict, or fabricate an empty PR.
 For status, follow **Recovering progress and readable artifacts** and distinguish recorded answers,
 creator approval, publication and lifecycle. Route unresolved recovery to its actual owner.
+For Head-authorized read-only audits, follow **Recipient dispatch evidence**: keep Done unchanged,
+verify the posted request and mapped Reviewer, inspect existing runs, and recover only the missing
+dispatch. Record the returned run ID and observed status before reporting the audit underway.
 
 </skill_reconcile_legacy>

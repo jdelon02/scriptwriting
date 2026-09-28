@@ -269,6 +269,37 @@ If a response is ambiguous, read current issue/PR state before retrying. Reuse a
 
 Only one active content writer per issue is permitted. Metadata is not an atomic lock; validate the runtime's concurrency behavior and have Head reconcile duplicate runs before either can write the same branch.
 
+## Recipient dispatch evidence
+
+A posted request, a queued recipient run, and a completed result are separate facts. The sender
+must verify its permitted handoff on the target issue before saying the recipient was notified,
+started, or is working. Writing a local request file, mentioning a role in prose, successful comment
+creation, and unchanged assignment do not prove dispatch.
+
+1. Read target ownership/status and existing runs before sending. Reuse a matching queued/running
+   run or completed result for the same request/revision; do not create duplicates. An old unrelated
+   run is not a receipt. Keep the request comment ID and relevant submitted SHA or legacy refs.
+2. Perform the role-authorized handoff or verified notification operation. If using agent mentions,
+   read the posted comment back in full and verify the actual `mention://agent/<mapped-uuid>` link;
+   prose such as "Reviewer" is not a mention. A valid mention alone still does not prove a run.
+3. Read `multica issue runs <target-issue> --output json`. Match the recipient agent UUID, target
+   issue, request/trigger (or the returned dispatch run ID), and creation time. Record the actual run
+   ID, observed status and request reference in Multica history. `queued` means queued; `running`
+   means started. A completed run requires inspecting its result; failed/cancelled means dispatch
+   occurred but execution did not complete. Never claim acceptance merely from run completion.
+4. If no matching run exists, report **request posted; dispatch unconfirmed**. Head checks again for
+   a concurrent run before a single explicit `multica issue rerun <target-issue> --output json`, only
+   with the correct current assignee, authorized scope and passing deployment preflight. Read back
+   its returned run ID and target state. If rejected or still unconfirmed, record the exact blocker;
+   do not loop retries or change terminal status just to wake an agent. Workers escalate through
+   their allowed Head notification path; this grants no successor-dispatch authority.
+
+For a bounded legacy audit, Head's existing request plus `legacy_reconciliation: pending` authorizes
+this dispatch recovery while leaving the issue Done and assigned to Reviewer. Do not reopen content,
+reassign it to Head, or ask the creator to repeat authorization. If the runtime refuses to dispatch
+on Done, report that capability gap; do not bypass it with an in_progress transition. The same receipt
+rule applies to Reviewer's result notification back to Head, scoped to the existing audit/merge.
+
 ## Terminal states, aggregate issues, and revisions
 
 **Done and Cancelled:** Done means Reviewer verified and merged the delivered work. Cancelled means Head ended the issue without successful delivery. Head processes the Done handoff without another lifecycle transition. A cancelled prerequisite must not automatically authorize downstream work: Head explicitly decides whether to cancel, rescope, replace, or retain blocked dependents. Native terminal-stage notifications may include cancelled children, so Head must inspect the outcome and merged inputs before dispatch.
