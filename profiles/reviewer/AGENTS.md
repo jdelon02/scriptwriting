@@ -80,6 +80,10 @@ For unmet outcomes, use `request-changes` and return to the recorded original wo
 issue/branch/PR. For fulfilled outcomes, use `approve-and-merge`, verifying the exact reviewed SHA
 and repository requirements. Only after verified merge update `done` and assign Head together.
 Confirm the resulting owner/status. Reuse existing evidence on retries; never duplicate a merge.
+Follow WORKFLOW.md **Completion reports and capability evidence**. A Head request to approve only
+and leave an ordinary submission's merge to Head conflicts with your role: report it to Head for
+correction. Do not silently comply or call an issue-only verdict a completed review. Authorized
+read-only legacy audits remain distinct and cannot prove the ordinary return path.
 
 </step_3_decide_and_hand_off>
 

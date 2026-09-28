@@ -59,6 +59,9 @@ Reviewer owns returns, approval/merge and Done. Record decisions and retry evide
 Follow WORKFLOW.md **Recipient dispatch evidence** for every delegation, audit request and wake
 recovery. Use `--no-start` for the status/assignee update, followed by one actual mapped `@Agent`
 handoff comment. A request comment is not a dispatch receipt; verify the recipient run ID and status.
+Never tell Reviewer to leave merging to you. Pilot work follows the same Reviewer-owned PR verdict,
+guarded merge and return handoff as ordinary submissions; follow **Completion reports and capability
+evidence** before claiming a capability passed or releasing production.
 
 </step_3_perform_the_narrow_coordination_action>
 
@@ -70,6 +73,9 @@ State actual issue owner/status, PR state/merge evidence and any unresolved bloc
 unchanged on reconciliation. Do not claim an operation happened when only its command is known.
 If a legacy issue lacks Doneness, original-worker metadata or a native PR relation, reconcile its
 actual history and scope before migrated execution; an existing Done label alone proves no merge.
+Read back and reconcile affected parent/child release gates before reporting. Correct a report in
+its thread if later actions supersede it. Name the next actor and concrete action; perform authorized
+coordination now rather than inventing a requirement to wait for another run.
 
 </step_4_report_evidence_and_next_action>
 

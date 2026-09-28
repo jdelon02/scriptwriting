@@ -232,6 +232,12 @@ performs the merge and verified Done handoff; Head cannot substitute its own ver
 
 **Merge failures:** A conflict, failed required check, outdated approval, changed PR head, or denied merge is not Done. Content corrections return through Reviewer to the original worker; infrastructure/access blockers go to Head. Head cannot override a rejected PR or merge on Reviewer's behalf under the selected design.
 
+An agent dispatch cannot override this division of responsibility. If Head requests an ordinary
+review with "do not merge; I will reconcile", Reviewer reports the conflict to Head instead of
+treating an issue-thread verdict as completion. Head corrects the request; Reviewer then follows
+the PR-verdict, guarded merge and verified return path. A specifically authorized read-only audit
+remains read-only and cannot count as a normal review/merge/handoff pilot.
+
 **Head:** Confirm the PR merged and its content is present on main; refresh dependency state; release only eligible successors from the new main revision; leave the issue Done after reconciliation. Record coordination actions in Multica issue history so retries do not duplicate dispatch; no extra completion status or repository flag is needed. A downstream assignment must include the expected upstream merge revision. Parent notifications alone are not completion evidence.
 
 ## Revision-specific handoff evidence
@@ -334,6 +340,39 @@ Actual mention syntax in the posted Multica comment (not inside a code block the
 
 **Revisions:** For unmerged work, use the existing issue branch/PR and Reviewer return path. For a substantive revision after merge, Head creates a linked revision issue with its own ID, branch and PR; accepted history remains immutable. Head marks affected downstream work blocked/superseded in Multica and schedules revised successors against new merge commits. No `.stale-*` file renaming, unticked Pipeline boxes, or history rewriting.
 
+## Completion reports and capability evidence
+
+Before a final coordination report, Head reads back affected issue status, assignee and release
+metadata, plus relevant PRs and recipient runs. Reconcile contradictory gate fields on the parent
+and affected children; preserve historical evidence with a dated correction rather than rewriting
+old comments. If an action occurs after a report, post a superseding report in the same thread.
+Never defer an authorized dispatch merely to obtain another turn: dispatch and correlate it in
+the current run, or name the actual blocker. A completed agent run is not a completed issue.
+
+For each pilot capability, record expected behavior, observed behavior and evidence separately:
+
+| Capability | Required evidence |
+|---|---|
+| Native PR association | Native issue relation naming the actual repository and PR |
+| Revision-specific review | GitHub PR verdict URL, inspected head SHA, Reviewer UUID and actual Reviewer run ID |
+| Reviewer merge | Reviewer run's guarded merge action, merged PR head and merge SHA, artifact on fetched main |
+| Reviewer return | Combined Done/Head readback, actual Head mention comment ID, correlated receiving Head run |
+| Head reconciliation | Receiving Head result verifies the same verdict/merge and reconciles affected gates |
+| Safe repeat | A subsequent reconciliation reads existing evidence and produces no duplicate review, merge or successor dispatch |
+
+Head polling within its original run is not a receiving Head run. Head merging is not Reviewer
+merge evidence. A skipped check is skipped, even if its status API reports success. Missing or
+untested evidence stays pending/failed; never shorten the pilot's Doneness to make it pass. A
+bounded pilot proves only its exercised capabilities, not the runbook's untested return, failure,
+four-stage or parent-index scenarios. Already-merged defective pilots receive a correction and a
+linked follow-up issue/PR; never fabricate retrospective approval or merge them again.
+
+Head records proposed legacy gate exceptions with the affected issue/PR, reason, owner and exact
+decision needed. Only an explicit user decision can waive a required release gate; generic recovery
+authorization is not that decision. Missing CLI syntax alone does not establish that no supported
+API/integration operation exists. Until resolved or explicitly waived, retain the gate and continue
+independent authorized work.
+
 ## Worker start and resume
 
 Before any content edit, read your assigned issue, its current owner/status, Doneness, metadata,
@@ -371,6 +410,16 @@ One explicit reply may approve a clearly named group of sections, edits or cues 
 wording version. Record scope, stable IDs, version and source reply. Changed wording needs renewed
 approval; unchanged approvals remain valid. Permission to continue drafting, optional skips and
 approval of unrelated content never substitute for approval or readiness to submit.
+
+When creator input is the remaining step, the assigned worker presents the exact version/sections
+and a focused grouped request on its issue in the current turn. State who should respond and what
+that reply enables; do not end with only "approval needed" or "Head can schedule interaction".
+Reuse an already-posted unanswered request by linking it rather than asking again. Keep the current
+worker assignment; waiting for creator wording approval does not transfer ownership to Reviewer.
+If a scope, prerequisite or policy decision belongs to Head, use one actual Head mention on the
+Head-owned parent, with the source issue, publication revision, decision needed and run evidence;
+verify the receiving run. This narrow escalation permits no successor dispatch. If production is
+blocked, report the gate instead of starting a creative interview.
 
 ## Recovering progress and readable artifacts
 
