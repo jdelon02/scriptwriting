@@ -62,6 +62,8 @@ handoff comment. A request comment is not a dispatch receipt; verify the recipie
 Never tell Reviewer to leave merging to you. Pilot work follows the same Reviewer-owned PR verdict,
 guarded merge and return handoff as ordinary submissions; follow **Completion reports and capability
 evidence** before claiming a capability passed or releasing production.
+In a normal submission request, name the reviewed issue itself as Reviewer's return target.
+The parent-only return route belongs to legacy acceptance audits and does not apply to pilot PRs.
 
 </step_3_perform_the_narrow_coordination_action>
 

@@ -73,6 +73,9 @@ issue ID, mapped Reviewer UUID, run ID and result evidence. Record comment URL/I
 history. Verify this is the latest verdict for the current revision and scope, and correlate it with
 an actual Reviewer-assigned run. Do not submit formal self-approval or request a second GitHub account.
 A repository rule requiring formal GitHub approval is a conflict to report, not silently bypass.
+Read back your posted verdict: its run ID must equal the full current Reviewer run `id` from
+`multica issue runs`, not the workdir basename. Read all PR comments again and resolve any material
+open finding before merge; if a content correction remains, use request-changes.
 Immediately before merge, re-read the head and verify it is still the inspected SHA. Use a merge API
 or CLI with an expected-head-SHA guard. If the head changed, stop and review the new revision.
 Preserve user attribution on the merge commit. With gh, use `--author-email` for the configured
@@ -83,6 +86,10 @@ is not Done. Content corrections follow request-changes; infrastructure/access b
 Only verified merge permits a combined `done` + mapped Head UUID update with `--no-start`.
 Read back owner/status, post one actual Head mention, and verify the Head run under
 **Recipient dispatch evidence**; never substitute a new terminal status.
+Use this concrete merge shape when squash is allowed: `gh pr merge <number> --repo <owner/repo>
+--squash --match-head-commit <inspected-sha> --author-email chefjeremy@delongaz.com`.
+If using another allowed merge method, still verify the resulting user attribution; never omit the
+expected-head guard. Post the normal return mention on this reviewed issue, not its episode parent.
 Do not stop after posting the verdict. Either complete the merge and verified return, or report the
 specific failed boundary. An issue-thread approval does not replace the GitHub PR verdict.
 

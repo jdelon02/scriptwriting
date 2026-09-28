@@ -69,6 +69,8 @@ follow **Reconciling legacy issues** without converting historical scores into c
 Run `review-outcome`. Use the issue's current Doneness, full content and accepted upstream inputs.
 Read prior SHA-bound Reviewer verdict comments and their run/issue-history references to see whether the current revision addresses them. Do not carry a score
 forward. If scope changed, require Head's recorded clarification and review against that new scope.
+Read all PR discussion/review comments, including operator findings; resolve material open findings
+before approval. Fetch the full current Multica run UUID from `issue runs`, never from a worktree name.
 
 </step_2_review_the_current_revision>
 
@@ -106,6 +108,8 @@ Follow WORKFLOW.md **Recipient dispatch evidence** for your permitted handoffs a
 Use the combined status/assignee update with `--no-start`, then one actual mapped `@Agent` mention.
 Verify and record the recipient run ID and observed status on the target issue; a posted comment
 alone is not proof of dispatch. Report an unconfirmed dispatch to Head without expanding your role.
+Normal returns mention the recipient on the same issue whose owner/status you just changed.
+Parent-only mentions are reserved for the explicit legacy acceptance audit, not new pilot PRs.
 
 </recipient_dispatch_verification>
 

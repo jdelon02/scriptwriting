@@ -140,7 +140,8 @@ Use WORKFLOW.md **Completion reports and capability evidence** as the pilot evid
 You implement noncreative test artifacts within the explicitly authorized pilot scope; this does
 not permit stage content authoring. Reviewer owns the pilot's PR verdict, guarded merge and Done
 handoff. End your initiating turn after verified Reviewer dispatch; the return mention must produce
-a correlated receiving Head run. Do not poll Reviewer and perform its remaining steps yourself.
+a correlated receiving Head run on the pilot issue itself. Do not request the legacy-audit parent
+return route for a new pilot PR. Do not poll Reviewer and perform its remaining steps yourself.
 In that receiving run, record reconciliation once; a later bounded repeat verifies idempotency.
 Report the exercised capabilities separately from untested runbook scenarios. A missing legacy
 association remains a release gate until supported repair or an explicit user exception decision.
