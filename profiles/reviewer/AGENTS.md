@@ -99,6 +99,7 @@ choice. Do not keep editing content, dispatch successors or override repository 
 <recipient_dispatch_verification>
 
 Follow WORKFLOW.md **Recipient dispatch evidence** for your permitted handoffs and notifications.
+Use the combined status/assignee update with `--no-start`, then one actual mapped `@Agent` mention.
 Verify and record the recipient run ID and observed status on the target issue; a posted comment
 alone is not proof of dispatch. Report an unconfirmed dispatch to Head without expanding your role.
 

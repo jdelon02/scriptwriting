@@ -255,12 +255,15 @@ failure never proves that the prior operation had no side effects.
 
 ## Safe handoff and retry behavior
 
-Use a combined Multica update for status and assignee where supported. The installed CLI exposes the shape:
+For a transfer of responsibility, update status and assignee together with `--no-start`, then
+post the explicit recipient mention and verify its run under **Recipient dispatch evidence**.
+Suppressing the assignment wake gives the comment a single intended dispatch boundary.
+The installed CLI exposes these shapes:
 
 ```sh
-multica issue update "$ISSUE_ID" --status in_review --assignee-id "$REVIEWER_ID"
-multica issue update "$ISSUE_ID" --status in_progress --assignee-id "$ORIGINAL_ASSIGNEE_ID"
-multica issue update "$ISSUE_ID" --status done --assignee-id "$HEAD_ID"
+multica issue update "$ISSUE_ID" --status in_review --assignee-id "$REVIEWER_ID" --no-start
+multica issue update "$ISSUE_ID" --status in_progress --assignee-id "$ORIGINAL_ASSIGNEE_ID" --no-start
+multica issue update "$ISSUE_ID" --status done --assignee-id "$HEAD_ID" --no-start
 ```
 
 These command shapes are supported by CLI help. Use them only after server behavior and wake delivery are verified in the deployment pilot. Persist prerequisite metadata and the PR link before performing a handoff. Read back the resulting pair; avoid separate status/assignment calls that wake the wrong agent.
@@ -279,9 +282,19 @@ creation, and unchanged assignment do not prove dispatch.
 1. Read target ownership/status and existing runs before sending. Reuse a matching queued/running
    run or completed result for the same request/revision; do not create duplicates. An old unrelated
    run is not a receipt. Keep the request comment ID and relevant submitted SHA or legacy refs.
-2. Perform the role-authorized handoff or verified notification operation. If using agent mentions,
-   read the posted comment back in full and verify the actual `mention://agent/<mapped-uuid>` link;
-   prose such as "Reviewer" is not a mention. A valid mention alone still does not prove a run.
+2. For each responsibility transfer, apply the authorized status and mapped assignee together using
+   `--no-start`; read back both before notifying. Then post exactly one handoff comment on the target
+   issue containing the actual agent mention (syntax below), the requested next action,
+   source issue/request ID and PR/SHA or finding/run evidence. Read it back in full to verify the
+   actual mention link. Prose such as "Reviewer" is not a mention. A mention alone still does not
+   prove a run. Do not combine an assignment-triggered wake with another mention/rerun blindly.
+   If recovering a partial handoff, inspect existing comments/runs first and reuse its dispatch;
+   do not repost an already-delivered mention. If an earlier update unexpectedly queued a run,
+   reconcile it before adding a second trigger. Follow the CLI's required parent-thread routing.
+   Required transfers: Head → worker (Todo), worker → Reviewer (In Review), Reviewer → original
+   worker (In Progress), and Reviewer → Head (Done after verified merge). Block/cancel decisions
+   remain Head-owned and must not dispatch stopped work. Todo → In Progress by the same worker
+   is a start acknowledgement: retain assignment, suppress extra wake, and do not mention yourself.
 3. Read `multica issue runs <target-issue> --output json`. Match the recipient agent UUID, target
    issue, request/trigger (or the returned dispatch run ID), and creation time. Record the actual run
    ID, observed status and request reference in Multica history. `queued` means queued; `running`
@@ -297,8 +310,21 @@ creation, and unchanged assignment do not prove dispatch.
 For a bounded legacy audit, Head's existing request plus `legacy_reconciliation: pending` authorizes
 this dispatch recovery while leaving the issue Done and assigned to Reviewer. Do not reopen content,
 reassign it to Head, or ask the creator to repeat authorization. If the runtime refuses to dispatch
-on Done, report that capability gap; do not bypass it with an in_progress transition. The same receipt
-rule applies to Reviewer's result notification back to Head, scoped to the existing audit/merge.
+on Done, report that capability gap; do not bypass it with an in_progress transition. For the audit result, Reviewer must post an explicit
+Head mention (syntax below) in a handoff on the Head-owned
+episode parent, linking the finding comment and actual Reviewer run ID and naming the reconciliation
+action. Keep the parent assigned to Head in its appropriate current status; do not mark the episode
+Done merely because an audit finished. Verify the corresponding Head run before declaring the result
+handed back. This own-audit return notification is permitted; it grants no successor scheduling.
+"Head will verify" is an unfinished handoff without that receipt.
+
+Actual mention syntax in the posted Multica comment (not inside a code block there):
+
+```text
+[@Exact Agent Name](mention://agent/<mapped-uuid>)
+[@Head Script Writer](mention://agent/de4cfb27-0b82-4694-97bc-053393df54d8)
+```
+
 
 ## Terminal states, aggregate issues, and revisions
 

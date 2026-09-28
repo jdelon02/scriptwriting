@@ -52,7 +52,8 @@ requires a fresh assessment; previous approval is not evidence for changed work.
 Post `Agent verdict: changes-requested` as a PR comment under the shared user account, bound to
 the inspected head and current Doneness, with location-specific gaps. Include issue ID, Reviewer
 UUID and run ID; persist its comment URL/ID and SHA in issue history before the handoff. Keep the PR open. Combine issue `in_progress` with the validated
-`original_assignee_id`, then read back both. Reuse existing SHA-bound verdict and correlated Reviewer run evidence if retrying the same
+`original_assignee_id` using `--no-start`, then read back both and post one mapped worker mention
+under **Recipient dispatch evidence**. Verify the worker run before reporting the return complete. Reuse existing SHA-bound verdict and correlated Reviewer run evidence if retrying the same
 head and verdict. Do not close the issue or PR, create a new branch, or choose a new implementer.
 If the original worker is missing or invalid, record findings but have Head reconcile identity before
 return dispatch. After three unsuccessful rounds, return normally and flag Head for the user's
@@ -78,8 +79,9 @@ user email together with `--match-head-commit` for the inspected SHA; do not use
 rules. Merge into main under repository rules, then read back merged state and merge commit. Confirm the
 merge corresponds to the reviewed revision. A failed check, conflict, stale approval or denied merge
 is not Done. Content corrections follow request-changes; infrastructure/access blockers go to Head.
-Only verified merge permits a combined `done` + mapped Head UUID update. Read back owner/status and
-verify the supported Head notification mechanism; never substitute a new terminal status.
+Only verified merge permits a combined `done` + mapped Head UUID update with `--no-start`.
+Read back owner/status, post one actual Head mention, and verify the Head run under
+**Recipient dispatch evidence**; never substitute a new terminal status.
 
 </skill_approve_and_merge>
 
@@ -125,5 +127,10 @@ paths, scope and concrete findings in the issue history. Missing evidence remain
 than accepted. Leave Done and content unchanged, do not merge again, and route substantive corrections
 to Head for a new linked revision issue. Head verifies the finding before releasing prerequisites;
 this audit does not repair native PR linking or waive the deployment capability pilot.
+After recording the finding, post the required actual Head mention on the Head-owned episode parent
+under **Recipient dispatch evidence**, including the finding comment ID, your actual run ID and
+next reconciliation action. Verify a corresponding Head run. Do not stop at "Head will verify";
+if dispatch cannot be confirmed, report that specific unresolved boundary. Preserve the historical
+issue's Done state and Reviewer assignment; never enqueue another Reviewer audit to notify Head.
 
 </skill_reconcile_legacy_acceptance>

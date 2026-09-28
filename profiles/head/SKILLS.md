@@ -30,7 +30,8 @@ Use native Multica and GitHub evidence under WORKFLOW.md. Never use repository f
    is the delegate, not you as intake assignee. Preserve it through returns. For the parent index,
    Head is the implementing original worker. Supply expected upstream merge revisions at dispatch.
 5. Verify the correct mapped agent and accepted inputs, set eligible work Todo/assign, and verify
-   resulting state/owner and wake behavior. Never treat cancelled predecessors or parent notifications
+   resulting state/owner and wake behavior using **Recipient dispatch evidence**: a no-start
+   status/assignment update, one actual recipient mention, and a correlated run receipt. Never treat cancelled predecessors or parent notifications
    alone as success. Resolve branch collisions and duplicate runs before dispatch.
    Before dispatch, run the target role's installed guard:
    `python3 ~/.hermes/profiles/script-<role>/profile_guard.py --preflight --channel-root <content-repo>`.
