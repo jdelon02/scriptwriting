@@ -222,6 +222,17 @@ Record the comment URL/ID, run ID and inspected SHA in issue history before hand
 correlate that comment with the actual Reviewer-assigned run and issue history; the shared GitHub
 username or an arbitrary worker comment alone does not establish a Reviewer decision.
 
+Resolve the executing run from `multica issue runs <issue-id> --output json`: use the full `id`
+of the running row matching the assigned issue, mapped Reviewer and current trigger. If multiple
+rows match, resolve the trigger before posting a verdict. A worktree name such as
+`pers-20-f8286c84460f`, a session ID, or a placeholder is not a run ID. Read the posted verdict back
+and compare its run ID and SHA with the authoritative records before merging.
+
+Read all current PR discussion and review comments, including human/operator findings, before the
+verdict and again immediately before merge. Address each material unresolved finding explicitly.
+Do not limit this check to prior agent verdicts. A requested correction to the pilot's own workflow
+description is part of its accuracy requirement and cannot be ignored as unrelated to Doneness.
+
 These are agent verdicts, not GitHub APPROVED/CHANGES_REQUESTED review events. Do not attempt
 self-approval with `gh pr review --approve` or request another account. Before merging, require the
 latest Reviewer verdict for the current SHA and scope to be approved, enforce the expected-head-SHA
@@ -301,6 +312,10 @@ creation, and unchanged assignment do not prove dispatch.
    worker (In Progress), and Reviewer → Head (Done after verified merge). Block/cancel decisions
    remain Head-owned and must not dispatch stopped work. Todo → In Progress by the same worker
    is a start acknowledgement: retain assignment, suppress extra wake, and do not mention yourself.
+   For normal review returns and completion, the target is the issue whose ownership changes,
+   including synthetic pilots: returning PERS-20 means mentioning Head on PERS-20 and verifying
+   the Head run on PERS-20. Reporting to a parent afterward does not replace that receipt. Only
+   the explicitly bounded legacy-audit path below uses the parent as its return target.
 3. Read `multica issue runs <target-issue> --output json`. Match the recipient agent UUID, target
    issue, request/trigger (or the returned dispatch run ID), and creation time. Record the actual run
    ID, observed status and request reference in Multica history. `queued` means queued; `running`

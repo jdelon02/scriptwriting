@@ -229,6 +229,19 @@ WORKFLOW.md **Completion reports and capability evidence**. Do not count operato
 behavior or turn a narrow successful pilot into proof of untested runbook cases. PERS-15's absent
 native association remains a separate unresolved gate until supported repair or explicit user decision.
 
+## PERS-20 follow-up evidence — 2026-09-28
+
+Channel PR #10 merged at `9e9ee92a46759368a7e5ac522460b32d499c52b9`, head
+`8c2580675aa27f8224e697a9bd59256d927ea38a`. Reviewer run
+`01a0e83f-5830-77ad-b302-f8286c84460f` posted GitHub verdict comment `5871133519` and
+merged with the expected-head guard; merge author attribution is correct. However, it wrote the
+worktree label `pers-20-f8286c84460f` as its run ID, missed operator finding `5871054937`, and
+used the legacy-audit parent return route for a normal pilot. PERS-14 received Head run
+`01a0e844-65f6-7b0e-803e-5a37d1779593`; PERS-20 had no normal receiving Head run at that boundary.
+Reviewer subsequently failed with provider 503 after the merge and notification. Preserve those
+side effects and the historical Done state. This partial result does not satisfy the corrected
+pilot or authorize production release. Provider diagnosis remains outside this recovery scope.
+
 ## Rollback
 
 Head stops new dispatch and records the blocker. Preserve pushed branches, PRs, accepted commits,
